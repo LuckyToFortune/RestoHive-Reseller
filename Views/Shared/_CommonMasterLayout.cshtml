@@ -1,0 +1,73 @@
+@{
+  // ✅ Determine if front page assets should be loaded
+  bool isFront = ViewData["isFront"] is bool isFrontValue ? isFrontValue : false;
+  ViewData["main"] = isFront ? "front-" : "";
+  ViewData["frontVar"] = isFront ? "Front" : "";
+
+  // ✅ Determine Layout Type (Compact/Fluid)
+  ViewData["contentType"] = ViewData["container"] is string container && container == "container-xxl" ? "layout-compact" :
+  "layout-wide";
+}
+
+@inject IHttpContextAccessor httpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en" class='light-style @(ViewData["navbarType"] is string navbarType ? navbarType : "")
+         @(ViewData["menuFixed"] is string menuFixed ? menuFixed : "")
+         @(ViewData["menuCollapsed"] is string menuCollapsed ? menuCollapsed : "")
+         @(ViewData["contentType"] is string contentType ? contentType : "")
+         @(ViewData["footerFixed"] is string footerFixed ? footerFixed : "")
+         @(ViewData["customizerHidden"] is string customizerHidden ? customizerHidden : "")' dir="ltr"
+  data-theme="theme-default" data-assets-path='@((httpContextAccessor.HttpContext?.Request.PathBase ?? "") + "/")'
+  data-template='@(isFront ? "front-page" : (Convert.ToBoolean(TempData.Peek("menuHorizontal")?.ToString()) ? "horizontal-menu-template" : "vertical-menu-template"))'>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  @* ✅ Meta Information *@
+  @{
+    string title = ViewData["Title"] as string ?? "Welcome";
+    string appName = TempData.Peek("appName") as string ?? "RestoHive_Reseller";
+    string productPage = TempData.Peek("productPage") as string ?? "/";
+  }
+  <title>@title | @appName </title>
+  <meta name="description" content="Your description here" />
+  <link rel="canonical" href='@productPage'>
+
+  @* ✅ Favicon *@
+  <link rel="icon" type="image/x-icon" href="~/img/favicon/logo.png" />
+
+  @* ✅ Core Styles *@
+  @await Html.PartialAsync("Sections/_Styles" + ViewData["frontVar"])
+
+  @* ✅ Vendor Styles (External Libraries) *@
+  @RenderSection("VendorStyles", required: false)
+
+  @* ✅ Page Specific Styles *@
+  @RenderSection("PageStyles", required: false)
+
+  @* ✅ Include Scripts (Customizer, Helper, Analytics, Config) *@
+  @await Html.PartialAsync("Sections/_ScriptsIncludes" + ViewData["frontVar"])
+</head>
+
+<body>
+  @* ✅ Layout Content Render (Each Page's Content will be placed here) *@
+  @RenderBody()
+
+  @* ✅ Core Scripts *@
+  @await Html.PartialAsync("Sections/_Scripts" + ViewData["frontVar"])
+
+  @* ✅ Vendor Scripts *@
+  @RenderSection("VendorScripts", required: false)
+
+  @* ✅ Main JavaScript File *@
+  <script src='~/js/@ViewData["main"]main.js'></script>
+
+  @* ✅ Page Specific Scripts *@
+  @RenderSection("PageScripts", required: false)
+
+</body>
+
+</html>

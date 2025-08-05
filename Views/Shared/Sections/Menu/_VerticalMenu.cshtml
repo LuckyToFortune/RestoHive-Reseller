@@ -1,0 +1,77 @@
+@{
+  TempData.Keep();
+  string? currentPage = ViewContext.HttpContext.Request.Path;
+}
+
+<!-- Menu -->
+@* ! Do this simple *@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+  @* ! Hide app brand if navbar-full *@
+  <div
+    class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
+    <a asp-controller="Home" asp-action="Index" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        @* @await Html.PartialAsync("../_Partials/_Macros") *@
+        <img src="~/img/favicon/logo.png" alt="brand logo" height="50" width="50" />
+      </span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">@TempData.Peek("appName")</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+      <i
+        class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center menu-toggle-icon d-none d-xl-flex"></i>
+      <i class="bx bx-x d-flex d-xl-none bx-sm align-middle align-items-center justify-content-center"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  @* ! Starter Kit menu-items *@
+  <ul class="menu-inner py-1">
+    <li class='menu-item@(currentPage == "/" ? " active" : "")'>
+      <a asp-controller="Home" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-smile"></i>
+        <div data-i18n="Home">Home</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Orders" ? " active" : "")'>
+      <a asp-controller="Orders" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-clipboard"></i>
+        <div data-i18n="Orders">Orders</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Files" ? " active" : "")'>
+      <a asp-controller="Files" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-file"></i>
+        <div data-i18n="Files">Files</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Balance" ? " active" : "")'>
+      <a asp-controller="Balance" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-coin"></i>
+        <div data-i18n="Balance">Balance</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Invoice" ? " active" : "")'>
+      <a asp-controller="Invoice" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-table"></i>
+        <div data-i18n="Invoice">Invoice</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Store" ? " active" : "")'>
+      <a asp-controller="Store" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-cart"></i>
+        <div data-i18n="Store">Store</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Settings" ? " active" : "")'>
+      <a asp-controller="Settings" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-cog"></i>
+        <div data-i18n="Settings">Settings</div>
+      </a>
+    </li>
+  </ul>
+
+</aside>
+<!-- / Menu -->
