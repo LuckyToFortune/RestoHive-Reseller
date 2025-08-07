@@ -12,10 +12,16 @@
     class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
     <a asp-controller="Home" asp-action="Index" class="app-brand-link">
       <span class="app-brand-logo demo">
+<<<<<<< HEAD
         @* @await Html.PartialAsync("../_Partials/_Macros") *@
         <img src="~/img/favicon/logo.png" alt="brand logo" height="50" width="50" />
       </span>
       <span class="app-brand-text demo menu-text fw-bold ms-2">@TempData.Peek("appName")</span>
+=======
+        <i class="bx bx-bee bx-sm text-warning"></i>
+      </span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">Reseller Panel</span>
+>>>>>>> dev
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -41,12 +47,43 @@
         <div data-i18n="Orders">Orders</div>
       </a>
     </li>
+<<<<<<< HEAD
     <li class='menu-item@(currentPage == "/Files" ? " active" : "")'>
+=======
+    <li class='menu-item@(currentPage.StartsWith("/Files") ? " active" : "")'>
+>>>>>>> dev
       <a asp-controller="Files" asp-action="Index" class="menu-link">
         <i class="menu-icon tf-icons bx bx-file"></i>
         <div data-i18n="Files">Files</div>
       </a>
     </li>
+<<<<<<< HEAD
+=======
+    <li class='menu-item@(currentPage.StartsWith("/Discount") ? " active" : "")'>
+      <a asp-controller="Discount" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-tag" style="color: #222;"></i>
+        <div data-i18n="Discount">Discount</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Competitors" ? " active" : "")'>
+      <a asp-controller="Competitors" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-bar-chart"></i>
+        <div data-i18n="Competitors">Competitors</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/CustomersTickets" ? " active" : "")'>
+      <a asp-controller="CustomersTickets" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-support"></i>
+        <div data-i18n="Customers Tickets">Customers Tickets</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/RestoHiveTickets" ? " active" : "")'>
+      <a asp-controller="RestoHiveTickets" asp-action="Index" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-help-circle"></i>
+        <div data-i18n="RestoHive Tickets">RestoHive Tickets</div>
+      </a>
+    </li>
+>>>>>>> dev
     <li class='menu-item@(currentPage == "/Balance" ? " active" : "")'>
       <a asp-controller="Balance" asp-action="Index" class="menu-link">
         <i class="menu-icon tf-icons bx bx-coin"></i>

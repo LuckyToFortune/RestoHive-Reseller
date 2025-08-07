@@ -33,6 +33,19 @@
   </div>
 </div>
 
+<<<<<<< HEAD
+=======
+<!-- Search Bar -->
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="input-group">
+      <span class="input-group-text"><i class="bx bx-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search User" id="searchCustomer">
+    </div>
+  </div>
+</div>
+
+>>>>>>> dev
 <div class="row g-6 mb-6">
   <div class="col-sm-6 col-xl-3">
     <div class="card">
@@ -122,6 +135,7 @@
     </div>
   </div> *@
   <div class="card-datatable table-responsive">
+<<<<<<< HEAD
     <table class="datatables-users table border-top">
       <thead>
         <tr>
@@ -135,6 +149,134 @@
           <th>Actions</th>
         </tr>
       </thead>
+=======
+    <table class="datatables-customers table border-top">
+      <thead>
+        <tr>
+          <th>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="selectAll">
+            </div>
+          </th>
+          <th>CUSTOMER</th>
+          <th>RENEWAL DATE</th>
+          <th>PAYMENT</th>
+          <th>BILLING</th>
+          <th>STATUS</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/1.png" alt="Avatar" class="rounded-circle">
+              </div>
+              <div>
+                <h6 class="mb-0">ZsaZsa McCleverty</h6>
+                <small class="text-muted">zmcclevertye@soundcloud.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>$250.00</td>
+          <td>Au</td>
+          <td><span class="badge bg-label-success">Active</span></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(1)"><i class="bx bx-show me-2"></i>View</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(1)"><i class="bx bx-edit me-2"></i>Edit</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(1)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(1)"><i class="bx bx-trash me-2"></i>Delete</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/2.png" alt="Avatar" class="rounded-circle">
+              </div>
+              <div>
+                <h6 class="mb-0">Yoko Pottie</h6>
+                <small class="text-muted">ypottiec@privacy.gov.au</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Au</td>
+          <td><span class="badge bg-label-success">Active</span></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(2)"><i class="bx bx-show me-2"></i>View</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(2)"><i class="bx bx-edit me-2"></i>Edit</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(2)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(2)"><i class="bx bx-trash me-2"></i>Delete</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/3.png" alt="Avatar" class="rounded-circle">
+              </div>
+              <div>
+                <h6 class="mb-0">Wesley Burland</h6>
+                <small class="text-muted">wborlandj@rutcc.edu</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Au</td>
+          <td><span class="badge bg-label-secondary">Inactive</span></td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(3)"><i class="bx bx-show me-2"></i>View</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(3)"><i class="bx bx-edit me-2"></i>Edit</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(3)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(3)"><i class="bx bx-trash me-2"></i>Delete</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+>>>>>>> dev
     </table>
   </div>
   <!-- Offcanvas to add new user -->
@@ -219,4 +361,59 @@
       </form>
     </div>
   </div>
+<<<<<<< HEAD
+=======
+
+  <!-- Edit Customer Sidebar -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="editCustomerModal" aria-labelledby="editCustomerModalLabel">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="offcanvas-title" id="editCustomerModalLabel">Edit Customer</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
+      <form id="editCustomerForm">
+        <div class="mb-3">
+          <label for="editFullName" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="editFullName" name="fullName" value="Jake Addison">
+        </div>
+        <div class="mb-3">
+          <label for="editEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="editEmail" name="email" value="jake@gmail.com">
+        </div>
+        <div class="mb-3">
+          <label for="editAutoDebit" class="form-label">Auto Debit</label>
+          <input type="text" class="form-control" id="editAutoDebit" name="autoDebit" value="Auto Debit" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="editBilling" class="form-label">Billing</label>
+          <input type="text" class="form-control" id="editBilling" name="billing" value="Auto Debit" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="editAddress" class="form-label">Address</label>
+          <textarea class="form-control" id="editAddress" name="address" rows="3">195 rue due crossaint, saint-laurnet, h411e2, Qc</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="editDiscountAmount" class="form-label">Discount Amount</label>
+          <div class="input-group">
+            <input type="number" class="form-control" id="editDiscountAmount" name="discountAmount" value="18.00" step="0.01">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="editStatus" class="form-label">Status</label>
+          <select class="form-select" id="editStatus" name="status">
+            <option value="active" selected>Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="suspended">Suspended</option>
+          </select>
+        </div>
+        <div class="d-flex gap-2 mt-4">
+          <button type="button" class="btn btn-warning" onclick="openFiles()">Files</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+          <button type="button" class="btn btn-warning" onclick="submitEditCustomer()">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+>>>>>>> dev
 </div>

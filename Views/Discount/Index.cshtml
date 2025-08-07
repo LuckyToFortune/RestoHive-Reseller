@@ -1,0 +1,306 @@
+@{
+  ViewData["Title"] = "Discount";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-end align-items-center">
+          <button class="btn btn-warning" onclick="generateDiscount()">
+            Generate Discount +
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover datatables-discounts">
+              <thead>
+                <tr>
+                  <th>DATE</th>
+                  <th>EXPIRATION DATE</th>
+                  <th>DISCOUNT</th>
+                  <th>DISCOUNT CODE</th>
+                  <th>CUSTOMER</th>
+                  <th>ACTION</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01 Jan 2025</td>
+                  <td><span class="text-danger">01 Jan 2025</span></td>
+                  <td><span class="text-warning fw-semibold">18.69 %</span></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="text-success me-2">%fsfSD$$8S</span>
+                      <button class="btn btn-xs text-warning" onclick="copyCode('%fsfSD$$8S')" style="border: none; background: none;">
+                        Copy
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-sm me-2">
+                        <span class="avatar-initial rounded-circle bg-primary">
+                          <i class="bx bx-user text-white"></i>
+                        </span>
+                      </div>
+                      <span>Annette</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteDiscount(1)">
+                        <i class="bx bx-trash"></i>
+                        Delete
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" onclick="viewDiscount(1)">
+                        <i class="bx bx-show"></i>
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>01 Jan 2025</td>
+                  <td><span class="text-danger">01 Jan 2025</span></td>
+                  <td><span class="text-warning fw-semibold">18.69 %</span></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="text-success me-2">%fsfSD$$8S</span>
+                      <button class="btn btn-xs text-warning" onclick="copyCode('%fsfSD$$8S')" style="border: none; background: none;">
+                        Copy
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-sm me-2">
+                        <span class="avatar-initial rounded-circle bg-primary">
+                          <i class="bx bx-user text-white"></i>
+                        </span>
+                      </div>
+                      <span>Annette</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteDiscount(2)">
+                        <i class="bx bx-trash"></i>
+                        Delete
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" onclick="viewDiscount(2)">
+                        <i class="bx bx-show"></i>
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>01 Jan 2025</td>
+                  <td><span class="text-danger">01 Jan 2025</span></td>
+                  <td><span class="text-warning fw-semibold">18.69 %</span></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="text-success me-2">%fsfSD$$8S</span>
+                      <button class="btn btn-xs text-warning" onclick="copyCode('%fsfSD$$8S')" style="border: none; background: none;">
+                        Copy
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-sm me-2">
+                        <span class="avatar-initial rounded-circle bg-primary">
+                          <i class="bx bx-user text-white"></i>
+                        </span>
+                      </div>
+                      <span>Annette</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteDiscount(3)">
+                        <i class="bx bx-trash"></i>
+                        Delete
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" onclick="viewDiscount(3)">
+                        <i class="bx bx-show"></i>
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>01 Jan 2025</td>
+                  <td><span class="text-danger">01 Jan 2025</span></td>
+                  <td><span class="text-warning fw-semibold">18.69 %</span></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="text-success me-2">%fsfSD$$8S</span>
+                      <button class="btn btn-xs text-warning" onclick="copyCode('%fsfSD$$8S')" style="border: none; background: none;">
+                        Copy
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-sm me-2">
+                        <span class="avatar-initial rounded-circle bg-primary">
+                          <i class="bx bx-user text-white"></i>
+                        </span>
+                      </div>
+                      <span>Annette</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteDiscount(4)">
+                        <i class="bx bx-trash"></i>
+                        Delete
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" onclick="viewDiscount(4)">
+                        <i class="bx bx-show"></i>
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>01 Jan 2025</td>
+                  <td><span class="text-danger">01 Jan 2025</span></td>
+                  <td><span class="text-warning fw-semibold">18.69 %</span></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="text-success me-2">%fsfSD$$8S</span>
+                      <button class="btn btn-xs text-warning" onclick="copyCode('%fsfSD$$8S')" style="border: none; background: none;">
+                        Copy
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="avatar avatar-sm me-2">
+                        <span class="avatar-initial rounded-circle bg-primary">
+                          <i class="bx bx-user text-white"></i>
+                        </span>
+                      </div>
+                      <span>Annette</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-danger" onclick="deleteDiscount(5)">
+                        <i class="bx bx-trash"></i>
+                        Delete
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" onclick="viewDiscount(5)">
+                        <i class="bx bx-show"></i>
+                        View
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="d-flex justify-content-end mt-3">
+            <nav aria-label="Page navigation">
+              <ul class="pagination mb-0">
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">last</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- Generate Discount Modal -->
+<div class="modal fade" id="generateDiscountModal" tabindex="-1" aria-labelledby="generateDiscountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl d-flex align-items-center justify-content-center" style="max-width: 800px; height: 100vh; margin: 0 auto;">
+    <div class="modal-content" style="height: 100vh;">
+      <div class="modal-header">
+        <h5 class="modal-title text-center w-100 mt-10" id="generateDiscountModalLabel">Discount</h5>
+      </div>
+      <div class="modal-body d-flex align-items-center justify-content-center">
+        <div style="width: 100%; max-width: 400px;">
+          <form>
+          <div class="mb-4">
+            <label for="expirationDate" class="form-label fw-semibold">Expiration Date</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="expirationDate" value="01 Jan 2025" placeholder="DD MMM YYYY" style="border-right: none;">
+              <span class="input-group-text" style="border-left: none;">
+                <i class="bx bx-calendar"></i>
+              </span>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="discountPercentage" class="form-label fw-semibold">DISCOUNT</label>
+            <div class="input-group">
+              <input type="number" class="form-control" id="discountPercentage" value="18.55" step="0.01" min="0" max="100" style="border-right: none;">
+              <span class="input-group-text" style="border-left: none;">%</span>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button type="button" class="btn btn-warning w-100" onclick="submitDiscount()">Generate</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Discount Modal -->
+<div class="modal fade" id="viewDiscountModal" tabindex="-1" aria-labelledby="viewDiscountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl d-flex align-items-center justify-content-center" style="max-width: 800px; height: 100vh; margin: 0 auto;">
+    <div class="modal-content" style="height: 100vh;">
+      <div class="modal-header">
+        <h5 class="modal-title text-center w-100 mt-10" id="viewDiscountModalLabel">Discount</h5>
+      </div>
+      <div class="modal-body d-flex align-items-center justify-content-center">
+        <div style="width: 100%; max-width: 400px; text-align: center;">
+          <!-- QR Code -->
+          <div class="mb-4">
+            <div style="border: 2px solid #fd7e14; padding: 20px; display: inline-block; border-radius: 8px;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=DISCOUNT-CODE-12345"
+                   alt="QR Code"
+                   style="width: 200px; height: 200px; border-radius: 4px;">
+            </div>
+          </div>
+
+          <!-- Download Button -->
+          <div class="mt-4">
+            <button type="button" class="btn px-4" onclick="downloadDiscount()" style="background-color: #ffb366; color: #e67e22; border: none; box-shadow: 0 0 10px rgba(255, 179, 102, 0.3);">Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/custom/js/discount.js"></script>
+}
