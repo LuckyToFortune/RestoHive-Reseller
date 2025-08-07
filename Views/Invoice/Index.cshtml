@@ -1,0 +1,168 @@
+@{
+  ViewData["Title"] = "Invoice";
+}
+@section VendorStyles {
+  <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+  <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+  <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+  <style>
+    .invoice-table th, .invoice-table td { font-size: 0.95rem; vertical-align: middle; }
+    .badge-status { border-radius: 6px; font-size: 0.92rem; padding: 0.25em 0.8em; font-weight: 500; }
+    .badge-paid { background: #e6f7e6; color: #1dbf73; }
+    .badge-canceled { background: #f7e6e6; color: #e74c3c; }
+    .badge-refunded { background: #e6f4fa; color: #00b8d9; }
+    .badge-partial { background: #fdf6e3; color: #bfa21d; }
+    .badge-pending { background: #fff7e6; color: #fd7e14; }
+    .badge-unpaid { background: #fbeaea; color: #e74c3c; }
+    .btn-download { background: #fd7e14; color: #fff; border-radius: 6px; font-size: 0.92rem; padding: 0.18rem 0.9rem; border: none; box-shadow: none; transition: background 0.2s; }
+    .btn-download:hover { background: #e96b00; color: #fff; }
+  </style>
+}
+@section VendorScripts {
+  <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+}
+@section PageScripts {
+  <script src="~/custom/js/invoice.js"></script>
+}
+
+<div class="card">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <button class="btn border d-flex align-items-center px-3 py-2 rounded-pill my-2 mx-2">
+      <i class="bx bx-time-five me-2"></i>
+      Date And Time
+    </button>
+    <button class="btn btn-warning text-white d-flex align-items-center px-3 py-2 rounded-pill mx-2 my-2">
+      <i class="bx bx-export me-2"></i>
+      Export
+    </button>
+  </div>
+
+  <div class="card-datatable table-responsive">
+    <table class="invoice-table table border-top">
+      <thead>
+        <tr>
+          <th><input type="checkbox"></th>
+          <th>INVOICE ID</th>
+          <th>ORDER NUMBER</th>
+          <th>TRANSACTION NUMBER</th>
+          <th>DUE DATE</th>
+          <th>CREATED DATE</th>
+          <th>DOWNLOAD</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>38847849</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-paid">Paid</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>847874867</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-canceled">Canceled</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>38578783</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-refunded">Refunded</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>94856948</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-pending">Pending</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>847874867</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-unpaid">Unpaid</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>38578769</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-partial">Partially Refund</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>39589486</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-canceled">Canceled</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>49586794</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-pending">Pending</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>39458944</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-refunded">Refunded</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>94589648</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-paid">Paid</span></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td><a href="#">#6624</a></td>
+          <td>34856784</td>
+          <td>48567834678575</td>
+          <td>Mar 31, 4:33 PM</td>
+          <td>Mar 11, 2:33 PM</td>
+          <td><button class="btn btn-download">Download</button></td>
+          <td><span class="badge-status badge-paid">Paid</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

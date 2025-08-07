@@ -1,0 +1,191 @@
+ @{
+    Layout = "_CommonMasterLayout";
+    ViewData["Title"] = "Coming Soon ";
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-misc.css">
+    <style>
+        /* ✅ Background Fix */
+        html, body {
+            background: #FEF0E1;
+            color: black;
+            min-height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ✅ Rocket Image at the Top */
+        .rocket-img {
+            width: 180px;
+            margin-bottom: 20px;
+        }
+        /* ✅ Fixed Width Box (No More Expanding) */
+        .container-xx1l {
+            width: 200px; /* ✅ Fixed max width */
+            max-width: 50%;
+        }
+        /* ✅ Box for Subscription */
+        .container-xxl {
+            background: #F7F7F7;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 350px; /* ✅ Fixed width */
+            width: 100%;
+        }
+
+        /* ✅ Resto POS Logo Inside the Box */
+        .Resto-POS-img {
+            width: 70px;
+            margin-bottom: 15px;
+        }
+
+        /* ✅ Better Input Box */
+        input {
+            width: calc(100% - 16px);
+            padding: 10px;
+            border-radius: 6px;
+            border: 2px solid #EC7905;
+            outline: none;
+            font-size: 14px;
+            text-align: left;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+            input:focus {
+                border-color: #FF9800;
+                box-shadow: 0px 0px 8px rgba(236, 121, 5, 0.5);
+            }
+
+        /* ✅ Better Button */
+        .subscribe-btn {
+            background: #FEF0E1;
+            color: black;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid black;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+            .subscribe-btn:hover {
+                background: #EC7905;
+                color: white;
+                transform: scale(1.05);
+            }
+
+    </style>
+}
+
+<!--🚀 Rocket Image Outside the Box (At the Top)-->
+<img class="rocket-img" src="~/img/illustrations/boy-with-rocket-light.png" alt="Launching Soon">
+
+<!--✅ Subscription Box-->
+<div class="container-xxl1">
+<div class="container-xxl">
+    <img class="Resto-POS-img" src="~/img/icons/logo1.png" alt="Resto POS Logo">
+
+    <h3>🚀 Big News Coming Soon!</h3>
+    <p>We’re launching something **AMAZING!** Be the first to know when we go live!</p>
+
+    <!-- Subscription Form -->
+    <form id="subscribeForm">
+        <input type="email" id="emailInput" placeholder="Enter your email" required>
+        <button type="submit" class="subscribe-btn">🔔 Notify Me</button>
+    </form>
+</div>
+</div>
+
+@section PageScripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("subscribeForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("emailInput").value.trim();
+            if (!validateEmail(email)) {
+                Swal.fire("⚠️ Oops!", "Please enter a valid email address.", "warning");
+                return;
+            }
+
+            const host = window.location.host.startsWith("http") ? window.location.host : "https://" + window.location.host;
+
+            // 🛑 Confirmation Dialog Before Submitting
+            const { isConfirmed } = await Swal.fire({
+                title: "Confirm Subscription",
+                text: "You're about to join our **exclusive** launch list! 🎉",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Notify Me! 🔥",
+                cancelButtonText: "No, Later",
+                confirmButtonColor: "#EC7905",
+                cancelButtonColor: "#d33"
+            });
+
+            if (!isConfirmed) return; // If user cancels, exit the function
+
+            // 🔄 Show Loading Indicator
+            Swal.fire({
+                title: "Processing...",
+                text: "Adding you to our VIP list... ✨",
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const response = await fetch("/Subscribe/Add", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        Subscriber_Email: email,
+                        HostDomain_Name: host
+                    })
+                });
+
+                const result = await response.json();
+
+                // ✅ Show success or "Already Subscribed" message with correct buttons
+                Swal.fire({
+                    title: result.status === "success" ? "🎉 Welcome Aboard!" : "⚠️ Already Subscribed!",
+                    html: result.message,
+                    icon: result.status === "success" ? "success" : "info",
+                    confirmButtonText: result.status === "success" ? "Can't Wait! 🎊" : "OK",
+                    confirmButtonColor: "#EC7905"
+                });
+
+                if (result.status === "success") {
+                    document.getElementById("emailInput").value = ""; // ✅ Clear input field on success
+                }
+
+            } catch (error) {
+                console.error("❌ Subscription Error:", error);
+                Swal.fire("❌ Oops!", "Something went wrong. Please try again later!", "error");
+            }
+        });
+
+        function validateEmail(email) {
+            const regex = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+            return regex.test(email);
+        }
+
+    </script>
+}

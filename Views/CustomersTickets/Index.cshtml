@@ -1,0 +1,575 @@
+@{
+  ViewData["Title"] = "Customer Tickets";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+  <h4 class="fw-bold py-3 mb-4">Customer Tickets</h4>
+
+  <!-- Tickets Stats -->
+  <div class="row mb-4">
+    <!-- Total Tickets -->
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0">Total tickets</h6>
+            <h2 class="mb-0 text-primary">522</h2>
+          </div>
+          <div class="avatar bg-label-primary p-2">
+            <span class="avatar-initial rounded">
+              <i class="bx bx-envelope text-primary"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- You replied -->
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0">You replied</h6>
+            <h2 class="mb-0 text-success">22</h2>
+          </div>
+          <div class="avatar bg-label-success p-2">
+            <span class="avatar-initial rounded">
+              <i class="bx bx-check-circle text-success"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Waiting reply -->
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0">Waiting reply</h6>
+            <h2 class="mb-0 text-warning">52</h2>
+          </div>
+          <div class="avatar bg-label-warning p-2">
+            <span class="avatar-initial rounded">
+              <i class="bx bx-time text-warning"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Closed -->
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0">Closed</h6>
+            <h2 class="mb-0 text-info">560</h2>
+          </div>
+          <div class="avatar bg-label-info p-2">
+            <span class="avatar-initial rounded">
+              <i class="bx bx-archive text-info"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tickets Table -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <div class="input-group input-group-merge">
+          <span class="input-group-text"><i class="bx bx-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search tickets" aria-label="Search tickets">
+        </div>
+      </div>
+      <div>
+        <button class="btn" style="background-color: #dc3545; color: white; border-color: #dc3545;">Close</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th><input type="checkbox" class="form-check-input"></th>
+              <th>#</th>
+              <th>DATE</th>
+              <th>UPDATED DATE</th>
+              <th>SUBJECT</th>
+              <th>DEPARTMENT</th>
+              <th>REQUESTOR</th>
+              <th>STATUS / ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="09 Jan 2025" data-subject="Promoting video" data-department="Sales Department" data-requestor="Annette" data-status="Pending">09 Jan 2025</td>
+              <td>09 Jan 2025</td>
+              <td>Promoting video</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-warning">Pending</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="08 Jan 2025" data-subject="Promoting photo" data-department="Sales Department" data-requestor="Annette" data-status="Pending">08 Jan 2025</td>
+              <td>08 Jan 2025</td>
+              <td>Promoting photo</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-warning">Pending</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="07 Jan 2025" data-subject="New food on plate" data-department="Sales Department" data-requestor="Annette" data-status="Replied">07 Jan 2025</td>
+              <td>07 Jan 2025</td>
+              <td>New food on plate</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-success">Replied</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="05 Jan 2025" data-subject="Second item free" data-department="Sales Department" data-requestor="Annette" data-status="Closed">05 Jan 2025</td>
+              <td>05 Jan 2025</td>
+              <td>Second item free</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-info">Closed</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="07 Jan 2025" data-subject="New food on plate" data-department="Sales Department" data-requestor="Annette" data-status="Replied">07 Jan 2025</td>
+              <td>07 Jan 2025</td>
+              <td>New food on plate</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-success">Replied</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="04 Jan 2025" data-subject="Black friday" data-department="Sales Department" data-requestor="Annette" data-status="Waiting Reply">04 Jan 2025</td>
+              <td>04 Jan 2025</td>
+              <td>Black friday</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-danger">Waiting Reply</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="02 Jan 2025" data-subject="Today holiday" data-department="Sales Department" data-requestor="Annette" data-status="Closed">02 Jan 2025</td>
+              <td>02 Jan 2025</td>
+              <td>Today holiday</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-info">Closed</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>515</td>
+              <td class="date-clickable" data-ticket-id="515" data-date="01 Jan 2025" data-subject="Winner of the day" data-department="Sales Department" data-requestor="Annette" data-status="Closed">01 Jan 2025</td>
+              <td>01 Jan 2025</td>
+              <td>Winner of the day</td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-primary me-2">
+                    <span class="avatar-initial rounded-circle">S</span>
+                  </div>
+                  <span>Sales</span>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="avatar avatar-sm bg-label-secondary me-2">
+                    <span class="avatar-initial rounded-circle">A</span>
+                  </div>
+                  <span>Annette</span>
+                </div>
+              </td>
+              <td><span class="badge bg-label-info">Closed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination -->
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <span>Showing 1 to 8 of 50 entries</span>
+        </div>
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
+            <li class="page-item"><a class="page-link" href="javascript:void(0);">last</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ticket Detail Modal -->
+<div class="modal fade" id="ticketDetailModal" tabindex="-1" aria-labelledby="ticketDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen" style="margin: 0;">
+    <div class="modal-content">
+      <div class="modal-header border-bottom py-3 d-flex justify-content-between">
+        <a href="javascript:void(0);" class="btn btn-icon" data-bs-dismiss="modal" aria-label="Back" style="font-size: 1.1rem;">
+          <i class="bx bx-left-arrow-alt"></i> Back
+        </a>
+        <div class="d-flex align-items-center">
+          <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
+            <i class="bx bx-grid-alt fs-4"></i>
+          </button>
+          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Light/Dark Mode">
+            <i class="bx bx-sun fs-4"></i>
+          </button>
+          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Language">
+            <i class="bx bx-globe fs-4"></i>
+          </button>
+          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
+            <img src="/img/avatars/1.png" alt="Profile" class="rounded-circle" width="32">
+          </button>
+        </div>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          <!-- Left sidebar with ticket info -->
+          <div class="col-md-2 bg-light p-5 d-flex flex-column align-items-center justify-content-center">
+            <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px; overflow: hidden;">
+              <img src="/img/discounts/Vector.png" alt="Ticket Icon" style="max-width: 80px; max-height: 80px; object-fit: contain;" />
+            </div>
+            <div class="text-center mt-3">
+              <h5 class="mb-2">Ticket</h5>
+              <p class="text-muted mb-2 fs-5" id="modal-ticket-date">09 Jan 2025</p>
+              <p class="text-muted fs-5" id="modal-ticket-subject">Promoting video</p>
+            </div>
+          </div>
+
+          <!-- Right side with ticket details -->
+          <div class="col-md-10 p-5">
+           
+            <h3 class="mb-5 fw-bold">Ticket #<span id="modal-ticket-id">515</span></h3>
+
+            <!-- Ticket Information -->
+            <div class="row mb-5">
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <label class="form-label fs-5">Department</label>
+                  <select class="form-select form-select-lg" id="modal-department">
+                    <option value="Sales Department">Sales Department</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Customer Service">Customer Service</option>
+                    <option value="Billing">Billing</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <label class="form-label fs-5">Subject</label>
+                  <input type="text" class="form-control form-control-lg" id="modal-subject" placeholder="Discount or promotion?" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label class="form-label fs-5">Description</label>
+              <textarea
+                class="form-control"
+                id="modal-description"
+                rows="8"
+                placeholder="Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts."
+              ></textarea>
+            </div>
+
+            <!-- Reply Button -->
+            <div class="d-flex justify-content-end mb-5">
+              <button type="button" class="btn btn-lg" style="background-color: orange; color: white; border-color: orange;">Reply</button>
+            </div>
+
+            <!-- Conversation History -->
+            <div class="border-top pt-4">
+              <h5 class="mb-4">Conversation History</h5>
+              <div class="table-responsive">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th style="width: 150px;">DATE</th>
+                      <th>DESCRIPTION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="me-2">09 Jan 2025</span>
+                          <i class="bx bx-star text-warning"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="text-warning fw-bold">Margee</span>
+                          <p class="mb-2">Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.</p>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <img src="/img/discounts/image.png" alt="Food" class="img-fluid rounded clickable-image" style="max-width: 100px; cursor: pointer;" data-image-src="/img/discounts/image.png" data-image-title="Image#1.jpg">
+                              <p class="text-muted mt-1 small">Image#1.jpg</p>
+                              <small class="text-muted">40 x 32</small>
+                            </div>
+                            <div class="col-md-3">
+                              <img src="/img/discounts/image.png" alt="Food" class="img-fluid rounded clickable-image" style="max-width: 100px; cursor: pointer;" data-image-src="/img/discounts/image.png" data-image-title="Image#2.jpg">
+                              <p class="text-muted mt-1 small">Image#2.jpg</p>
+                              <small class="text-muted">40 x 32</small>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="me-2">05 Jan 2025</span>
+                          <i class="bx bx-user text-primary"></i>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <span class="text-primary fw-bold">Annette</span>
+                          <p class="mb-0">Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.</p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Detail Modal -->
+<style>
+  /* Fullscreen modal with left gray background */
+  #imageDetailModal {
+    --bs-modal-bg: transparent;
+  }
+  #imageDetailModal .modal-dialog {
+    max-width: 900px;
+    width: 90vw;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  #imageDetailModal .modal-content {
+    border-radius: 12px;
+    height: auto;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+    margin: 0;
+    align-self: center;
+  }
+  #imageDetailModal .modal-body {
+    padding: 0;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    height: 100%;
+  }
+  #imageDetailModalImage {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 0;
+    background: #fff;
+    display: block;
+    margin: 0 auto;
+    box-shadow: none;
+  }
+  /* Light gray overlay for the modal background */
+  .modal-backdrop.show {
+    background-color: #e9ecef !important;
+    opacity: 1 !important;
+  }
+</style>
+<div class="modal fade" id="imageDetailModal" tabindex="-1" aria-labelledby="imageDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <img id="imageDetailModalImage" src="" alt="Full size image" />
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+  <script src="~/custom/js/tickets.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click handlers to date cells
+      const dateCells = document.querySelectorAll('.date-clickable');
+      dateCells.forEach(function(cell) {
+        cell.style.cursor = 'pointer';
+        cell.addEventListener('click', function() {
+          const ticketId = this.getAttribute('data-ticket-id');
+          const date = this.getAttribute('data-date');
+          const subject = this.getAttribute('data-subject');
+          const department = this.getAttribute('data-department');
+          const requestor = this.getAttribute('data-requestor');
+          const status = this.getAttribute('data-status');
+
+          // Populate modal with ticket data
+          document.getElementById('modal-ticket-id').textContent = ticketId;
+          document.getElementById('modal-ticket-date').textContent = date;
+          document.getElementById('modal-ticket-subject').textContent = subject;
+          document.getElementById('modal-department').value = department;
+          document.getElementById('modal-subject').value = subject;
+          document.getElementById('modal-description').value = 'Please don\'t let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.';
+
+          // Show the modal
+          const modal = new bootstrap.Modal(document.getElementById('ticketDetailModal'));
+          modal.show();
+
+          // Add click handlers to images in the modal after it's shown
+          setTimeout(function() {
+            const clickableImages = document.querySelectorAll('#ticketDetailModal .clickable-image');
+            clickableImages.forEach(function(image) {
+              image.addEventListener('click', function() {
+                const imageSrc = this.getAttribute('data-image-src');
+                const imageTitle = this.getAttribute('data-image-title');
+
+                document.getElementById('imageDetailModalImage').src = imageSrc;
+                const imageModal = new bootstrap.Modal(document.getElementById('imageDetailModal'));
+                imageModal.show();
+              });
+            });
+          }, 100);
+        });
+      });
+
+      // Initialize tooltips
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
+}
