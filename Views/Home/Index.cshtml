@@ -33,19 +33,7 @@
   </div>
 </div>
 
-<<<<<<< HEAD
-=======
-<!-- Search Bar -->
-<div class="row mb-4">
-  <div class="col-md-6">
-    <div class="input-group">
-      <span class="input-group-text"><i class="bx bx-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search User" id="searchCustomer">
-    </div>
-  </div>
-</div>
 
->>>>>>> dev
 <div class="row g-6 mb-6">
   <div class="col-sm-6 col-xl-3">
     <div class="card">
@@ -57,11 +45,9 @@
               <h4 class="mb-0 me-2">500</h4>
             </div>
           </div>
-          <div class="avatar">
-            <span class="avatar-initial rounded bg-label-primary">
-              <i class="bx bx-group bx-lg"></i>
-            </span>
-          </div>
+          <div class="avatar" style="align-self: flex-start;">
+  <img src="~/img/discounts/icon1.png" alt="Total Customers" style="width:22px;height:22px;object-fit:contain;" />
+</div>
         </div>
       </div>
     </div>
@@ -76,11 +62,9 @@
               <h4 class="mb-0 me-2">22</h4>
             </div>
           </div>
-          <div class="avatar">
-            <span class="avatar-initial rounded bg-label-danger">
-              <i class="bx bx-user-plus bx-lg"></i>
-            </span>
-          </div>
+          <div class="avatar" style="align-self: flex-start;">
+  <img src="~/img/discounts/icon2.png" alt="New Customers" style="width:22px;height:22px;object-fit:contain;" />
+</div>
         </div>
       </div>
     </div>
@@ -95,11 +79,9 @@
               <h4 class="mb-0 me-2">$5,960.22</h4>
             </div>
           </div>
-          <div class="avatar">
-            <span class="avatar-initial rounded bg-label-success">
-              <i class="bx bx-user-check bx-lg"></i>
-            </span>
-          </div>
+          <div class="avatar" style="align-self: flex-start;">
+  <img src="~/img/discounts/icon3.png" alt="Expenses" style="width:22px;height:22px;object-fit:contain;" />
+</div>
         </div>
       </div>
     </div>
@@ -114,11 +96,9 @@
               <h4 class="mb-0 me-2">$25,460.50</h4>
             </div>
           </div>
-          <div class="avatar">
-            <span class="avatar-initial rounded bg-label-warning">
-              <i class="bx bx-user-voice bx-lg"></i>
-            </span>
-          </div>
+          <div class="avatar" style="align-self: flex-start;">
+  <img src="~/img/discounts/icon4.png" alt="Profit" style="width:22px;height:22px;object-fit:contain;" />
+</div>
         </div>
       </div>
     </div>
@@ -135,39 +115,38 @@
     </div>
   </div> *@
   <div class="card-datatable table-responsive">
-<<<<<<< HEAD
-    <table class="datatables-users table border-top">
+    <div class="d-flex justify-content-end mb-3 mt-2">
+      <div class="me-3">
+        <button id="deleteSelected" class="btn btn-outline-danger me-3" disabled>
+          <i class="bx bx-trash me-1"></i> Delete
+        </button>
+        <button class="btn btn-warning me-1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+          <i class="bx bx-plus me-1"></i> New Customer
+        </button>
+      </div>
+    </div>
+    <style>
+  .clickable-row {
+    cursor: pointer;
+  }
+  .clickable-row:hover {
+    background-color: rgba(0,0,0,.02);
+  }
+</style>
+<table class="datatables-customers table border-top">
       <thead>
-        <tr>
+        <tr class="clickable-row" onclick="editCustomer(1)">
           <th></th>
-          <th></th>
-          <th>User</th>
-          <th>Role</th>
-          <th>Plan</th>
-          <th>Billing</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-=======
-    <table class="datatables-customers table border-top">
-      <thead>
-        <tr>
-          <th>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="selectAll">
-            </div>
-          </th>
           <th>CUSTOMER</th>
           <th>RENEWAL DATE</th>
           <th>PAYMENT</th>
           <th>BILLING</th>
+          <th>DISCOUNTS</th>
           <th>STATUS</th>
-          <th>ACTIONS</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="clickable-row" onclick="editCustomer(1)">
           <td>
             <div class="form-check">
               <input class="form-check-input" type="checkbox">
@@ -186,24 +165,11 @@
           </td>
           <td>11/06/2025</td>
           <td>$250.00</td>
-          <td>Au</td>
+          <td>Auto Debit</td>
+          <td>5%</td>
           <td><span class="badge bg-label-success">Active</span></td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(1)"><i class="bx bx-show me-2"></i>View</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(1)"><i class="bx bx-edit me-2"></i>Edit</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(1)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(1)"><i class="bx bx-trash me-2"></i>Delete</a></li>
-              </ul>
-            </div>
-          </td>
         </tr>
-        <tr>
+        <tr class="clickable-row" onclick="editCustomer(1)">
           <td>
             <div class="form-check">
               <input class="form-check-input" type="checkbox">
@@ -222,24 +188,11 @@
           </td>
           <td>11/06/2025</td>
           <td>Mar 31, 4:33 PM</td>
-          <td>Au</td>
+          <td>Auto Debit</td>
+          <td>5%</td>
           <td><span class="badge bg-label-success">Active</span></td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(2)"><i class="bx bx-show me-2"></i>View</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(2)"><i class="bx bx-edit me-2"></i>Edit</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(2)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(2)"><i class="bx bx-trash me-2"></i>Delete</a></li>
-              </ul>
-            </div>
-          </td>
         </tr>
-        <tr>
+        <tr class="clickable-row" onclick="editCustomer(1)">
           <td>
             <div class="form-check">
               <input class="form-check-input" type="checkbox">
@@ -258,25 +211,11 @@
           </td>
           <td>11/06/2025</td>
           <td>Mar 31, 4:33 PM</td>
-          <td>Au</td>
+          <td>Auto Debit</td>
+          <td>0%</td>
           <td><span class="badge bg-label-secondary">Inactive</span></td>
-          <td>
-            <div class="dropdown">
-              <button class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="viewCustomer(3)"><i class="bx bx-show me-2"></i>View</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="editCustomer(3)"><i class="bx bx-edit me-2"></i>Edit</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="suspendCustomer(3)"><i class="bx bx-pause me-2"></i>Suspend</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteCustomer(3)"><i class="bx bx-trash me-2"></i>Delete</a></li>
-              </ul>
-            </div>
-          </td>
         </tr>
       </tbody>
->>>>>>> dev
     </table>
   </div>
   <!-- Offcanvas to add new user -->
@@ -361,8 +300,6 @@
       </form>
     </div>
   </div>
-<<<<<<< HEAD
-=======
 
   <!-- Edit Customer Sidebar -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="editCustomerModal" aria-labelledby="editCustomerModalLabel">
@@ -415,5 +352,4 @@
       </form>
     </div>
   </div>
->>>>>>> dev
 </div>

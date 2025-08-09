@@ -23,17 +23,10 @@ $(function () {
 
   var dt_order_table = $('.datatables-order'),
     statusObj = {
-<<<<<<< HEAD
-      1: { title: 'Dispatched', class: 'bg-label-warning' },
-      2: { title: 'Delivered', class: 'bg-label-success' },
-      3: { title: 'Out for Delivery', class: 'bg-label-primary' },
-      4: { title: 'Ready to Pickup', class: 'bg-label-info' }
-=======
       1: { title: 'Processing', class: 'bg-label-warning' },
       2: { title: 'Delivered', class: 'bg-label-success' },
       3: { title: 'Cancelled', class: 'bg-label-danger' },
       4: { title: 'Hold', class: 'bg-label-warning' }
->>>>>>> dev
     },
     paymentObj = {
       1: { title: 'Paid', class: 'text-success' },
@@ -48,51 +41,6 @@ $(function () {
     var dt_products = dt_order_table.DataTable({
       ajax: assetsPath + 'json/ecommerce-customer-order.json', // JSON file to add data
       columns: [
-<<<<<<< HEAD
-        // columns according to JSON
-        { data: 'id' },
-        { data: 'id' },
-        { data: 'order' },
-        { data: 'date' },
-        { data: 'customer' }, //email //avatar
-        { data: 'payment' },
-        { data: 'status' },
-        { data: 'method' }, //method_number
-        { data: '' }
-      ],
-      columnDefs: [
-        {
-          // For Responsive
-          className: 'control',
-          searchable: false,
-          orderable: false,
-          responsivePriority: 2,
-          targets: 0,
-          render: function (data, type, full, meta) {
-            return '';
-          }
-        },
-        {
-          // For Checkboxes
-          targets: 1,
-          orderable: false,
-          checkboxes: {
-            selectAllRender: '<input type="checkbox" class="form-check-input">'
-          },
-          render: function () {
-            return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
-          },
-          searchable: false
-        },
-        {
-          // Order ID
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var $order_id = full['order'];
-            // Creates full output for row
-            var $row_output = '<a href="/Ecommerce/OrderDetails"><span>#' + $order_id + '</span></a>';
-            return $row_output;
-=======
         { data: null },         // Checkbox
         { data: 'order' },      // ORDER
         { data: 'date' },       // DATE
@@ -118,84 +66,10 @@ $(function () {
           render: function (data, type, full, meta) {
             var $order_id = full['order'];
             return '<a href="/Ecommerce/OrderDetails"><span>#' + $order_id + '</span></a>';
->>>>>>> dev
           }
         },
         {
           // Date and Time
-<<<<<<< HEAD
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var date = new Date(full.date); // convert the date string to a Date object
-            var timeX = full['time'].substring(0, 5);
-            var formattedDate = date.toLocaleDateString('en-US', {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-              time: 'numeric'
-            });
-            return '<span class="text-nowrap">' + formattedDate + ', ' + timeX + '</span>';
-          }
-        },
-        {
-          // Customers
-          targets: 4,
-          responsivePriority: 1,
-          render: function (data, type, full, meta) {
-            var $name = full['customer'],
-              $email = full['email'],
-              $avatar = full['avatar'];
-            if ($avatar) {
-              // For Avatar image
-              var $output =
-                '<img src="' + assetsPath + 'img/avatars/' + $avatar + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6);
-              var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'];
-              var $state = states[stateNum],
-                $name = full['customer'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-            }
-            // Creates full output for row
-            var $row_output =
-              '<div class="d-flex justify-content-start align-items-center order-name text-nowrap">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar avatar-sm me-3">' +
-              $output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<h6 class="m-0"><a href="/Pages/ProfileUser" class="text-heading">' +
-              $name +
-              '</a></h6>' +
-              '<small>' +
-              $email +
-              '</small>' +
-              '</div>' +
-              '</div>';
-            return $row_output;
-          }
-        },
-        {
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var $payment = full['payment'],
-              $paymentObj = paymentObj[$payment];
-            if ($paymentObj) {
-              return (
-                '<h6 class="mb-0 align-items-center d-flex w-px-100 ' +
-                $paymentObj.class +
-                '">' +
-                '<i class="bx bxs-circle bx-8px me-1"></i>' +
-                $paymentObj.title +
-                '</h6>'
-              );
-            }
-            return data;
-=======
           targets: 2,
           render: function (data, type, full, meta) {
             var date = new Date(full.date);
@@ -224,24 +98,10 @@ $(function () {
             } else {
               return '<span class="text-nowrap">-</span>';
             }
->>>>>>> dev
           }
         },
         {
           // Status
-<<<<<<< HEAD
-          targets: -3,
-          render: function (data, type, full, meta) {
-            var $status = full['status'];
-
-            return (
-              '<span class="badge px-2 ' +
-              statusObj[$status].class +
-              '" text-capitalized>' +
-              statusObj[$status].title +
-              '</span>'
-            );
-=======
           targets: 5,
           render: function (data, type, full, meta) {
             var $status = full['status'];
@@ -253,63 +113,21 @@ $(function () {
             };
             var s = statusMap[$status] || statusMap[1];
             return '<span class="order-status ' + s.class + '">' + s.text + '</span>';
->>>>>>> dev
           }
         },
         {
           // Payment Method
-<<<<<<< HEAD
-          targets: -2,
-          render: function (data, type, full, meta) {
-            var $method = full['method'];
-            var $method_number = full['method_number'];
-
-            if ($method == 'paypal') {
-              $method_number = '@gmail.com';
-            }
-            return (
-              '<div class="d-flex align-items-center text-nowrap">' +
-              '<img src="' +
-              assetsPath +
-              'img/icons/payments/' +
-              $method +
-              '.png" alt="' +
-              $method +
-              '" width="29">' +
-              '<span><i class="bx bx-dots-horizontal-rounded mt-1"></i>' +
-              $method_number +
-              '</span>' +
-=======
           targets: 6,
           render: function (data, type, full, meta) {
             return (
               '<div class="d-flex align-items-center text-nowrap">' +
               '<img src="' + assetsPath + 'img/icons/payments/mastercard.png" alt="mastercard" width="24" class="me-2">' +
               '<span>****0573</span>' +
->>>>>>> dev
               '</div>'
             );
           }
         },
         {
-<<<<<<< HEAD
-          // Actions
-          targets: -1,
-          title: 'Actions',
-          searchable: false,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            return (
-              '<div class="d-flex justify-content-sm-start align-items-sm-center">' +
-              '<button class="btn btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded bx-md"></i></button>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="/Ecommerce/OrderDetails" class="dropdown-item">View</a>' +
-              '<a href="javascript:0;" class="dropdown-item delete-record">' +
-              'Delete' +
-              '</a>' +
-              '</div>' +
-              '</div>'
-=======
           // Action
           targets: 7,
           title: 'Action',
@@ -319,16 +137,11 @@ $(function () {
           render: function (data, type, full, meta) {
             return (
               '<button class="btn btn-sm btn-track" style="background-color: #fd7e14; color: white; border-color: #fd7e14;" onclick="openTrackingPage(\'' + full.order + '\', \'' + (full.customer || '') + '\', \'' + full.date + '\', ' + full.status + ')">Track</button>'
->>>>>>> dev
             );
           }
         }
       ],
-<<<<<<< HEAD
-      order: [3, 'asc'], //set any columns order asc/desc
-=======
       order: [2, 'asc'], //set any columns order asc/desc
->>>>>>> dev
       dom:
         '<"card-header py-0 d-flex flex-column flex-md-row align-items-center"<f><"d-flex align-items-center justify-content-md-end gap-2 justify-content-center"l<"dt-action-buttons"B>>' +
         '>t' +
@@ -359,11 +172,7 @@ $(function () {
               text: '<i class="bx bx-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-<<<<<<< HEAD
-                columns: [2, 3, 4, 5, 6, 7],
-=======
                 columns: [1, 2, 3, 4, 5, 6, 7],
->>>>>>> dev
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -399,11 +208,7 @@ $(function () {
               text: '<i class="bx bx-file me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-<<<<<<< HEAD
-                columns: [2, 3, 4, 5, 6, 7],
-=======
                 columns: [1, 2, 3, 4, 5, 6, 7],
->>>>>>> dev
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -426,11 +231,7 @@ $(function () {
               text: '<i class="bx bxs-file-export me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-<<<<<<< HEAD
-                columns: [2, 3, 4, 5, 6, 7],
-=======
                 columns: [1, 2, 3, 4, 5, 6, 7],
->>>>>>> dev
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -453,11 +254,7 @@ $(function () {
               text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-<<<<<<< HEAD
-                columns: [2, 3, 4, 5, 6, 7],
-=======
                 columns: [1, 2, 3, 4, 5, 6, 7],
->>>>>>> dev
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -480,11 +277,7 @@ $(function () {
               text: '<i class="bx bx-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-<<<<<<< HEAD
-                columns: [2, 3, 4, 5, 6, 7],
-=======
                 columns: [2, 3, 4, 5, 6, 7, 8],
->>>>>>> dev
                 format: {
                   body: function (inner, coldex, rowdex) {
                     if (inner.length <= 0) return inner;
@@ -542,6 +335,13 @@ $(function () {
     $('.dataTables_length').addClass('ms-n2');
     $('.dt-action-buttons').addClass('pt-0');
     $('.dataTables_filter').addClass('ms-n3 mb-0 mb-md-6');
+    // Hide the default DataTables search input
+    $('.dataTables_filter').hide();
+
+    // Wire up navbar search to DataTable search
+    $('#navbarOrdersSearch').on('keyup', function() {
+      dt_products.search(this.value).draw();
+    });
   }
 
   // Delete Record
@@ -556,8 +356,6 @@ $(function () {
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
 });
-<<<<<<< HEAD
-=======
 
 // Order Tracking Modal Function
 function openTrackingPage(orderId, customerName, orderDate, orderStatus) {
@@ -697,4 +495,3 @@ function generateTrackingNumber(orderId) {
   }
   return trackingNumber;
 }
->>>>>>> dev

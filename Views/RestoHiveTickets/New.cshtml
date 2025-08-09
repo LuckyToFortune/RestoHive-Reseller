@@ -1,0 +1,159 @@
+@{
+    ViewData["Title"] = "New Ticket";
+}
+
+<div class="container-xxl flex-grow-1 p-0">
+    <div class="row g-0">
+        <!-- Left Sidebar -->
+        <div class="col-md-2 bg-light p-5 d-flex flex-column align-items-center justify-content-start" style="min-height: 100vh;">
+            <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px; overflow: hidden;">
+                <img src="/img/discounts/Vector.png" alt="Ticket Icon" style="max-width: 80px; max-height: 80px; object-fit: contain;" />
+            </div>
+            <h5 class="mb-4">New Ticket</h5>
+            <div class="w-100">
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Date</p>
+                    <p class="mb-0 fw-medium" id="current-date">@DateTime.Now.ToString("dd MMM yyyy")</p>
+                </div>
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Requestor</p>
+                    <p class="mb-0 fw-medium">Current User</p>
+                </div>
+                <div class="mb-3">
+                    <p class="mb-1 text-muted">Department</p>
+                    <p class="mb-0 fw-medium" id="selected-department">-</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 p-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <a href="/RestoHiveTickets" class="btn btn-icon">
+                    <i class="bx bx-left-arrow-alt"></i> Back
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Create New Ticket</h5>
+                </div>
+                <div class="card-body">
+                    <form id="newTicketForm">
+                        <div class="mb-4">
+                            <label class="form-label" for="subject">Subject</label>
+                            <input type="text" class="form-control" id="subject" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label" for="department">Department</label>
+                            <select class="form-select" id="department" required>
+                                <option value="" selected disabled>Select Department</option>
+                                <option value="Sales">Sales Department</option>
+                                <option value="Support">Support</option>
+                                <option value="Billing">Billing</option>
+                                <option value="Technical">Technical Support</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label" for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="6" required></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label" for="attachments">Attachments</label>
+                            <input type="file" class="form-control" id="attachments" multiple>
+                            <div class="form-text">You can attach multiple files (max 10MB each)</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+    
+    .btn {
+        border-radius: 8px;
+        padding: 10px 20px;
+    }
+    
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+    
+    .card-header {
+        background-color: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 1.5rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    textarea.form-control {
+        min-height: 150px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update selected department in the sidebar
+        const departmentSelect = document.getElementById('department');
+        const selectedDepartment = document.getElementById('selected-department');
+        
+        departmentSelect.addEventListener('change', function() {
+            if (this.value) {
+                const selectedOption = this.options[this.selectedIndex].text;
+                selectedDepartment.textContent = selectedOption;
+            } else {
+                selectedDepartment.textContent = '-';
+            }
+        });
+    });
+</script>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('newTicketForm');
+            
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const subject = document.getElementById('subject').value;
+                    const department = document.getElementById('department').value;
+                    const description = document.getElementById('description').value;
+                    
+                    // In a real application, you would send this data to the server
+                    console.log('New ticket data:', { subject, department, description });
+                    
+                    // Show success message and redirect
+                    alert('Your ticket has been submitted successfully!');
+                    window.location.href = '/RestoHiveTickets';
+                });
+            }
+        });
+    </script>
+}
