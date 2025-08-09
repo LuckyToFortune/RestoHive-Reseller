@@ -4,15 +4,9 @@
   <div class="navbar-brand app-brand demo d-none d-xl-flex py-0 me-4">
     <a asp-controller="Home" asp-action="Index" class="app-brand-link">
       <span class="app-brand-logo demo">
-<<<<<<< HEAD
-        @await Html.PartialAsync("../_Partials/_Macros")
-      </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2 text-heading">@TempData.Peek("appName")</span>
-=======
         <i class="bx bx-bee bx-sm text-warning"></i>
       </span>
       <span class="app-brand-text demo menu-text fw-bold ms-2 text-heading">Reseller Panel</span>
->>>>>>> dev
     </a>
 
     @* ! Display menu close icon only for horizontal-menu with navbar-full *@
@@ -35,10 +29,53 @@
   </div>
 }
 
-<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+<div class="navbar-nav-right d-flex align-items-center w-100" id="navbar-collapse">
+    <div class="flex-grow-1 d-flex align-items-center">
 
-     <!-- Style Switcher -->
-      <div class="navbar-nav align-items-center">
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Orders")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px;">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bx bx-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search Orders" id="navbarOrdersSearch">
+        </div>
+      </form>
+    }
+
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Files")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px;">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bx bx-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search document name" id="navbarFilesSearch">
+        </div>
+      </form>
+    }
+
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px;">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bx bx-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search User" id="navbarHomeSearch">
+        </div>
+      </form>
+    }
+
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Store")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px;">
+        <div class="input-group">
+          <span class="input-group-text"><i class="bx bx-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search product name" id="navbarStoreSearch">
+        </div>
+      </form>
+    }
+
+
+         </div>
+    <!-- Style Switcher -->
+    <div class="navbar-nav align-items-center">
         <div class="nav-item dropdown-style-switcher dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <i class='bx bx-md'></i>
@@ -66,6 +103,13 @@
 
 
   <ul class="navbar-nav flex-row align-items-center ms-auto">
+    <!-- Cart -->
+    <li class="nav-item me-3 me-xl-2 d-flex align-items-center">
+      <a class="nav-link p-0" href="javascript:void(0)" id="cart-icon" style="font-size: 1.5rem;">
+        <i class='bx bx-cart'></i>
+      </a>
+    </li>
+    
     <!-- User -->
     <li class="nav-item navbar-dropdown dropdown-user dropdown">
       <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">

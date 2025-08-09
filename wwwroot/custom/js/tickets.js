@@ -72,7 +72,7 @@ const initTickets = function() {
  */
 const filterTickets = function(searchTerm) {
   const rows = ticketsTable.querySelectorAll('tbody tr');
-  
+
   rows.forEach(row => {
     const text = row.textContent.toLowerCase();
     if (text.includes(searchTerm)) {
@@ -84,13 +84,11 @@ const filterTickets = function(searchTerm) {
 };
 
 /**
- * Show new ticket modal
+ * Redirect to new ticket page
  */
 const showNewTicketModal = function() {
-  console.log('Showing new ticket modal');
-  // Show the modal using Bootstrap's modal API
-  const newTicketModal = new bootstrap.Modal(document.getElementById('newTicketModal'));
-  newTicketModal.show();
+  console.log('Redirecting to new ticket page');
+  window.location.href = '/RestoHiveTickets/New';
 };
 
 /**
@@ -100,7 +98,7 @@ const showCloseConfirmation = function() {
   console.log('Showing close confirmation');
   // This would typically show a confirmation dialog before closing selected tickets
   const selectedCount = Array.from(checkboxes).filter(cb => cb.checked && cb !== checkboxes[0]).length;
-  
+
   if (selectedCount === 0) {
     alert('Please select at least one ticket to close');
   } else {
@@ -118,7 +116,7 @@ const closeSelectedTickets = function() {
   console.log('Closing selected tickets');
   // This would typically send a request to the server to close the selected tickets
   alert('Selected tickets have been closed');
-  
+
   // Update UI to show tickets as closed
   const rows = ticketsTable.querySelectorAll('tbody tr');
   rows.forEach(row => {
@@ -129,7 +127,7 @@ const closeSelectedTickets = function() {
       checkbox.checked = false;
     }
   });
-  
+
   // Uncheck header checkbox
   if (checkboxes.length > 0) {
     checkboxes[0].checked = false;
@@ -143,8 +141,9 @@ const closeSelectedTickets = function() {
  */
 const viewTicket = function(ticketId, subject) {
   console.log(`Viewing ticket #${ticketId}: ${subject}`);
-  // This would typically show a modal with the ticket details
-  alert(`Viewing ticket #${ticketId}: ${subject}\n\nTicket details will be displayed here.`);
+  
+  // Redirect to the ticket details page
+  window.location.href = `/RestoHiveTickets/Details/${ticketId}`;
 };
 
 // Initialize when DOM is fully loaded

@@ -86,7 +86,7 @@
         </div>
       </div>
       <div>
-        <button type="button" class="btn me-2" style="background-color: orange; color: white; border-color: orange;" data-bs-toggle="modal" data-bs-target="#newTicketModal">New Ticket</button>
+        <a href="/RestoHiveTickets/New" class="btn me-2" style="background-color: orange; color: white; border-color: orange; text-decoration: none;">New Ticket</a>
         <button class="btn" style="background-color: orange; color: white; border-color: orange;">Close</button>
       </div>
     </div>
@@ -329,7 +329,7 @@
         <a href="javascript:void(0);" class="btn btn-icon" data-bs-dismiss="modal" aria-label="Back" style="font-size: 1.1rem;">
           <i class="bx bx-left-arrow-alt"></i> Back
         </a>
-        <!-- <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
           <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
             <i class="bx bx-grid-alt fs-4"></i>
           </button>
@@ -342,21 +342,7 @@
           <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
             <img src="/img/avatars/1.png" alt="Profile" class="rounded-circle" width="32">
           </button>
-        </div> -->
-             <div class="d-flex align-items-center">
-       <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
-         <i class="bx bx-grid-alt fs-4"></i>
-       </button>
-       <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Light/Dark Mode">
-         <i class="bx bx-sun fs-4"></i>
-       </button>
-       <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Language">
-         <i class="bx bx-globe fs-4"></i>
-       </button>
-       <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
-         <img src="/img/avatars/1.png" alt="Profile" class="rounded-circle" width="32">
-       </button>
-     </div>
+        </div>
       </div>
       <div class="modal-body p-0">
         <div class="row g-0">
@@ -372,17 +358,16 @@
             </div>
           </div>
 
-          <!-- Right side with ticket details -->
+          <!-- Right side with form -->
           <div class="col-md-10 p-5">
-
             <h3 class="mb-5 fw-bold">Ticket #<span id="modal-ticket-id">515</span></h3>
 
             <!-- Ticket Information -->
             <div class="row mb-5">
               <div class="col-md-6">
                 <div class="mb-4">
-                  <label class="form-label fs-5">Department</label>
-                  <select class="form-select form-select-lg" id="modal-department">
+                  <label class="form-label fw-medium">Department</label>
+                  <select id="modal-department" class="form-select">
                     <option value="Sales Department">Sales Department</option>
                     <option value="Technical Support">Technical Support</option>
                     <option value="Customer Service">Customer Service</option>
@@ -392,82 +377,50 @@
               </div>
               <div class="col-md-6">
                 <div class="mb-4">
-                  <label class="form-label fs-5">Subject</label>
-                  <input type="text" class="form-control form-control-lg" id="modal-subject" placeholder="Discount or promotion?" />
+                  <label class="form-label fw-medium">Subject</label>
+                  <input type="text" id="modal-subject" class="form-control" value="Promoting video" />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-4">
+                  <label class="form-label fw-medium">Description</label>
+                  <textarea id="modal-description" class="form-control" rows="8">Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.</textarea>
                 </div>
               </div>
             </div>
 
-            <!-- Description -->
-            <div class="mb-4">
-              <label class="form-label fs-5">Description</label>
-              <textarea
-                class="form-control"
-                id="modal-description"
-                rows="8"
-                placeholder="Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts."
-              ></textarea>
+            <!-- Attachments -->
+            <div class="mb-5">
+              <h5 class="mb-3 fw-bold">Attachments</h5>
+              <div class="d-flex flex-wrap gap-3">
+                <div class="position-relative">
+                  <img src="/img/discounts/Vector.png" alt="Attachment 1" class="img-thumbnail clickable-image" style="width: 100px; height: 100px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-src="/img/discounts/Vector.png" data-image-title="Screenshot 1" />
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    ×
+                    <span class="visually-hidden">Remove</span>
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <!-- Reply Button -->
-            <div class="d-flex justify-content-end mb-5">
-              <button type="button" class="btn btn-lg" style="background-color: orange; color: white; border-color: orange;">Reply</button>
-            </div>
-
-            <!-- Conversation History -->
+            <!-- Reply Section -->
             <div class="border-top pt-4">
-              <h5 class="mb-4">Conversation History</h5>
-              <div class="table-responsive">
-                <table class="table table-borderless">
-                  <thead>
-                    <tr>
-                      <th style="width: 150px;">DATE</th>
-                      <th>DESCRIPTION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <span class="me-2">09 Jan 2025</span>
-                          <i class="bx bx-star text-warning"></i>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <span class="text-warning fw-bold">Margee</span>
-                          <p class="mb-2">Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.</p>
-                          <div class="row">
-                            <div class="col-md-3">
-                              <img src="/img/discounts/image.png" alt="Food" class="img-fluid rounded clickable-image" style="max-width: 100px; cursor: pointer;" data-image-src="/img/discounts/image.png" data-image-title="Image#1.jpg">
-                              <p class="text-muted mt-1 small">Image#1.jpg</p>
-                              <small class="text-muted">40 x 32</small>
-                            </div>
-                            <div class="col-md-3">
-                              <img src="/img/discounts/image.png" alt="Food" class="img-fluid rounded clickable-image" style="max-width: 100px; cursor: pointer;" data-image-src="/img/discounts/image.png" data-image-title="Image#2.jpg">
-                              <p class="text-muted mt-1 small">Image#2.jpg</p>
-                              <small class="text-muted">40 x 32</small>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <span class="me-2">05 Jan 2025</span>
-                          <i class="bx bx-user text-primary"></i>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <span class="text-primary fw-bold">Annette</span>
-                          <p class="mb-0">Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.</p>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <h5 class="mb-3 fw-bold">Reply</h5>
+              <div class="mb-3">
+                <textarea class="form-control" rows="5" placeholder="Type your reply here..."></textarea>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <button type="button" class="btn btn-outline-secondary me-2">
+                    <i class="bx bx-paperclip"></i> Attach File
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary">
+                    <i class="bx bx-smile"></i> Emoji
+                  </button>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-primary">Send Reply</button>
+                </div>
               </div>
             </div>
           </div>
@@ -477,9 +430,90 @@
   </div>
 </div>
 
-<!-- Image Detail Modal -->
+<!-- New Ticket Modal -->
+<div class="modal fade" id="newTicketModal" tabindex="-1" aria-labelledby="newTicketModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen" style="margin: 0;">
+    <div class="modal-content">
+      <div class="modal-header border-bottom py-3 d-flex justify-content-between">
+        <a href="javascript:void(0);" class="btn btn-icon" data-bs-dismiss="modal" aria-label="Back" style="font-size: 1.1rem;">
+          <i class="bx bx-left-arrow-alt"></i> Back
+        </a>
+        <h5 class="modal-title mx-auto" id="newTicketModalLabel">New Ticket</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row g-0">
+          <!-- Left sidebar with ticket info -->
+          <div class="col-md-2 bg-light p-5 d-flex flex-column align-items-center justify-content-center">
+            <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px; overflow: hidden;">
+              <img src="/img/discounts/Vector.png" alt="Ticket Icon" style="max-width: 80px; max-height: 80px; object-fit: contain;" />
+            </div>
+            <h5 class="mb-4">New Ticket</h5>
+            <div class="w-100">
+              <div class="mb-3">
+                <p class="mb-1 text-muted">Date</p>
+                <p class="mb-0 fw-medium" id="new-ticket-date">@DateTime.Now.ToString("dd MMM yyyy")</p>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1 text-muted">Requestor</p>
+                <p class="mb-0 fw-medium" id="new-ticket-requestor">You</p>
+              </div>
+              <div class="mb-3">
+                <p class="mb-1 text-muted">Department</p>
+                <p class="mb-0 fw-medium" id="new-ticket-department">-</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main content area -->
+          <div class="col-md-10 p-5">
+            <h3 class="mb-5 fw-bold">New Ticket</h3>
+
+            <!-- Department -->
+            <div class="mb-4">
+              <label for="newTicketDepartment" class="form-label fw-medium">Department</label>
+              <select id="newTicketDepartment" class="form-select" required>
+                <option value="" selected disabled>Select Department</option>
+                <option value="Sales Department">Sales Department</option>
+                <option value="Support">Support</option>
+                <option value="Billing">Billing</option>
+                <option value="Technical">Technical Support</option>
+              </select>
+            </div>
+
+            <!-- Subject -->
+            <div class="mb-4">
+              <label for="newTicketSubject" class="form-label fw-medium">Subject</label>
+              <input type="text" class="form-control" id="newTicketSubject" placeholder="Enter subject" required>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label for="newTicketMessage" class="form-label fw-medium">Message</label>
+              <textarea class="form-control" id="newTicketMessage" rows="8" placeholder="Type your message here..." required></textarea>
+            </div>
+
+            <!-- Attachments -->
+            <div class="mb-4">
+              <label for="newTicketAttachments" class="form-label fw-medium">Attachments</label>
+              <input class="form-control" type="file" id="newTicketAttachments" multiple>
+              <div class="form-text">You can attach multiple files (max 10MB each)</div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-end mt-5">
+              <button type="button" class="btn btn-outline-secondary me-3" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" id="submitNewTicketBtn">Submit Ticket</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Detail Modal for viewing full-size images -->
 <style>
-  /* Fullscreen modal with left gray background (copied from CustomersTickets) */
   #imageDetailModal {
     --bs-modal-bg: transparent;
   }
@@ -519,13 +553,12 @@
     margin: 0 auto;
     box-shadow: none;
   }
-  /* Light gray overlay for the modal background */
   .modal-backdrop.show {
     background-color: #e9ecef !important;
     opacity: 1 !important;
   }
 </style>
-<div class="modal fade" id="imageDetailModal" tabindex="-1" aria-labelledby="imageDetailModalLabel" aria-hidden="true">
+<div class="modal fade" id="imageDetailModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
@@ -535,103 +568,7 @@
   </div>
 </div>
 
-<!-- New Ticket Modal -->
-<div class="modal fade" id="newTicketModal" tabindex="-1" aria-labelledby="newTicketModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen" style="margin: 0;">
-    <div class="modal-content">
-      <div class="modal-header border-bottom py-3 d-flex justify-content-between">
-        <a href="javascript:void(0);" class="btn btn-icon" data-bs-dismiss="modal" aria-label="Back" style="font-size: 1.1rem;">
-          <i class="bx bx-left-arrow-alt"></i> Back
-        </a>
-        <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Grid View">
-            <i class="bx bx-grid-alt fs-4"></i>
-          </button>
-          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Light/Dark Mode">
-            <i class="bx bx-sun fs-4"></i>
-          </button>
-          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Language">
-            <i class="bx bx-globe fs-4"></i>
-          </button>
-          <button type="button" class="btn btn-icon ms-3" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile">
-            <img src="/img/avatars/1.png" alt="Profile" class="rounded-circle" width="32">
-          </button>
-        </div>
-      </div>
-      <div class="modal-body p-0">
-        <div class="row g-0">
-          <!-- Left sidebar with ticket info -->
-          <div class="col-md-2 bg-light p-5 d-flex flex-column align-items-center justify-content-center">
-            <div class="rounded-circle bg-dark d-flex align-items-center justify-content-center mb-4" style="width: 120px; height: 120px; overflow: hidden;">
-              <img src="/img/discounts/Vector.png" alt="Ticket Icon" style="max-width: 80px; max-height: 80px; object-fit: contain;" />
-            </div>
-            <div class="text-center mt-3">
-              <h5 class="mb-2">Ticket</h5>
-              <p class="text-muted mb-2 fs-5">09 Jan 2025</p>
-              <p class="text-muted fs-5">Promoting video</p>
-            </div>
-          </div>
 
-          <!-- Right side with form -->
-          <div class="col-md-10 p-5">
-            <h3 class="mb-5 fw-bold">New Ticket</h3>
-            <form id="newTicketForm" method="post">
-              <!-- Department -->
-              <div class="mb-4">
-                <label for="department" class="form-label fs-5">Department</label>
-                <select id="department" class="form-select form-select-lg">
-                  <option value="">Select Department</option>
-                  <option value="Sales Department" selected>Sales Department</option>
-                  <option value="Technical Support">Technical Support</option>
-                  <option value="Customer Service">Customer Service</option>
-                  <option value="Billing">Billing</option>
-                </select>
-              </div>
-
-              <!-- Subject -->
-              <div class="mb-4">
-                <label for="subject" class="form-label fs-5">Subject</label>
-                <input type="text" class="form-control form-control-lg" id="subject" placeholder="Discount or promotion ?" />
-              </div>
-
-              <!-- Description -->
-              <div class="mb-4">
-                <label for="description" class="form-label fs-5">Description</label>
-                <textarea
-                  class="form-control"
-                  id="description"
-                  rows="10"
-                  placeholder="Please don't let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts."
-                ></textarea>
-              </div>
-
-              <!-- Attachment -->
-              <div class="mb-5">
-                <div class="d-flex align-items-center">
-                  <i class="bx bx-paperclip me-2" style="font-size: 1.5rem; cursor: pointer; color: orange;"></i>
-                  <span class="fs-5" style="cursor: pointer; color: orange;">Attached Image</span>
-                  <input
-                    type="file"
-                    id="upload"
-                    class="account-file-input"
-                    hidden
-                    accept="image/png, image/jpeg"
-                  />
-                </div>
-              </div>
-
-              <!-- Submit and Cancel buttons -->
-              <div class="d-flex justify-content-end mt-5">
-                <button type="button" class="btn btn-outline-secondary btn-lg me-3" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-lg" style="background-color: orange; color: white; border-color: orange;">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 @section Scripts {
   <script src="~/custom/js/tickets.js"></script>
@@ -643,103 +580,16 @@
         cell.style.cursor = 'pointer';
         cell.addEventListener('click', function() {
           const ticketId = this.getAttribute('data-ticket-id');
-          const date = this.getAttribute('data-date');
-          const subject = this.getAttribute('data-subject');
-          const department = this.getAttribute('data-department');
-          const requestor = this.getAttribute('data-requestor');
-          const status = this.getAttribute('data-status');
-
-          // Populate modal with ticket data
-          document.getElementById('modal-ticket-id').textContent = ticketId;
-          document.getElementById('modal-ticket-date').textContent = date;
-          document.getElementById('modal-ticket-subject').textContent = subject;
-          document.getElementById('modal-department').value = department;
-          document.getElementById('modal-subject').value = subject;
-          document.getElementById('modal-description').value = 'Please don\'t let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.';
-
-          // Show the modal
-          const modal = new bootstrap.Modal(document.getElementById('ticketDetailModal'));
-          modal.show();
-
-          // Add click handlers to images in the modal after it's shown
-          setTimeout(function() {
-            const clickableImages = document.querySelectorAll('#ticketDetailModal .clickable-image');
-            clickableImages.forEach(function(image) {
-              image.addEventListener('click', function() {
-                const imageSrc = this.getAttribute('data-image-src');
-                const imageTitle = this.getAttribute('data-image-title');
-
-                document.getElementById('imageDetailModalImage').src = imageSrc;
-                const imageModal = new bootstrap.Modal(document.getElementById('imageDetailModal'));
-                imageModal.show();
-              });
-            });
-          }, 100);
+          // Redirect to the ticket details page
+          window.location.href = `/RestoHiveTickets/Details/${ticketId}`;
         });
       });
-
-      // Handle file attachment click
-      const attachmentIcon = document.querySelector('.bx-paperclip');
-      const attachmentText = document.querySelector('.bx-paperclip').nextElementSibling;
-      const fileInput = document.getElementById('upload');
-
-      if (attachmentIcon && fileInput) {
-        attachmentIcon.addEventListener('click', function() {
-          fileInput.click();
-        });
-      }
-
-      if (attachmentText && fileInput) {
-        attachmentText.addEventListener('click', function() {
-          fileInput.click();
-        });
-      }
-
-      // Handle file selection
-      if (fileInput) {
-        fileInput.addEventListener('change', function(e) {
-          if (e.target.files.length > 0) {
-            const fileName = e.target.files[0].name;
-            attachmentText.textContent = fileName;
-          }
-        });
-      }
 
       // Initialize tooltips
       const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
       tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
-
-      // Handle form submission
-      const ticketForm = document.getElementById('newTicketForm');
-      if (ticketForm) {
-        ticketForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-
-          // Get form values
-          const department = document.getElementById('department').value;
-          const subject = document.getElementById('subject').value;
-          const description = document.getElementById('description').value;
-          const file = fileInput.files[0];
-
-          // Validate form
-          if (!department || !subject || !description) {
-            console.log('Please fill in all required fields');
-            return;
-          }
-
-          // Here you would typically send the data to the server
-          console.log('Submitting ticket:', { department, subject, description, file });
-
-          // Close the modal
-          const modal = bootstrap.Modal.getInstance(document.getElementById('newTicketModal'));
-          modal.hide();
-
-          // Show success message
-          console.log('Ticket submitted successfully!');
-        });
-      }
     });
   </script>
 }

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="~/vendor/libs/rateyo/rateyo.css" />
   <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/form-validation.css" />
 }
+
 @section VendorScripts {
   <script src="~/vendor/libs/jquery/jquery.js"></script>
   <script src="~/vendor/libs/select2/select2.js"></script>
@@ -18,16 +19,142 @@
   <script src="~/vendor/libs/&#64;form-validation/popular.js"></script>
   <script src="~/vendor/libs/&#64;form-validation/bootstrap5.js"></script>
   <script src="~/vendor/libs/&#64;form-validation/auto-focus.js"></script>
+  <script>
+    // Initialize cart from localStorage or empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Update cart in the store page
+    function updateCart() {
+      const cartContainer = document.getElementById('cart-items');
+      if (!cartContainer) return;
+      
+      cartContainer.innerHTML = '';
+      
+      if (cart.length === 0) {
+        cartContainer.innerHTML = `
+          <div class="text-center p-4 text-muted">
+            <i class='bx bx-cart-download bx-lg mb-2'></i>
+            <p class="mb-0">Your cart is empty</p>
+          </div>
+        `;
+        return;
+      }
+      
+      cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'd-flex align-items-center mb-2 p-2';
+        cartItem.style.border = '1px solid #e0e0e0';
+        cartItem.style.borderRadius = '8px';
+        cartItem.style.background = '#fff';
+        cartItem.innerHTML = `
+          <img src="${item.image || '/img/discounts/pc.png'}" alt="${item.name}" class="me-2" style="width: 36px; height: 36px; object-fit: cover; border-radius: 6px;">
+          <div class="flex-grow-1" style="min-width:0;">
+            <div class="fw-semibold" style="font-size: 0.98rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</div>
+            <div class="text-muted" style="font-size: 0.85rem;">$${item.price.toFixed(2)}</div>
+          </div>
+          <div class="d-flex align-items-center ms-2">
+            <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', -1)">-</button>
+            <span class="mx-1" style="font-size:0.98rem; min-width:18px; text-align:center;">${item.quantity}</span>
+            <button class="btn btn-sm btn-outline-secondary rounded-pill ms-1" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', 1)">+</button>
+          </div>
+        `;
+        cartContainer.appendChild(cartItem);
+      });
+      
+      // Update cart count in navbar
+      const cartCount = document.getElementById('cart-count');
+      if (cartCount) {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+      }
+    }
+    
+    // Update item quantity in cart
+    window.updateQuantity = function(productId, change) {
+      const item = cart.find(item => item.id === productId);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+          cart = cart.filter(item => item.id !== productId);
+          // Reset button to "Add To Cart"
+          const button = document.querySelector(`[data-product-id="${productId}"]`);
+          if (button) {
+            button.textContent = 'Add To Cart';
+            button.classList.remove('btn-outline-warning');
+            button.classList.add('btn-outline-dark');
+          }
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCart();
+      }
+    }
+    
+    // Close cart sidebar
+    window.closeCart = function() {
+      const storeCart = document.getElementById('shopping-cart-sidebar');
+      if (storeCart) storeCart.style.display = 'none';
+    }
+    
+    // Initialize cart on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCart();
+      
+      // Set up add to cart buttons
+      document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const productId = this.getAttribute('data-product-id');
+          const productName = this.getAttribute('data-product-name');
+          const productPrice = parseFloat(this.getAttribute('data-product-price'));
+          const productImage = this.closest('.product-card').querySelector('img').src;
+          
+          // Add to cart
+          const existingItem = cart.find(item => item.id === productId);
+          if (existingItem) {
+            existingItem.quantity += 1;
+          } else {
+            cart.push({
+              id: productId,
+              name: productName,
+              price: productPrice,
+              quantity: 1,
+              image: productImage
+            });
+            
+            // Update button text and style
+            this.textContent = 'Added';
+            this.classList.remove('btn-outline-dark');
+            this.classList.add('btn-outline-warning');
+          }
+          
+          localStorage.setItem('cart', JSON.stringify(cart));
+          updateCart();
+          
+          // Show the cart sidebar
+          const storeCart = document.getElementById('shopping-cart-sidebar');
+          if (storeCart) storeCart.style.display = 'block';
+        });
+      });
+    });
+  </script>
+  <script src="~/custom/js/cart.js"></script>
 }
 
-<div class="container-xxl flex-grow-1 container-p-y" id="store-content">
-  <!-- Search Bar -->
-  <div class="mb-4">
-    <div class="input-group">
-      <span class="input-group-text"><i class="bx bx-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search product name">
+
+
+<!-- Toast Notification -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="cart-toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class='bx bx-check-circle me-2'></i> Item added to cart
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
   </div>
+</div>
+
+<div class="container-xxl flex-grow-1 container-p-y" id="store-content">
 
   <div class="row">
     <!-- Main Content - Product Grid -->
@@ -173,7 +300,7 @@
     </div>
 
     <!-- Shopping Cart Sidebar -->
-    <div class="col-lg-5">
+    <div class="col-lg-5" id="shopping-cart-sidebar" style="display: none;">
       <div class="card" style="min-height: 400px; max-width: 370px; margin-left: 0;">
         <div class="card-header">
           <h5 class="card-title mb-0">Shopping</h5>
@@ -286,6 +413,7 @@ let cartTotal = 0;
 // Add to cart functionality
 document.querySelectorAll('.add-to-cart-btn').forEach(button => {
   button.addEventListener('click', function() {
+    // Show the cart sidebar only if cart is not empty after adding
     const productId = this.getAttribute('data-product-id');
     const productName = this.getAttribute('data-product-name');
     const productPrice = parseFloat(this.getAttribute('data-product-price'));
@@ -310,6 +438,10 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
     this.classList.add('btn-outline-warning');
     
     updateCart();
+    // Show the cart sidebar only if cart is not empty
+    if (cart.length > 0) {
+      document.getElementById('shopping-cart-sidebar').style.display = 'block';
+    }
   });
 });
 
@@ -356,14 +488,12 @@ function updateQuantity(productId, change) {
 }
 
 function closeCart() {
-  // Reset all buttons
-  document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-    button.textContent = 'Add To Cart';
-    button.classList.remove('btn-outline-warning');
-    button.classList.add('btn-outline-dark');
-  });
-  cart = [];
-  updateCart();
+  // Hide the shopping cart sidebar
+  document.getElementById('shopping-cart-sidebar').style.display = 'none';
+}
+
+function showCart() {
+  document.getElementById('shopping-cart-sidebar').style.display = 'block';
 }
 
 function checkout() {

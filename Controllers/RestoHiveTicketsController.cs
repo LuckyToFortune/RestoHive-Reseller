@@ -17,6 +17,19 @@ public class RestoHiveTicketsController : Controller
     {
         return View();
     }
+    
+    public IActionResult Details(int id)
+    {
+        // In a real application, you would fetch the ticket details from a database
+        // For now, we'll just pass the ID to the view
+        ViewBag.TicketId = id;
+        return View();
+    }
+    
+    public IActionResult New()
+    {
+        return View();
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
