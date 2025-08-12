@@ -108,9 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // If on store page, use the store's updateCart function if it exists
     if (isStorePage && typeof updateCart === 'function') {
       updateCart();
-      // Show the cart sidebar on store page
-      const storeCart = document.getElementById('shopping-cart-sidebar');
-      if (storeCart) storeCart.style.display = 'block';
+      // Cart is now visible by default, no need to show it
     } else {
       renderCart();
     }
@@ -166,10 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (cartIcon) {
     cartIcon.addEventListener('click', function(e) {
       e.preventDefault();
-      // On store page, show the store's cart sidebar
+      // On store page, cart is already visible by default
       if (isStorePage) {
-        const storeCart = document.getElementById('shopping-cart-sidebar');
-        if (storeCart) storeCart.style.display = 'block';
+        // Cart is already visible, no action needed
       } 
       // On other pages, show the offcanvas cart
       else if (shoppingCart) {

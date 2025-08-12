@@ -18,9 +18,19 @@ public class CustomersTicketsController : Controller
         return View();
     }
 
+    public IActionResult Details(int id)
+    {
+         
+     // here the ticket details will be fetched from the database
+
+
+        ViewBag.TicketId = id;
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-} 
+}

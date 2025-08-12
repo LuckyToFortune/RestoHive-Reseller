@@ -17,17 +17,23 @@ public class RestoHiveTicketsController : Controller
     {
         return View();
     }
-    
+
     public IActionResult Details(int id)
     {
-        // In a real application, you would fetch the ticket details from a database
-        // For now, we'll just pass the ID to the view
+      
         ViewBag.TicketId = id;
         return View();
     }
-    
-    public IActionResult New()
+
+    public IActionResult New(string date)
     {
+       
+        if (string.IsNullOrEmpty(date) || !DateTime.TryParse(date, out DateTime parsedDate))
+        {
+            parsedDate = DateTime.Now;
+        }
+        
+        ViewBag.SelectedDate = parsedDate.ToString("dd MMM yyyy");
         return View();
     }
 

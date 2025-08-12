@@ -23,21 +23,55 @@
     // Initialize cart from localStorage or empty array
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
+    // Function to check if cart is empty
+    function isCartEmpty() {
+      return cart.length === 0;
+    }
+    
+    // Function to display empty cart state
+    function displayEmptyCart() {
+      const cartContainer = document.getElementById('store-cart-items');
+      const cartActions = document.getElementById('cart-actions');
+      if (!cartContainer) return;
+      
+      cartContainer.classList.add('d-flex', 'align-items-center', 'justify-content-center');
+      cartContainer.style.minHeight = '100%';
+      cartContainer.style.height = '100%';
+      cartContainer.style.padding = '2rem 0';
+      cartContainer.innerHTML = `
+        <div class="text-center">
+          <img src="/img/discounts/cart.gif" alt="Empty cart" style="max-width:160px; width:100%; height:auto;" class="mb-3" />
+          <p class="mb-0 text-muted fs-6">Your shopping cart now is empty</p>
+        </div>
+      `;
+      
+      // Hide buttons when cart is empty
+      if (cartActions) {
+        cartActions.style.display = 'none';
+      }
+    }
+    
     // Update cart in the store page
     function updateCart() {
-      const cartContainer = document.getElementById('cart-items');
+      const cartContainer = document.getElementById('store-cart-items');
       if (!cartContainer) return;
       
       cartContainer.innerHTML = '';
       
-      if (cart.length === 0) {
-        cartContainer.innerHTML = `
-          <div class="text-center p-4 text-muted">
-            <i class='bx bx-cart-download bx-lg mb-2'></i>
-            <p class="mb-0">Your cart is empty</p>
-          </div>
-        `;
+      if (isCartEmpty()) {
+        displayEmptyCart();
         return;
+      }
+      
+      cartContainer.classList.remove('d-flex', 'align-items-center', 'justify-content-center');
+      cartContainer.style.minHeight = '';
+      cartContainer.style.height = '';
+      cartContainer.style.padding = '';
+      
+      // Show buttons when cart has items
+      const cartActions = document.getElementById('cart-actions');
+      if (cartActions) {
+        cartActions.style.display = 'flex';
       }
       
       cart.forEach((item, index) => {
@@ -96,9 +130,26 @@
       if (storeCart) storeCart.style.display = 'none';
     }
     
+    // Go to checkout page
+    window.goToCheckout = function() {
+      if (isCartEmpty()) {
+        alert('Your cart is empty!');
+        return;
+      }
+      
+      // Navigate to checkout page with cart data
+      const cartData = encodeURIComponent(JSON.stringify(cart));
+      window.location.href = `/Checkout?cart=${cartData}`;
+    }
+    
     // Initialize cart on page load
     document.addEventListener('DOMContentLoaded', function() {
-      updateCart();
+      // Initialize cart state
+      if (isCartEmpty()) {
+        displayEmptyCart();
+      } else {
+        updateCart();
+      }
       
       // Set up add to cart buttons
       document.querySelectorAll('.add-to-cart-btn').forEach(button => {
@@ -129,10 +180,6 @@
           
           localStorage.setItem('cart', JSON.stringify(cart));
           updateCart();
-          
-          // Show the cart sidebar
-          const storeCart = document.getElementById('shopping-cart-sidebar');
-          if (storeCart) storeCart.style.display = 'block';
         });
       });
     });
@@ -156,10 +203,10 @@
 
 <div class="container-xxl flex-grow-1 container-p-y" id="store-content">
 
-  <div class="row">
+  <div class="row g-4">
     <!-- Main Content - Product Grid -->
     <div class="col-lg-7">
-      <h4 class="fw-bold mb-4">Store</h4>
+      <h4 class="fw-bold mb-4">Product List</h4>
       
       <div class="row g-4">
         <!-- Product Card 1 -->
@@ -300,18 +347,18 @@
     </div>
 
     <!-- Shopping Cart Sidebar -->
-    <div class="col-lg-5" id="shopping-cart-sidebar" style="display: none;">
-      <div class="card" style="min-height: 400px; max-width: 370px; margin-left: 0;">
+    <div class="col-lg-5" id="shopping-cart-sidebar" style="display: block;">
+      <div class="card" style="height: 110vh; max-width: 370px; margin-left: 0;">
         <div class="card-header">
           <h5 class="card-title mb-0">Shopping</h5>
         </div>
         <div class="card-body d-flex flex-column">
-          <div id="cart-items" class="flex-grow-1">
+          <div id="store-cart-items" class="flex-grow-1">
             <!-- Cart items will be dynamically added here -->
           </div>
-          <div class="d-flex justify-content-between mt-auto gap-2">
+          <div class="d-flex justify-content-between mt-auto gap-2 cart-actions" id="cart-actions" style="display: none;">
             <button class="btn btn-outline-secondary btn-sm px-3" style="font-size: 0.95rem;" onclick="closeCart()">Close</button>
-            <button class="btn btn-sm px-3" style="background-color: #fd7e14; color: white; border-color: #fd7e14; font-size: 0.95rem;" onclick="checkout()">Check Out</button>
+            <button class="btn btn-sm px-3" style="background-color: #fd7e14; color: white; border-color: #fd7e14; font-size: 0.95rem;" onclick="goToCheckout()">Check Out</button>
           </div>
         </div>
       </div>
@@ -406,176 +453,82 @@
   </div>
 </div>
 
-<script>
-let cart = [];
-let cartTotal = 0;
-
-// Add to cart functionality
-document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-  button.addEventListener('click', function() {
-    // Show the cart sidebar only if cart is not empty after adding
-    const productId = this.getAttribute('data-product-id');
-    const productName = this.getAttribute('data-product-name');
-    const productPrice = parseFloat(this.getAttribute('data-product-price'));
-    
-    // Check if product already in cart
-    const existingItem = cart.find(item => item.id === productId);
-    
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({
-        id: productId,
-        name: productName,
-        price: productPrice,
-        quantity: 1
-      });
-    }
-    
-    // Update button text and style
-    this.textContent = 'Added';
-    this.classList.remove('btn-outline-dark');
-    this.classList.add('btn-outline-warning');
-    
-    updateCart();
-    // Show the cart sidebar only if cart is not empty
-    if (cart.length > 0) {
-      document.getElementById('shopping-cart-sidebar').style.display = 'block';
-    }
-  });
-});
-
-function updateCart() {
-  const cartContainer = document.getElementById('cart-items');
-  cartContainer.innerHTML = '';
-  
-  cart.forEach(item => {
-    const cartItem = document.createElement('div');
-    cartItem.className = 'd-flex align-items-center mb-2 p-2';
-    cartItem.style.border = '1px solid #e0e0e0';
-    cartItem.style.borderRadius = '8px';
-    cartItem.style.background = '#fff';
-    cartItem.innerHTML = `
-      <img src="/img/discounts/pc.png" alt="${item.name}" class="me-2" style="width: 36px; height: 36px; object-fit: cover; border-radius: 6px;">
-      <div class="flex-grow-1" style="min-width:0;">
-        <div class="fw-semibold" style="font-size: 0.98rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.name}</div>
-        <div class="text-muted" style="font-size: 0.85rem;">$${item.price.toFixed(2)}</div>
-      </div>
-      <div class="d-flex align-items-center ms-2">
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', -1)">-</button>
-        <span class="mx-1" style="font-size:0.98rem; min-width:18px; text-align:center;">${item.quantity}</span>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill ms-1" style="width:28px;height:28px;padding:0;" onclick="updateQuantity('${item.id}', 1)">+</button>
-      </div>
-    `;
-    cartContainer.appendChild(cartItem);
-  });
-}
-
-function updateQuantity(productId, change) {
-  const item = cart.find(item => item.id === productId);
-  if (item) {
-    item.quantity += change;
-    if (item.quantity <= 0) {
-      cart = cart.filter(item => item.id !== productId);
-      // Reset button to "Add To Cart"
-      const button = document.querySelector(`[data-product-id="${productId}"]`);
-      button.textContent = 'Add To Cart';
-      button.classList.remove('btn-outline-warning');
-      button.classList.add('btn-outline-dark');
-    }
-    updateCart();
-  }
-}
-
-function closeCart() {
-  // Hide the shopping cart sidebar
-  document.getElementById('shopping-cart-sidebar').style.display = 'none';
-}
-
-function showCart() {
-  document.getElementById('shopping-cart-sidebar').style.display = 'block';
-}
-
-function checkout() {
-  if (cart.length === 0) {
-    alert('Your cart is empty!');
-    return;
-  }
-  
-  // Populate checkout content
-  const checkoutCartItems = document.getElementById('checkout-cart-items');
-  checkoutCartItems.innerHTML = '';
-  
-  let total = 0;
-  cart.forEach(item => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td style="vertical-align:middle;">
-        <div class="d-flex align-items-center p-2" style="border:1px solid #e0e0e0; border-radius:8px; background:#fff;">
-          <img src="/img/discounts/pc.png" alt="${item.name}" class="me-3" style="width: 50px; height: 50px; object-fit: cover;">
-          <div>
-            <h6 class="mb-0">${item.name}</h6>
-            <small class="text-muted">Lorem Ipsum is simply dummy text of the Characteristic.</small>
-          </div>
-        </div>
-      </td>
-      <td style="vertical-align:middle;">
-        <div class="d-flex align-items-center justify-content-center">
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-2" style="width:32px;height:32px;" onclick="updateCheckoutQuantity('${item.id}', -1)">-</button>
-          <input type="number" class="form-control form-control-sm mx-2 text-center" style="width: 60px;" value="${item.quantity}" min="0" onchange="updateCheckoutQuantity('${item.id}', 0, this.value)">
-          <button class="btn btn-sm btn-outline-secondary rounded-pill ms-2" style="width:32px;height:32px;" onclick="updateCheckoutQuantity('${item.id}', 1)">+</button>
-        </div>
-      </td>
-      <td style="vertical-align:middle;">$${(item.price * item.quantity).toFixed(2)}</td>
-    `;
-    checkoutCartItems.appendChild(row);
-    total += item.price * item.quantity;
-  });
-  
-  // Add delivery and tax
-  const delivery = 29.00;
-  const tax = 39.00;
-  total += delivery + tax;
-  
-  document.getElementById('checkout-total').textContent = `$${total.toFixed(2)}`;
-  
-  // Hide store content and show checkout content
-  document.getElementById('store-content').style.display = 'none';
-  document.getElementById('checkout-content').style.display = 'block';
-}
-
-function updateCheckoutQuantity(productId, change, newValue = null) {
-  const item = cart.find(item => item.id === productId);
-  if (item) {
-    if (newValue !== null) {
-      item.quantity = parseInt(newValue);
-    } else {
-      item.quantity += change;
-    }
-    
-    if (item.quantity <= 0) {
-      cart = cart.filter(item => item.id !== productId);
-    }
-    
-    checkout(); // Refresh the checkout modal
-  }
-}
-
-function resetOrder() {
-  cart = [];
-  updateCart();
-  checkout(); // Refresh the checkout content
-}
-
-function backToStore() {
-  document.getElementById('checkout-content').style.display = 'none';
-  document.getElementById('store-content').style.display = 'block';
-}
-</script>
+<!-- removed duplicate script block that reset cart and shadowed functions -->
 
 <style>
 body { background: #f7f7fa; }
 .cart-section { box-shadow: 0 2px 16px rgba(0,0,0,0.04); }
+
+/* Cart styling improvements */
+#shopping-cart-sidebar .card {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: none;
+  overflow: hidden;
+}
+
+#shopping-cart-sidebar .card-header {
+  background: #fff;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 12px 12px 0 0;
+  padding: 1rem 1.5rem;
+}
+
+
+
+/* Empty cart styling */
+#store-cart-items.d-flex {
+  min-height: 400px;
+}
+
+#store-cart-items .text-center img {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#store-cart-items .text-center:hover img {
+  opacity: 1;
+}
+
+/* Cart layout improvements for 110vh height */
+#shopping-cart-sidebar .card-body {
+  padding: 1rem 1rem 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  height: calc(110vh - 65px);
+}
+
+#store-cart-items {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  /* Extra space so last item isn't hidden behind sticky actions */
+  padding-bottom: 88px;
+}
+
+/* Ensure buttons stay at bottom and visible */
+.cart-actions {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 0.75rem 0.75rem 1rem 0.75rem; /* extra bottom padding for breathing room */
+  margin-top: 0.75rem !important;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Product grid improvements */
+.product-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
 .payment-method {
   width: 50px;
   height: 50px;

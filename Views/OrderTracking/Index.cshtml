@@ -1,0 +1,239 @@
+@{
+    ViewData["Title"] = "Order Tracking";
+    var order = ViewBag.Order as RestoHive_Reseller.Models.OrderData;
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="mb-4">
+        <a href="/Store" class="fw-bold">
+            <i class="bx bx-arrow-back me-2"></i>Order Tracking Page
+        </a>
+    </div>
+
+    <div class="card" style="background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+        <div class="card-body p-4">
+
+            <div class="text-center mb-4">
+                <h3 class="fw-bold">Tracking Page</h3>
+            </div>
+
+            <!-- Tracking Input Section -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <div class="d-flex gap-2">
+                        <button class="btn" style="background-color: #fd7e14; color: white; border-color: #fd7e14;">
+                            <i class="bx bx-cart me-2"></i>Track
+                        </button>
+                        <input type="text" class="form-control" placeholder="Tracking#" value="@order?.TrackingNumber" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="bg-light p-3 rounded">
+                        <div class="row text-center">
+                            <div class="col-md-3">
+                                <div class="fw-bold">DATE</div>
+                                <div>@order?.OrderDate</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="fw-bold">PRICE</div>
+                                <div>$@order?.Total.ToString("F2")</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="fw-bold">SHIP TO</div>
+                                <div>@order?.CustomerName</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="fw-bold">ORDER</div>
+                                <div>#@(order?.TrackingNumber?.Substring(0, 4) ?? "6624")</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+  <!-- Vertical Order Status and Estimated Delivery Date -->
+  <div class="mb-4 text-center" style="font-size:1.1rem;">
+    <div style="font-weight:600; color:#566a7f;">Order Status: <span id="tracking-status" style="color: #1dbf73; font-weight:600;">Delivered</span></div>
+    <div style="color:#888; font-weight:500;">Estimated Delivery Date: <span id="tracking-delivery" style="color:#222; font-weight:700;">10-20-2020</span></div>
+  </div>
+  <!-- Tracking Timeline -->
+  <style>
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0;
+      position: relative;
+      margin: 0 auto;
+      max-width: 900px;
+      min-height: 150px;
+
+    }
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2; 
+      flex: 1;
+      padding: 0 15px;
+      height: 100%;
+    }
+    .timeline-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 10px 0;
+      background-color: white;
+    }
+    .timeline-line {
+      height: 6px;
+      background: #ffc107;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+    .timeline-line.inactive {
+      background: #e9ecef;
+    }
+    .timeline-line.first {
+      left: 0;
+      right: 50%;
+      margin-left: -15px;
+    }
+    .timeline-line.middle {
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+    .timeline-line.orange-portion {
+      position: absolute;
+      left: 0;
+      right: 30%;
+      background: #ffc107;
+      height: 100%;
+    }
+    .timeline-line.gray-portion {
+      position: absolute;
+      left: 70%;
+      right: 0;
+      background: #e9ecef;
+      height: 100%;
+    }
+    .timeline-line.last {
+      left: 50%;
+      right: -15px;
+      margin-right: -15px;
+    }
+    .timeline-content {
+      text-align: center;
+      margin-top: 5px;
+    }
+    .timeline-content .fw-bold {
+      font-size: 0.9rem;
+    }
+    .timeline-content small {
+      display: block;
+      margin-top: 2px;
+    }
+  </style>
+  <div class="timeline-container" id="tracking-timeline">
+   
+    <div class="timeline-line first"></div>
+
+   
+    <div class="timeline-step">
+      <div class="timeline-circle bg-warning">
+        <i class="bx bx-check text-white"></i>
+      </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Order Placed</div>
+        <small class="text-muted" id="order-placed-date">14 June</small>
+      </div>
+    </div>
+
+    <!-- Middle Line (between Order Placed and Dispatched) -->
+    <div class="timeline-line middle"></div>
+
+    <!-- Dispatched -->
+    <div class="timeline-step">
+      <div class="timeline-circle bg-warning">
+        <img src="~/img/discounts/truck.png" alt="Dispatched" style="width: 24px; height: 24px; filter: brightness(0) invert(1); display: block; margin: 0 auto;" />
+      </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Dispatched</div>
+        <small class="text-muted" id="dispatched-date">14 June</small>
+      </div>
+    </div>
+
+    <!-- Middle Line (between Dispatched and Delivered) -->
+    <div class="timeline-line middle">
+      <div class="orange-portion"></div>
+      <div class="gray-portion"></div>
+    </div>
+
+    <!-- Delivered -->
+    <div class="timeline-step">
+      <div class="timeline-circle" style="background-color: #e9ecef;">
+        <i class="bx bx-package" style="color: #6c757d;"></i>
+      </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Delivered</div>
+        <small class="text-muted" id="delivered-date">14 June - 19 June</small>
+      </div>
+    </div>
+
+    
+    <div class="timeline-line last inactive"></div>
+  </div>
+  </div>
+  <!-- Shipping Information and Map -->
+  <div class="row" id="shippingInfoContainer">
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h6 class="mb-0">Shipping Information</h6>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <span class="text-muted">Address:</span>
+            <div class="fw-bold" id="tracking-address">123 Main St, New York</div>
+          </div>
+          <div class="mb-3">
+            <span class="text-muted">Courier:</span>
+            <div class="fw-bold" id="tracking-courier">14 June</div>
+          </div>
+          <div>
+            <span class="text-muted">Tracking number:</span>
+            <div class="fw-bold text-warning" id="tracking-number">4889ugirojgiknjfkbnkflbn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 mt-3 mt-md-0">
+      <div style="background:#ffffff; border:1px solid #e9ebef; border-radius: 10px; overflow: hidden;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25436351647!2d-74.11976404999999!3d40.69766374999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1645000000000!5m2!1sen!2s"
+          width="100%"
+          height="260"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Order Tracking Page -->

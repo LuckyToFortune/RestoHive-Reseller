@@ -1,1 +1,12 @@
 /* Custom styles goes here */
+
+/* Dark mode styles for globe icon */
+.navbar-nav .nav-link img[src*="globe.png"] {
+  transition: filter 0.3s ease;
+}
+
+[data-bs-theme="dark"] .navbar-nav .nav-link img[src*="globe.png"],
+.dark-style .navbar-nav .nav-link img[src*="globe.png"] {
+  filter: brightness(0) invert(1) !important;
+  -webkit-filter: brightness(0) invert(1) !important;
+}

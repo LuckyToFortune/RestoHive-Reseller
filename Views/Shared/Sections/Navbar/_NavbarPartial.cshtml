@@ -31,75 +31,120 @@
 
 <div class="navbar-nav-right d-flex align-items-center w-100" id="navbar-collapse">
     <div class="flex-grow-1 d-flex align-items-center">
-
+    
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() != "Home" && 
+         ViewContext.RouteData.Values["controller"]?.ToString() != "Orders" &&
+         ViewContext.RouteData.Values["controller"]?.ToString() != "Files" &&
+         ViewContext.RouteData.Values["controller"]?.ToString() != "Store" &&
+         ViewContext.RouteData.Values["controller"]?.ToString() != "CustomersTickets" &&
+         ViewContext.RouteData.Values["controller"]?.ToString() != "RestoHiveTickets")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search" 
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
+        </div>
+      </form>
+    }
+    
     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Orders")
     {
-      <form class="d-flex me-3" role="search" style="min-width:250px;">
-        <div class="input-group">
-          <span class="input-group-text"><i class="bx bx-search"></i></span>
-          <input type="text" class="form-control" placeholder="Search Orders" id="navbarOrdersSearch">
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search Orders" id="navbarOrdersSearch" 
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
         </div>
       </form>
     }
 
     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Files")
     {
-      <form class="d-flex me-3" role="search" style="min-width:250px;">
-        <div class="input-group">
-          <span class="input-group-text"><i class="bx bx-search"></i></span>
-          <input type="text" class="form-control" placeholder="Search document name" id="navbarFilesSearch">
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search document name" id="navbarFilesSearch"
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
         </div>
       </form>
     }
 
     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home")
     {
-      <form class="d-flex me-3" role="search" style="min-width:250px;">
-        <div class="input-group">
-          <span class="input-group-text"><i class="bx bx-search"></i></span>
-          <input type="text" class="form-control" placeholder="Search User" id="navbarHomeSearch">
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search User" id="navbarHomeSearch"
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
         </div>
       </form>
     }
 
+
     @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Store")
     {
-      <form class="d-flex me-3" role="search" style="min-width:250px;">
-        <div class="input-group">
-          <span class="input-group-text"><i class="bx bx-search"></i></span>
-          <input type="text" class="form-control" placeholder="Search product name" id="navbarStoreSearch">
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search product name" id="navbarStoreSearch"
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
+        </div>
+      </form>
+    }
+    
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "RestoHiveTickets")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search tickets..." id="navbarTicketsSearch"
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
+        </div>
+      </form>
+    }
+    
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "CustomersTickets")
+    {
+      <form class="d-flex me-3" role="search" style="min-width:250px; margin-right:1rem !important;">
+        <div class="input-group" style="border-bottom:1px solid transparent; border-radius:0; padding-bottom:0.25rem; transition:border-color 0.2s ease-in-out;">
+          <span class="input-group-text" style="background:transparent; border:none; color:#6c757d; padding:0.25rem 0.5rem;">
+            <i class="bx bx-search"></i>
+          </span>
+          <input type="text" class="form-control" placeholder="Search customer tickets..." id="navbarCustomerTicketsSearch"
+                 style="border:none; background:transparent; box-shadow:none; padding:0.25rem 0.5rem; color:#495057;"
+                 onfocus="this.closest('.input-group').style.borderBottomColor='#dee2e6'"
+                 onblur="this.closest('.input-group').style.borderBottomColor='transparent'">
         </div>
       </form>
     }
 
 
          </div>
-    <!-- Style Switcher -->
-    <div class="navbar-nav align-items-center">
-        <div class="nav-item dropdown-style-switcher dropdown">
-          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-            <i class='bx bx-md'></i>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-start dropdown-styles">
-            <li>
-              <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
-                <span class="align-middle"><i class='bx bx-sun me-3'></i>Light</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
-                <span class="align-middle"><i class="bx bx-moon me-3"></i>Dark</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
-                <span class="align-middle"><i class="bx bx-desktop me-3"></i>System</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-     <!-- / Style Switcher-->
 
 
   <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -107,6 +152,42 @@
     <li class="nav-item me-3 me-xl-2 d-flex align-items-center">
       <a class="nav-link p-0" href="javascript:void(0)" id="cart-icon" style="font-size: 1.5rem;">
         <i class='bx bx-cart'></i>
+      </a>
+    </li>
+    
+    <!-- Theme Switcher -->
+    <li class="nav-item me-3 me-xl-2 d-flex align-items-center">
+      <div class="dropdown-style-switcher dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <i class='bx bx-moon bx-md'></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end dropdown-styles">
+          <li>
+            <a class="dropdown-item" href="javascript:void(0);" data-theme="light">
+              <span class="align-middle"><i class='bx bx-sun me-3'></i>Light</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="javascript:void(0);" data-theme="dark">
+              <span class="align-middle"><i class="bx bx-moon me-3"></i>Dark</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="javascript:void(0);" data-theme="system">
+              <span class="align-middle"><i class="bx bx-desktop me-3"></i>System</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    
+    <!-- Globe -->
+    <li class="nav-item me-3 me-xl-2 d-flex align-items-center">
+      <a class="nav-link p-0" href="javascript:void(0)" style="font-size: 1.25rem; display: flex; align-items: center;">
+        <img src="/img/discounts/globe.png" alt="Globe" 
+             class="navbar-icon" 
+             style="width: 20px; height: 20px; object-fit: contain;"
+             data-dark-mode-filter="invert(1) brightness(2)">
       </a>
     </li>
     

@@ -1,0 +1,222 @@
+@{
+    ViewData["Title"] = "Checkout";
+    var cartItems = ViewBag.CartItems as List<RestoHive_Reseller.Controllers.CartItem>;
+    var total = ViewBag.Total as decimal? ?? 0;
+}
+
+<div class="container-xxl flex-grow-1 container-p-y" id="checkout-content">
+    <!-- Store Title as Back Button -->
+    <div class="mb-4">
+        <h4 class="fw-bold mb-0" style="cursor:pointer;display:inline-block;" onclick="backToStore()">Store</h4>
+    </div>
+    
+    <div class="row g-4">
+        <!-- Shopping Cart Section -->
+        <div class="col-lg-8">
+            <div class="cart-section card p-4" style="background: #fff; border-radius: 12px;">
+                <h5 class="mb-4">Shopping Cart</h5>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead>
+                            <tr style="border-bottom: 2px solid #f0f0f0;">
+                                <th class="fw-bold">PRODUCT</th>
+                                <th class="fw-bold">QUANTITY</th>
+                                <th class="fw-bold">PRICE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="checkout-cart-items">
+                            @if (cartItems != null && cartItems.Any())
+                            {
+                                @foreach (var item in cartItems)
+                                {
+                                    <tr>
+                                        <td style="vertical-align:middle;">
+                                            <div class="d-flex align-items-center p-2" style="border:1px solid #e0e0e0; border-radius:8px; background:#fff;">
+                                                <img src="@(item.Image ?? "/img/discounts/pc.png")" alt="@item.Name" class="me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-0">@item.Name</h6>
+                                                    <small class="text-muted">Lorem Ipsum is simply dummy text of the Characteristic.</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align:middle;">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <button class="btn btn-sm btn-outline-secondary rounded-pill me-2" style="width:32px;height:32px;" onclick="updateCheckoutQuantity('@item.Id', -1)">-</button>
+                                                <input type="number" class="form-control form-control-sm mx-2 text-center" style="width: 60px;" value="@item.Quantity" min="0" onchange="updateCheckoutQuantity('@item.Id', 0, this.value)">
+                                                <button class="btn btn-sm btn-outline-secondary rounded-pill ms-2" style="width:32px;height:32px;" onclick="updateCheckoutQuantity('@item.Id', 1)">+</button>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align:middle;">$@(item.Price * item.Quantity)</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                                 <button class="btn btn-outline-secondary btn-sm mt-4" onclick="resetOrder()">Reset order</button>
+            </div>
+        </div>
+
+        <!-- Right Side: Coupon, Summary, Payment -->
+        <div class="col-lg-4">
+            <div class="card p-0" style="background: #fff; border-radius: 12px;">
+                <!-- Coupon Code (vertical layout) -->
+                <div class="p-4 border-bottom" style="border-color: #f0f0f0 !important;">
+                    <h6 class="card-title mb-3">Coupon code.</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <input type="text" class="form-control" placeholder="Enter Your Coupon Code" style="flex:1;">
+                        <button class="btn w-100" style="background-color: #fd7e14; color: white; border-color: #fd7e14; min-width: 160px; font-size: 0.98rem; padding: 0.45rem 0;">Apply Your Coupon</button>
+                    </div>
+                </div>
+                <!-- Order Summary -->
+                <div class="p-4 border-bottom" style="border-color: #f0f0f0 !important;">
+                    <h6 class="card-title mb-3">Order Summary.</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Discount:</span>
+                        <span>$00.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Delivery:</span>
+                        <span>$29.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax:</span>
+                        <span>$39.00</span>
+                    </div>
+                    <hr style="margin: 0.5rem 0; border-color: #f0f0f0;">
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span id="checkout-total">$@(total + 29 + 39)</span>
+                    </div>
+                </div>
+                <!-- Payment -->
+                <div class="p-4">
+                    <h6 class="card-title mb-3">Payment.</h6>
+                    <div class="d-flex gap-2 mb-3">
+                        <div class="payment-method">
+                            <i class="bx bxl-paypal" style="font-size: 2rem; color: #0070ba;"></i>
+                        </div>
+                        <div class="payment-method">
+                            <i class="bx bxl-mastercard" style="font-size: 2rem; color: #eb001b;"></i>
+                        </div>
+                        <div class="payment-method">
+                            <span style="font-size: 2rem; font-weight: bold; color: #6772e5;">S</span>
+                        </div>
+                        <div class="payment-method">
+                            <span style="font-size: 2rem; font-weight: bold; color: #f7931a;">₿</span>
+                        </div>
+                    </div>
+                                         <button class="btn w-100" style="background-color: #fd7e14; color: white; border-color: #fd7e14; font-size: 1.1rem;" onclick="processCheckout()">Check out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Get cart data from URL parameters
+let cart = [];
+let cartTotal = 0;
+
+// Initialize cart from URL parameters
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const cartData = urlParams.get('cart');
+    
+    if (cartData) {
+        try {
+            cart = JSON.parse(decodeURIComponent(cartData));
+            cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            updateCheckoutTotal();
+        } catch (e) {
+            console.error('Error parsing cart data:', e);
+        }
+    }
+});
+
+function updateCheckoutQuantity(productId, change, newValue = null) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        if (newValue !== null) {
+            item.quantity = parseInt(newValue);
+        } else {
+            item.quantity += change;
+        }
+        
+        if (item.quantity <= 0) {
+            cart = cart.filter(item => item.id !== productId);
+        }
+        
+        // Update cart in localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Refresh the checkout page
+        const cartData = encodeURIComponent(JSON.stringify(cart));
+        window.location.href = `/Checkout?cart=${cartData}`;
+    }
+}
+
+function resetOrder() {
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    window.location.href = '/Store';
+}
+
+function backToStore() {
+    window.location.href = '/Store';
+}
+
+function updateCheckoutTotal() {
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const finalTotal = total + 29 + 39; // Adding delivery and tax
+    document.getElementById('checkout-total').textContent = `$${finalTotal.toFixed(2)}`;
+}
+
+function processCheckout() {
+    // Generate a random tracking number
+    const trackingNumber = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    
+    // Create order data
+    const orderData = {
+        trackingNumber: trackingNumber,
+        cart: cart,
+        total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 29 + 39,
+        orderDate: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
+        estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }) + ' - ' + 
+                          new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-US', { day: 'numeric', month: 'long' }),
+        status: 'Shipped',
+        customerName: 'John Doe',
+        shippingAddress: '123 Main St, New York',
+        courier: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
+    };
+    
+    // Navigate to order tracking page with order data
+    const orderDataEncoded = encodeURIComponent(JSON.stringify(orderData));
+    window.location.href = `/OrderTracking?order=${orderDataEncoded}`;
+}
+</script>
+
+<style>
+.payment-method {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.payment-method:hover {
+    border-color: #fd7e14;
+    transform: scale(1.05);
+}
+
+.payment-method.active {
+    border-color: #fd7e14;
+    background: #fff5f0;
+}
+</style>

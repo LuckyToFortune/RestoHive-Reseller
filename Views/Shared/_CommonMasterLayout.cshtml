@@ -41,6 +41,9 @@
 
   @* ✅ Core Styles *@
   @await Html.PartialAsync("Sections/_Styles" + ViewData["frontVar"])
+  
+  <!-- Custom dark mode icons -->
+  <link rel="stylesheet" href="~/css/dark-mode-icons.css" />
 
   @* ✅ Vendor Styles (External Libraries) *@
   @RenderSection("VendorStyles", required: false)

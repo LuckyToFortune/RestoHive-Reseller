@@ -19,113 +19,59 @@
   <script src="~/custom/js/balance.js"></script>
 }
 
-<div class="container-xxl flex-grow-1 container-p-y">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold py-3 mb-0">Payout</h4>
+<div class="container-xxl flex-grow-1 p-0">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold" style="color: #000;">Payout</h4>
     <button class="btn" style="background-color: #fd7e14; color: white; border-color: #fd7e14;" onclick="openManageBankModal()">
       Manage Bank
     </button>
   </div>
-
-  <!-- Balance Summary -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <h6 class="mb-3">Balance summary</h6>
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="text-muted">On the way to your bank account</span>
-        <span class="fw-bold">$0.00</span>
-      </div>
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <span class="text-muted">Upcoming payouts to your bank (estimated)</span>
-        <span class="fw-bold">$13,000.85</span>
-      </div>
-      <hr class="my-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <span class="fw-bold fs-5">Total</span>
-        <span class="fw-bold fs-5">$13,000.85</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Payouts Table -->
   <div class="card">
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>AMOUNT</th>
-              <th>DESTINATION</th>
-              <th>ARRIVE BY</th>
-              <th>STATUS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="fw-bold">$5,541.68 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-info"><i class="bx bx-time me-1"></i>Upcoming</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$6,950.89 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-primary"><i class="bx bx-refresh me-1"></i>Processing</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$1,220.00 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-warning"><i class="bx bx-minus-circle me-1"></i>Debited</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$2,200.00 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-success"><i class="bx bx-check-circle me-1"></i>Paid</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$3,580.00 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-success"><i class="bx bx-check-circle me-1"></i>Paid</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$12,220.00 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-success"><i class="bx bx-check-circle me-1"></i>Paid</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$1,220.69 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-success"><i class="bx bx-check-circle me-1"></i>Paid</span></td>
-            </tr>
-            <tr>
-              <td class="fw-bold">$6,950.89 CAD</td>
-              <td>STRIPE TEST BANK **** 6789</td>
-              <td>Mar 31, 4:33 PM</td>
-              <td><span class="badge bg-label-success"><i class="bx bx-check-circle me-1"></i>Paid</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Balance Summary -->
+      <div class="mb-4">
+        <h6 class="mb-3">Balance summary</h6>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="text-muted">On the way to your bank account</span>
+          <span class="fw-bold">$0.00</span>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="text-muted">Upcoming payouts to your bank (estimated)</span>
+          <span class="fw-bold">$13,000.85</span>
+        </div>
+        <hr class="my-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="fw-bold fs-5">Total</span>
+          <span class="fw-bold fs-5">$13,000.85</span>
+        </div>
       </div>
-      
-      <!-- Pagination -->
-      <div class="d-flex justify-content-end mt-3">
-        <nav aria-label="Page navigation">
-          <ul class="pagination">
-            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">last</a></li>
-          </ul>
-        </nav>
-      </div>
+
+      <!-- Payouts Table -->
+      <div class="mt-4">
+        <div class="table-responsive">
+          <table id="payoutsTable" class="table table-hover">
+            <thead>
+              <tr class="bg-light">
+                <th>AMOUNT</th>
+                <th>DESTINATION</th>
+                <th>ARRIVE BY</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table content will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="d-flex justify-content-end mt-3">
+          <nav aria-label="Page navigation">
+            <ul class="pagination mb-0">
+              <!-- Pagination will be populated by JavaScript -->
+            </ul>
+          </nav>
+        </div>
     </div>
   </div>
 </div>
