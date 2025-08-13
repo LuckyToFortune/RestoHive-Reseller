@@ -240,7 +240,7 @@ function showDocumentViewer(document) {
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-warning" onclick="downloadDocument(${document.id})">
+            <button type="button" class="btn" style="background-color: #ec7905; color: white;" onclick="downloadDocument(${document.id})">
               <i class="bx bx-download me-1"></i>Download
             </button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -517,8 +517,12 @@ function showNotification(message, type = 'info') {
 function switchToMyFiles() {
   // Update tab buttons
   document.querySelector('button[onclick="switchToMyFiles()"]').classList.remove('btn-outline-secondary');
-  document.querySelector('button[onclick="switchToMyFiles()"]').classList.add('btn-warning', 'active');
-  document.querySelector('button[onclick="switchToCustomers()"]').classList.remove('btn-warning', 'active');
+  document.querySelector('button[onclick="switchToMyFiles()"]').classList.add('active');
+  document.querySelector('button[onclick="switchToMyFiles()"]').style.backgroundColor = '#ec7905';
+  document.querySelector('button[onclick="switchToMyFiles()"]').style.color = 'white';
+  document.querySelector('button[onclick="switchToCustomers()"]').classList.remove('active');
+  document.querySelector('button[onclick="switchToCustomers()"]').style.backgroundColor = '';
+  document.querySelector('button[onclick="switchToCustomers()"]').style.color = '';
   document.querySelector('button[onclick="switchToCustomers()"]').classList.add('btn-outline-secondary');
 
   // Update content for My Files
@@ -532,8 +536,12 @@ function switchToMyFiles() {
 function switchToCustomers() {
   // Update tab buttons
   document.querySelector('button[onclick="switchToCustomers()"]').classList.remove('btn-outline-secondary');
-  document.querySelector('button[onclick="switchToCustomers()"]').classList.add('btn-warning', 'active');
-  document.querySelector('button[onclick="switchToMyFiles()"]').classList.remove('btn-warning', 'active');
+  document.querySelector('button[onclick="switchToCustomers()"]').classList.add('active');
+  document.querySelector('button[onclick="switchToCustomers()"]').style.backgroundColor = '#ec7905';
+  document.querySelector('button[onclick="switchToCustomers()"]').style.color = 'white';
+  document.querySelector('button[onclick="switchToMyFiles()"]').classList.remove('active');
+  document.querySelector('button[onclick="switchToMyFiles()"]').style.backgroundColor = '';
+  document.querySelector('button[onclick="switchToMyFiles()"]').style.color = '';
   document.querySelector('button[onclick="switchToMyFiles()"]').classList.add('btn-outline-secondary');
 
   // Update content for Customers

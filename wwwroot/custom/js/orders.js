@@ -159,8 +159,22 @@ $(function () {
       buttons: [
         {
           extend: 'excel',
-          className: 'btn btn-warning my-2',
+          className: 'btn my-2',
+          style: 'background-color: #ec7905; color: white; border-color: #d36d04;',
           text: '<i class="bx bx-export me-2"></i>Export',
+          init: function(api, node, config) {
+            $(node).css({
+              'background-color': '#ec7905',
+              'color': 'white',
+              'border-color': '#d36d04',
+              'transition': 'all 0.2s ease',
+              'font-weight': '500'
+            }).hover(function() {
+              $(this).css('background-color', '#d36d04');
+            }, function() {
+              $(this).css('background-color', '#ec7905');
+            });
+          },
           exportOptions: {
             columns: [1, 2, 3, 4, 5, 6, 7],
             format: {
@@ -370,16 +384,16 @@ function updateTrackingTimeline(orderStatus, orderDate) {
   firstLine.classList.remove('inactive');
   lastLine.classList.add('inactive');
 
-  // Order Placed circle active (orange)
-  circles[0].classList.add('bg-warning');
+  // Order Placed circle active (custom orange #ec7905)
+  circles[0].style.backgroundColor = '#ec7905';
   // Dispatched circle active for shipped/delivered
   if (orderStatus == 1 || orderStatus == 2) {
-    circles[1].classList.add('bg-warning');
+    circles[1].style.backgroundColor = '#ec7905';
     middleLine[0].classList.remove('inactive');
   }
   // Delivered circle active only when delivered
   if (orderStatus == 2) {
-    circles[2].style.backgroundColor = '#ffc107';
+    circles[2].style.backgroundColor = '#ec7905';
     circles[2].querySelector('i') && (circles[2].querySelector('i').style.color = '#fff');
     lastLine.classList.remove('inactive');
   } else {

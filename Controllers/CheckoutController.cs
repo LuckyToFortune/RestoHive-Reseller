@@ -46,11 +46,11 @@ namespace RestoHive_Reseller.Controllers
     
     public class CartItem
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public required string Id { get; set; }
+        public required string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public string Image { get; set; }
+        public required string Image { get; set; }
     }
 }
 
