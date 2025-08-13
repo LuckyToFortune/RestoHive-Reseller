@@ -15,7 +15,7 @@ public class InvoiceController : Controller
 
   public IActionResult Index()
   {
-    // return View("MiscComingSoon"); // ✅ Set the Coming Soon page as default
+    
     return View();
   }
 

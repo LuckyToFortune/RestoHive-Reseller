@@ -12,7 +12,7 @@ namespace AspnetCoreMvcStarter.Controllers
   [ApiController]
   public class SubscribeController : ControllerBase
   {
-    private readonly string _connectionString;
+    private readonly string? _connectionString;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
     public SubscribeController(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
@@ -31,27 +31,27 @@ namespace AspnetCoreMvcStarter.Controllers
 
       try
       {
-        string userIpAddress = GetClientIp(); // ✅ Get the user's IP address
+        string userIpAddress = GetClientIp();
 
         using (var connection = new SqlConnection(_connectionString))
         {
           await connection.OpenAsync();
 
-          // ✅ Check if email already exists
+          
           string checkQuery = "SELECT COUNT(*) FROM Subscribers WHERE Subscriber_Email = @Email AND HostDomain_Name = @Host";
           using (var checkCmd = new SqlCommand(checkQuery, connection))
           {
             checkCmd.Parameters.AddWithValue("@Email", model.Subscriber_Email);
             checkCmd.Parameters.AddWithValue("@Host", model.HostDomain_Name);
 
-            int count = (int)await checkCmd.ExecuteScalarAsync();
+            int count = (int)(await checkCmd.ExecuteScalarAsync() ?? 0);
             if (count > 0)
             {
               return Ok(new { status = "exists", message = "You're already subscribed! Stay tuned for exciting updates. 🚀" });
             }
           }
 
-          // ✅ Insert new subscriber with IP address
+          //  Insert new subscriber with IP address
           string query = "INSERT INTO Subscribers (Subscriber_Email, HostDomain_Name, IP_Address) VALUES (@Email, @Host, @IPAddress)";
           using (var cmd = new SqlCommand(query, connection))
           {
@@ -69,21 +69,19 @@ namespace AspnetCoreMvcStarter.Controllers
 
         return BadRequest(new { status = "error", message = "Failed to subscribe. Please try again later." });
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return StatusCode(500, new { status = "error", message = "Something went wrong. Please try again later!" });
       }
     }
 
-    /// <summary>
-    /// ✅ Method to get the client's IP address
-    /// </summary>
+    
     private string GetClientIp()
     {
-      string ipAddress = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+      string? ipAddress = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
       if (string.IsNullOrEmpty(ipAddress))
       {
-        ipAddress = _httpContextAccessor.HttpContext?.Request.Headers["X-Forwarded-For"];
+        ipAddress = _httpContextAccessor.HttpContext?.Request.Headers["X-Forwarded-For"].FirstOrDefault();
       }
 
       return ipAddress ?? "Unknown";

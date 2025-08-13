@@ -9,14 +9,14 @@ namespace RestoHive_Reseller.Models
         
         [Required]
         [StringLength(50)]
-        public string Code { get; set; }
+        public required string Code { get; set; }
         
         [Required]
         [Range(0.01, 100)]
         public decimal Percentage { get; set; }
         
-        public string CustomerName { get; set; }
-        public string CustomerEmail { get; set; }
+        public string? CustomerName { get; set; }
+        public string? CustomerEmail { get; set; }
         
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -27,6 +27,6 @@ namespace RestoHive_Reseller.Models
         public bool IsActive { get; set; } = true;
         
         // Navigation property for future use with Entity Framework
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
     }
 }

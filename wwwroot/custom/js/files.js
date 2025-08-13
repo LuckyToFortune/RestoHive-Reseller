@@ -1,51 +1,113 @@
 /**
- * Files page functionality
+ * Files page functionality with pagination
  */
 
 'use strict';
 
-// Document data (in a real app, this would come from the server)
-const documents = [
-  {
-    id: 1,
-    date: '01 Jan 2025',
-    title: 'Contract employment',
-    owner: 'Annette',
-    fileUrl: '/documents/contract-1.pdf'
-  },
-  {
-    id: 2,
-    date: '01 Jan 2025',
-    title: 'Contract employment',
-    owner: 'Annette',
-    fileUrl: '/documents/contract-2.pdf'
-  },
-  {
-    id: 3,
-    date: '01 Jan 2025',
-    title: 'Contract employment',
-    owner: 'Annette',
-    fileUrl: '/documents/contract-3.pdf'
-  },
-  {
-    id: 4,
-    date: '01 Jan 2025',
-    title: 'Contract employment',
-    owner: 'Annette',
-    fileUrl: '/documents/contract-4.pdf'
-  },
-  {
-    id: 5,
-    date: '01 Jan 2025',
-    title: 'Contract employment',
-    owner: 'Annette',
-    fileUrl: '/documents/contract-5.pdf'
+// Pagination configuration
+const paginationConfig = {
+  currentPage: 1,
+  itemsPerPage: 5,
+  totalPages: 1,
+  totalItems: 0,
+  maxVisiblePages: 5
+};
+
+// Generate mock documents
+function generateMockDocuments(count = 50) {
+  const documentTypes = ['Contract', 'Invoice', 'Report', 'Proposal', 'Agreement', 'Receipt'];
+  const owners = ['Annette', 'John', 'Sarah', 'Michael', 'Emily', 'David'];
+  const mockDocuments = [];
+  
+  for (let i = 1; i <= count; i++) {
+    const docType = documentTypes[Math.floor(Math.random() * documentTypes.length)];
+    const owner = owners[Math.floor(Math.random() * owners.length)];
+    const day = Math.floor(Math.random() * 28) + 1;
+    const month = Math.floor(Math.random() * 12) + 1;
+    const year = 2025;
+    const date = new Date(year, month - 1, day);
+    const formattedDate = date.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+    
+    mockDocuments.push({
+      id: i,
+      date: formattedDate,
+      title: `${docType} ${i}`,
+      owner: owner,
+      fileUrl: `/documents/${docType.toLowerCase()}-${i}.pdf`
+    });
   }
-];
+  
+  return mockDocuments;
+}
+
+// Document data (in a real app, this would come from the server)
+let documents = [];
+
+// Initialize documents with mock data
+function initializeDocuments() {
+  // Original documents
+  const originalDocuments = [
+    {
+      id: 1,
+      date: '01 Jan 2025',
+      title: 'Contract employment',
+      owner: 'Annette',
+      fileUrl: '/documents/contract-1.pdf'
+    },
+    {
+      id: 2,
+      date: '05 Jan 2025',
+      title: 'Invoice #1001',
+      owner: 'John',
+      fileUrl: '/documents/invoice-1001.pdf'
+    },
+    {
+      id: 3,
+      date: '10 Jan 2025',
+      title: 'Monthly report',
+      owner: 'Sarah',
+      fileUrl: '/documents/report-jan.pdf'
+    },
+    {
+      id: 4,
+      date: '15 Jan 2025',
+      title: 'Project proposal',
+      owner: 'Michael',
+      fileUrl: '/documents/proposal-q1.pdf'
+    },
+    {
+      id: 5,
+      date: '20 Jan 2025',
+      title: 'Service agreement',
+      owner: 'Emily',
+      fileUrl: '/documents/agreement-2025.pdf'
+    }
+  ];
+  
+  // Clear existing documents and add original documents
+  documents = [...originalDocuments];
+  
+  // Add mock documents (ensuring unique IDs)
+  const mockDocs = generateMockDocuments(45); // 45 + 5 originals = 50 total
+  mockDocs.forEach((doc, index) => {
+    doc.id = originalDocuments.length + index + 1;
+    documents.push(doc);
+  });
+  
+  return documents;
+}
 
 // Initialize when document is ready
 document.addEventListener('DOMContentLoaded', function () {
+  // Initialize documents data
+  initializeDocuments();
+  
+  // Initialize UI components
   initializeFilesPage();
+  
+  // Render table with pagination
+  renderDocumentsTable();
+  renderPagination();
 });
 
 // Initialize files page
@@ -94,6 +156,34 @@ function initializeFilesPage() {
       filterDocuments(this.value);
     });
   }
+  
+  // Initialize pagination event listeners
+  document.addEventListener('click', function(e) {
+    if (e.target && e.target.closest('.page-link')) {
+      e.preventDefault();
+      const pageLink = e.target.closest('.page-link');
+      if (pageLink.dataset.page) {
+        const page = parseInt(pageLink.dataset.page);
+        if (page !== paginationConfig.currentPage) {
+          paginationConfig.currentPage = page;
+          renderDocumentsTable();
+          renderPagination();
+        }
+      } else if (pageLink.closest('.page-item.prev')) {
+        if (paginationConfig.currentPage > 1) {
+          paginationConfig.currentPage--;
+          renderDocumentsTable();
+          renderPagination();
+        }
+      } else if (pageLink.closest('.page-item.next')) {
+        if (paginationConfig.currentPage < paginationConfig.totalPages) {
+          paginationConfig.currentPage++;
+          renderDocumentsTable();
+          renderPagination();
+        }
+      }
+    }
+  });
 }
 
 // Download document
@@ -224,39 +314,18 @@ function handleAddDocument(event) {
   }, 2000);
 }
 
-// Add document to table
+// Add document to table and documents array
 function addDocumentToTable(document) {
-  const tbody = document.querySelector('.datatables-documents tbody');
-  if (tbody) {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-      <td>${document.date}</td>
-      <td>${document.title}</td>
-      <td>
-        <div class="d-flex align-items-center">
-          <div class="avatar avatar-sm me-2">
-            <span class="avatar-initial rounded-circle bg-primary">
-              <i class="bx bx-user text-white"></i>
-            </span>
-          </div>
-          <span>${document.owner}</span>
-        </div>
-      </td>
-      <td>
-        <div class="d-flex gap-2">
-          <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(${document.id})">
-            <i class="bx bx-download"></i>
-            Download
-          </button>
-          <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(${document.id})">
-            <i class="bx bx-show"></i>
-            View
-          </button>
-        </div>
-      </td>
-    `;
-    tbody.appendChild(newRow);
-  }
+  // Add to the beginning of the documents array
+  documents.unshift(document);
+  
+  // Reset to first page and re-render
+  paginationConfig.currentPage = 1;
+  renderDocumentsTable();
+  renderPagination();
+  
+  // Show success message
+  showNotification('Document added successfully!', 'success');
 }
 
 // Download all documents
@@ -268,20 +337,158 @@ function downloadAllDocuments() {
   }, 3000);
 }
 
+// Render documents table with pagination
+function renderDocumentsTable() {
+  const tableBody = document.querySelector('.datatables-documents tbody');
+  if (!tableBody) return;
+  
+  // Clear existing rows
+  tableBody.innerHTML = '';
+  
+  // Calculate pagination
+  const startIndex = (paginationConfig.currentPage - 1) * paginationConfig.itemsPerPage;
+  const endIndex = startIndex + paginationConfig.itemsPerPage;
+  const paginatedDocuments = documents.slice(startIndex, endIndex);
+  
+  // Add rows for current page
+  paginatedDocuments.forEach(doc => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${doc.date}</td>
+      <td>${doc.title}</td>
+      <td>
+        <div class="d-flex align-items-center">
+          <div class="avatar avatar-sm me-2">
+            <span class="avatar-initial rounded-circle bg-primary">
+              <i class="bx bx-user text-white"></i>
+            </span>
+          </div>
+          <span>${doc.owner}</span>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(${doc.id})">
+            <i class="bx bx-download"></i> Download
+          </button>
+          <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(${doc.id})">
+            <i class="bx bx-show"></i> View
+          </button>
+        </div>
+      </td>
+    `;
+    
+    tableBody.appendChild(row);
+  });
+  
+  // Update pagination info
+  paginationConfig.totalItems = documents.length;
+  paginationConfig.totalPages = Math.ceil(documents.length / paginationConfig.itemsPerPage);
+  
+  // Hide pagination if no items or only one page
+  const paginationContainer = document.querySelector('.pagination');
+  if (paginationContainer) {
+    if (documents.length <= paginationConfig.itemsPerPage) {
+      paginationContainer.closest('nav').style.display = 'none';
+    } else {
+      paginationContainer.closest('nav').style.display = 'block';
+    }
+  }
+}
+
+// Render pagination controls
+function renderPagination() {
+  const paginationContainer = document.querySelector('.pagination');
+  if (!paginationContainer) return;
+  
+  const totalPages = paginationConfig.totalPages;
+  const currentPage = paginationConfig.currentPage;
+  const maxVisiblePages = paginationConfig.maxVisiblePages;
+  
+  let paginationHTML = '';
+  
+  // Previous button
+  paginationHTML += `
+    <li class="page-item prev ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="javascript:void(0);" ${currentPage === 1 ? 'tabindex="-1"' : ''}>
+        <i class="tf-icon bx bx-chevron-left"></i>
+      </a>
+    </li>`;
+  
+  // Page numbers
+  let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+  
+  if (endPage - startPage + 1 < maxVisiblePages) {
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+  }
+  
+  if (startPage > 1) {
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="javascript:void(0);" data-page="1">1</a>
+      </li>`;
+    if (startPage > 2) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+  }
+  
+  for (let i = startPage; i <= endPage; i++) {
+    paginationHTML += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="javascript:void(0);" data-page="${i}">${i}</a>
+      </li>`;
+  }
+  
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="javascript:void(0);" data-page="${totalPages}">${totalPages}</a>
+      </li>`;
+  }
+  
+  // Next button
+  paginationHTML += `
+    <li class="page-item next ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="javascript:void(0);" ${currentPage === totalPages ? 'tabindex="-1"' : ''}>
+        <i class="tf-icon bx bx-chevron-right"></i>
+      </a>
+    </li>`;
+  
+  paginationContainer.innerHTML = paginationHTML;
+}
+
 // Filter documents based on search term
 function filterDocuments(searchTerm) {
-  const rows = document.querySelectorAll('.datatables-documents tbody tr');
-
-  rows.forEach(row => {
-    const documentTitle = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-    const documentOwner = row.querySelector('td:nth-child(3) span').textContent.toLowerCase();
-
-    if (documentTitle.includes(searchTerm.toLowerCase()) || documentOwner.includes(searchTerm.toLowerCase())) {
-      row.style.display = '';
-    } else {
-      row.style.display = 'none';
-    }
-  });
+  if (!searchTerm || searchTerm.trim() === '') {
+    // If search is empty, reset to first page and show all
+    paginationConfig.currentPage = 1;
+    renderDocumentsTable();
+    renderPagination();
+    return;
+  }
+  
+  const searchTermLower = searchTerm.toLowerCase();
+  const filteredDocs = documents.filter(doc => 
+    doc.title.toLowerCase().includes(searchTermLower) || 
+    doc.owner.toLowerCase().includes(searchTermLower) ||
+    doc.date.toLowerCase().includes(searchTermLower)
+  );
+  
+  // Store filtered documents temporarily
+  const originalDocs = [...documents];
+  documents = filteredDocs;
+  
+  // Reset to first page and render
+  paginationConfig.currentPage = 1;
+  renderDocumentsTable();
+  renderPagination();
+  
+  // Restore original documents
+  documents = originalDocs;
 }
 
 // Show notification

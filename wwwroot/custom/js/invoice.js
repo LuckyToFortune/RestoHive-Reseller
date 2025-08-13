@@ -1,313 +1,218 @@
 /**
- * App Invoice List (jquery)
+ * Invoice List with Pagination
  */
 
 'use strict';
 
-$(function () {
-  // Variable declaration for table
-  var dt_invoice_table = $('.invoice-list-table');
+// Generate mock invoice data
+function generateMockInvoices(count = 50) {
+  const statuses = [
+    { class: 'badge-paid', text: 'Paid' },
+    { class: 'badge-canceled', text: 'Canceled' },
+    { class: 'badge-refunded', text: 'Refunded' },
+    { class: 'badge-pending', text: 'Pending' },
+    { class: 'badge-unpaid', text: 'Unpaid' },
+    { class: 'badge-partial', text: 'Partially Refund' }
+  ];
 
-  // Invoice datatable
-  if (dt_invoice_table.length) {
-    var dt_invoice = dt_invoice_table.DataTable({
-      ajax: assetsPath + 'json/invoice-list.json', // JSON file to add data
-      columns: [
-        // columns according to JSON
-        { data: 'invoice_id' },
-        { data: 'invoice_id' },
-        { data: 'invoice_id' },
-        { data: 'invoice_status' },
-        { data: 'issued_date' },
-        { data: 'client_name' },
-        { data: 'total' },
-        { data: 'balance' },
-        { data: 'invoice_status' },
-        { data: 'action' }
-      ],
-      columnDefs: [
-        {
-          // For Responsive
-          className: 'control',
-          responsivePriority: 2,
-          searchable: false,
-          targets: 0,
-          render: function (data, type, full, meta) {
-            return '';
-          }
-        },
-        {
-          // For Checkboxes
-          targets: 1,
-          orderable: false,
-          checkboxes: {
-            selectAllRender: '<input type="checkbox" class="form-check-input">'
-          },
-          render: function () {
-            return '<input type="checkbox" class="dt-checkboxes form-check-input" >';
-          },
-          searchable: false
-        },
-        {
-          // Invoice ID
-          targets: 2,
-          render: function (data, type, full, meta) {
-            var $invoice_id = full['invoice_id'];
-            // Creates full output for row
-            var $row_output = '<a href="/Invoice/Preview">#' + $invoice_id + '</a>';
-            return $row_output;
-          }
-        },
-        {
-          // Invoice status
-          targets: 3,
-          render: function (data, type, full, meta) {
-            var $invoice_status = full['invoice_status'],
-              $due_date = full['due_date'],
-              $balance = full['balance'];
-            var roleBadgeObj = {
-              Sent: '<span class="badge rounded-pill p-1_5 bg-label-secondary"><i class="bx bx-envelope bx-xs"></i></span>',
-              Draft:
-                '<span class="badge rounded-pill p-1_5 bg-label-primary"><i class="bx bx-folder bx-xs"></i></span>',
-              'Past Due':
-                '<span class="badge rounded-pill p-1_5 bg-label-danger"><i class="bx bx-error bx-xs"></i></span>',
-              'Partial Payment':
-                '<span class="badge rounded-pill p-1_5 bg-label-success"><i class="bx bx-check bx-xs"></i></span>',
-              Paid: '<span class="badge rounded-pill p-1_5 bg-label-warning"><i class="bx bx-pie-chart-alt bx-xs"></i></span>',
-              Downloaded:
-                '<span class="badge rounded-pill p-1_5 bg-label-info"><i class="bx bx-down-arrow-alt bx-xs"></i></span>'
-            };
-            return (
-              "<span class='d-inline-block' data-bs-toggle='tooltip' data-bs-html='true' title='<span>" +
-              $invoice_status +
-              '<br> <span class="fw-medium">Balance:</span> ' +
-              $balance +
-              '<br> <span class="fw-medium">Due Date:</span> ' +
-              $due_date +
-              "</span>'>" +
-              roleBadgeObj[$invoice_status] +
-              '</span>'
-            );
-          }
-        },
-        {
-          // Client name and Service
-          targets: 4,
-          responsivePriority: 4,
-          render: function (data, type, full, meta) {
-            var $name = full['client_name'],
-              $service = full['service'],
-              $image = full['avatar_image'],
-              $rand_num = Math.floor(Math.random() * 11) + 1,
-              $user_img = $rand_num + '.png';
-            if ($image === true) {
-              // For Avatar image
-              var $output =
-                '<img src="' + assetsPath + 'img/avatars/' + $user_img + '" alt="Avatar" class="rounded-circle">';
-            } else {
-              // For Avatar badge
-              var stateNum = Math.floor(Math.random() * 6),
-                states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary'],
-                $state = states[stateNum],
-                $name = full['client_name'],
-                $initials = $name.match(/\b\w/g) || [];
-              $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase();
-              $output = '<span class="avatar-initial rounded-circle bg-label-' + $state + '">' + $initials + '</span>';
-            }
-            // Creates full output for avatar row
-            var $row_output =
-              '<div class="d-flex justify-content-start align-items-center">' +
-              '<div class="avatar-wrapper">' +
-              '<div class="avatar avatar-sm me-3">' +
-              $output +
-              '</div>' +
-              '</div>' +
-              '<div class="d-flex flex-column">' +
-              '<a href="/Pages/ProfileUser" class="text-heading text-truncate"><span class="fw-medium">' +
-              $name +
-              '</span></a>' +
-              '<small class="text-truncate">' +
-              $service +
-              '</small>' +
-              '</div>' +
-              '</div>';
-            return $row_output;
-          }
-        },
-        {
-          // Total Invoice Amount
-          targets: 5,
-          render: function (data, type, full, meta) {
-            var $total = full['total'];
-            return '<span class="d-none">' + $total + '</span>$' + $total;
-          }
-        },
-        {
-          // Due Date
-          targets: 6,
-          render: function (data, type, full, meta) {
-            var $due_date = new Date(full['due_date']);
-            // Creates full output for row
-            var $row_output =
-              '<span class="d-none">' +
-              moment($due_date).format('YYYYMMDD') +
-              '</span>' +
-              moment($due_date).format('DD MMM YYYY');
-            $due_date;
-            return $row_output;
-          }
-        },
-        {
-          // Client Balance/Status
-          targets: 7,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            var $balance = full['balance'];
-            if ($balance === 0) {
-              var $badge_class = 'bg-label-success';
-              return '<span class="badge ' + $badge_class + '" text-capitalized> Paid </span>';
-            } else {
-              return (
-                '<span class="d-none">' + $balance + '</span>' + '<span class="text-heading">' + $balance + '</span>'
-              );
-            }
-          }
-        },
-        {
-          targets: 8,
-          visible: false
-        },
-        {
-          // Actions
-          targets: -1,
-          title: 'Actions',
-          searchable: false,
-          orderable: false,
-          render: function (data, type, full, meta) {
-            return (
-              '<div class="d-flex align-items-center">' +
-              '<a href="javascript:;" data-bs-toggle="tooltip" class="btn btn-icon delete-record" data-bs-placement="top" title="Delete"><i class="bx bx-trash bx-md"></i></a>' +
-              '<a href="/Invoice/Preview" data-bs-toggle="tooltip" class="btn btn-icon" data-bs-placement="top" title="Preview Invoice"><i class="bx bx-show bx-md"></i></a>' +
-              '<div class="dropdown">' +
-              '<a href="javascript:;" class="btn dropdown-toggle hide-arrow btn-icon p-0" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded bx-md"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end">' +
-              '<a href="javascript:;" class="dropdown-item">Download</a>' +
-              '<a href="/Invoice/Edit" class="dropdown-item">Edit</a>' +
-              '<a href="javascript:;" class="dropdown-item">Duplicate</a>' +
-              '</div>' +
-              '</div>'
-            );
-          }
-        }
-      ],
-      order: [[2, 'desc']],
-      dom:
-        '<"row"' +
-        '<"col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2"l<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start"B>>' +
-        '<"col-12 col-md-6 d-flex align-items-center justify-content-end flex-column flex-md-row gap-md-4 mt-n6 mt-md-0"f<"invoice_status mb-6 mb-md-0">>' +
-        '>t' +
-        '<"row"' +
-        '<"col-sm-12 col-md-6"i>' +
-        '<"col-sm-12 col-md-6"p>' +
-        '>',
-      language: {
-        sLengthMenu: 'Show _MENU_',
-        search: '',
-        searchPlaceholder: 'Search Invoice',
-        paginate: {
-          next: '<i class="bx bx-chevron-right bx-18px"></i>',
-          previous: '<i class="bx bx-chevron-left bx-18px"></i>'
-        }
-      },
-      // Buttons with Dropdown
-      buttons: [
-        {
-          text: '<i class="bx bx-plus bx-sm me-md-2"></i><span class="d-md-inline-block d-none">Create Invoice</span>',
-          className: 'btn btn-primary',
-          action: function (e, dt, button, config) {
-            window.location = '/Invoice/Add';
-          }
-        }
-      ],
-      // For responsive popup
-      responsive: {
-        details: {
-          display: $.fn.dataTable.Responsive.display.modal({
-            header: function (row) {
-              var data = row.data();
-              return 'Details of ' + data['full_name'];
-            }
-          }),
-          type: 'column',
-          renderer: function (api, rowIdx, columns) {
-            var data = $.map(columns, function (col, i) {
-              return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
-                ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
-                : '';
-            }).join('');
+  const invoices = [];
+  const now = new Date();
 
-            return data ? $('<table class="table"/><tbody />').append(data) : false;
-          }
-        }
-      },
-      initComplete: function () {
-        // Adding role filter once table initialized
-        this.api()
-          .columns(8)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="UserRole" class="form-select"><option value=""> Invoice Status </option></select>'
-            )
-              .appendTo('.invoice_status')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
+  for (let i = 1; i <= count; i++) {
+    const invoiceDate = new Date();
+    const dueDate = new Date();
+    invoiceDate.setDate(now.getDate() - Math.floor(Math.random() * 30));
+    dueDate.setDate(invoiceDate.getDate() + Math.floor(Math.random() * 15) + 5);
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-              });
-          });
-      }
+    const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+    invoices.push({
+      id: 6000 + i,
+      orderNumber: Math.floor(10000000 + Math.random() * 90000000).toString(),
+      transactionNumber: Math.floor(10000000000000 + Math.random() * 90000000000000).toString(),
+      status: status,
+      createdDate: invoiceDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      dueDate: dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     });
   }
 
-  // On each datatable draw, initialize tooltip
-  dt_invoice_table.on('draw.dt', function () {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl, {
-        boundary: document.body
-      });
+  return invoices;
+}
+
+// Pagination state
+let currentPage = 1;
+const itemsPerPage = 5;
+let invoices = [];
+
+// Initialize the invoice table
+function initInvoiceTable() {
+  // Generate mock data
+  invoices = generateMockInvoices(50);
+  const totalPages = Math.ceil(invoices.length / itemsPerPage);
+
+  // Render initial table
+  renderTable();
+  renderPagination(totalPages);
+
+  // Handle pagination clicks
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.page-link')) {
+      e.preventDefault();
+      const target = e.target.closest('.page-link');
+      const action = target.getAttribute('data-page');
+
+      if (action === 'prev' && currentPage > 1) {
+        currentPage--;
+      } else if (action === 'next' && currentPage < totalPages) {
+        currentPage++;
+      } else if (action === 'first') {
+        currentPage = 1;
+      } else if (action === 'last') {
+        currentPage = totalPages;
+      } else if (action === 'page') {
+        currentPage = parseInt(target.textContent);
+      }
+
+      renderTable();
+      renderPagination(totalPages);
+
+      // Scroll to top of table
+      document.querySelector('.card-datatable').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  // Handle date filter
+  const dateFilterBtn = document.querySelector('.date-filter-btn');
+  if (dateFilterBtn) {
+    dateFilterBtn.addEventListener('click', function() {
+      // Reset to first page when filtering
+      currentPage = 1;
+      renderTable();
+      renderPagination(totalPages);
+    });
+  }
+}
+
+// Render table with current page data
+function renderTable() {
+  const tbody = document.querySelector('#invoicesTable tbody');
+  if (!tbody) return;
+
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const currentItems = invoices.slice(startIdx, endIdx);
+
+  tbody.innerHTML = currentItems.map(invoice => `
+    <tr>
+      <td><input type="checkbox" class="form-check-input"></td>
+      <td><a href="#">#${invoice.id}</a></td>
+      <td>${invoice.orderNumber}</td>
+      <td>${invoice.transactionNumber}</td>
+      <td>${invoice.dueDate}</td>
+      <td>${invoice.createdDate}</td>
+      <td><button class="btn btn-download">Download</button></td>
+      <td><span class="badge-status ${invoice.status.class}">${invoice.status.text}</span></td>
+    </tr>
+  `).join('');
+}
+
+// Render pagination controls
+function renderPagination(totalPages) {
+  const pagination = document.querySelector('.pagination');
+  if (!pagination) return;
+
+  let paginationHTML = '';
+  const maxVisiblePages = 5;
+  let startPage, endPage;
+
+  if (totalPages <= maxVisiblePages) {
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
+    const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
+
+    if (currentPage <= maxPagesBeforeCurrent) {
+      startPage = 1;
+      endPage = maxVisiblePages;
+    } else if (currentPage + maxPagesAfterCurrent >= totalPages) {
+      startPage = totalPages - maxVisiblePages + 1;
+      endPage = totalPages;
+    } else {
+      startPage = currentPage - maxPagesBeforeCurrent;
+      endPage = currentPage + maxPagesAfterCurrent;
+    }
+  }
+
+  // Previous button
+  paginationHTML += `
+    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="prev" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>`;
+
+  // First page
+  if (startPage > 1) {
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#" data-page="1">1</a>
+      </li>`;
+    if (startPage > 2) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+  }
+
+  // Page numbers
+  for (let i = startPage; i <= endPage; i++) {
+    paginationHTML += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#" data-page="page">${i}</a>
+      </li>`;
+  }
+
+  // Last page
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a>
+      </li>`;
+  }
+
+  // Next button
+  paginationHTML += `
+    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" data-page="next" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>`;
+
+  pagination.innerHTML = paginationHTML;
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  initInvoiceTable();
+
+  // Initialize tooltips
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl, {
+      boundary: document.body
     });
   });
 
-  // Delete Record
-  $('.invoice-list-table tbody').on('click', '.delete-record', function () {
-    dt_invoice.row($(this).parents('tr')).remove().draw();
+  // Handle delete record
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.delete-record')) {
+      e.preventDefault();
+      const row = e.target.closest('tr');
+      if (row) {
+        row.remove();
+      }
+    }
   });
-
-  // Filter form control to default size
-  // ? setTimeout used for multilingual table initialization
-  setTimeout(() => {
-    $('.dataTables_filter .form-control').removeClass('form-control-sm');
-    $('.dataTables_length .form-select').removeClass('form-select-sm');
-  }, 300);
 });

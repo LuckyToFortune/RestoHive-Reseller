@@ -4,6 +4,9 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
   <h4 class="fw-bold py-3 mb-4">Customer Tickets</h4>
+  
+  <!-- Hidden container for pagination data -->
+  <div id="pagination-data" data-items-per-page="8"></div>
 
   <!-- Tickets Stats -->
   <div class="row mb-4">
@@ -11,14 +14,14 @@
     <div class="col-md-3 col-sm-6 mb-3">
       <div class="card">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-0">Total tickets</h6>
-            <h2 class="mb-0 text-primary">522</h2>
-          </div>
-          <div class="avatar bg-label-primary p-2">
-            <span class="avatar-initial rounded">
-              <i class="bx bx-envelope text-primary"></i>
-            </span>
+          <div class="d-flex justify-content-between align-items-start w-100">
+            <div>
+              <h6 class="mb-0">Total tickets</h6>
+              <h2 class="mb-0" style="color: #fd7e14;">522</h2>
+            </div>
+            <div class="d-flex align-items-center" style="background-color: rgba(253, 126, 20, 0.1); border-radius: 8px; width: 36px; height: 36px; justify-content: center;">
+              <img src="/img/discounts/icon1.png" alt="Total Tickets" style="width: 20px; height: 20px; object-fit: contain;" />
+            </div>
           </div>
         </div>
       </div>
@@ -28,14 +31,14 @@
     <div class="col-md-3 col-sm-6 mb-3">
       <div class="card">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-0">You replied</h6>
-            <h2 class="mb-0 text-success">22</h2>
-          </div>
-          <div class="avatar bg-label-success p-2">
-            <span class="avatar-initial rounded">
-              <i class="bx bx-check-circle text-success"></i>
-            </span>
+          <div class="d-flex justify-content-between align-items-start w-100">
+            <div>
+              <h6 class="mb-0">You replied</h6>
+              <h2 class="mb-0" style="color: #28a745;">22</h2>
+            </div>
+            <div class="d-flex align-items-center" style="background-color: rgba(40, 167, 69, 0.1); border-radius: 8px; width: 36px; height: 36px; justify-content: center;">
+              <img src="/img/discounts/icon2.png" alt="Replied" style="width: 20px; height: 20px; object-fit: contain;" />
+            </div>
           </div>
         </div>
       </div>
@@ -45,14 +48,14 @@
     <div class="col-md-3 col-sm-6 mb-3">
       <div class="card">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-0">Waiting reply</h6>
-            <h2 class="mb-0 text-warning">52</h2>
-          </div>
-          <div class="avatar bg-label-warning p-2">
-            <span class="avatar-initial rounded">
-              <i class="bx bx-time text-warning"></i>
-            </span>
+          <div class="d-flex justify-content-between align-items-start w-100">
+            <div>
+              <h6 class="mb-0">Waiting reply</h6>
+              <h2 class="mb-0" style="color: #dc3545;">52</h2>
+            </div>
+            <div class="d-flex align-items-center" style="background-color: rgba(220, 53, 69, 0.1); border-radius: 8px; width: 36px; height: 36px; justify-content: center;">
+              <img src="/img/discounts/5.png" alt="Waiting Reply" style="width: 20px; height: 20px; object-fit: contain;" />
+            </div>
           </div>
         </div>
       </div>
@@ -62,14 +65,14 @@
     <div class="col-md-3 col-sm-6 mb-3">
       <div class="card">
         <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h6 class="mb-0">Closed</h6>
-            <h2 class="mb-0 text-info">560</h2>
-          </div>
-          <div class="avatar bg-label-info p-2">
-            <span class="avatar-initial rounded">
-              <i class="bx bx-archive text-info"></i>
-            </span>
+          <div class="d-flex justify-content-between align-items-start w-100">
+            <div>
+              <h6 class="mb-0">Closed</h6>
+              <h2 class="mb-0" style="color: #007bff;">560</h2>
+            </div>
+            <div class="d-flex align-items-center" style="background-color: rgba(0, 123, 255, 0.1); border-radius: 8px; width: 36px; height: 36px; justify-content: center;">
+              <img src="/img/discounts/icon4.png" alt="Closed" style="width: 20px; height: 20px; object-fit: contain;" />
+            </div>
           </div>
         </div>
       </div>
@@ -78,13 +81,7 @@
 
   <!-- Tickets Table -->
   <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <div class="input-group input-group-merge">
-          <span class="input-group-text"><i class="bx bx-search"></i></span>
-          <input type="text" class="form-control" placeholder="Search tickets" aria-label="Search tickets">
-        </div>
-      </div>
+    <div class="card-header d-flex justify-content-end">
       <div>
         <button class="btn" style="background-color: #dc3545; color: white; border-color: #dc3545;">Close</button>
       </div>
@@ -105,216 +102,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="09 Jan 2025" data-subject="Promoting video" data-department="Sales Department" data-requestor="Annette" data-status="Pending">09 Jan 2025</td>
-              <td>09 Jan 2025</td>
-              <td>Promoting video</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-warning">Pending</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="08 Jan 2025" data-subject="Promoting photo" data-department="Sales Department" data-requestor="Annette" data-status="Pending">08 Jan 2025</td>
-              <td>08 Jan 2025</td>
-              <td>Promoting photo</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-warning">Pending</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="07 Jan 2025" data-subject="New food on plate" data-department="Sales Department" data-requestor="Annette" data-status="Replied">07 Jan 2025</td>
-              <td>07 Jan 2025</td>
-              <td>New food on plate</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-success">Replied</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="05 Jan 2025" data-subject="Second item free" data-department="Sales Department" data-requestor="Annette" data-status="Closed">05 Jan 2025</td>
-              <td>05 Jan 2025</td>
-              <td>Second item free</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-info">Closed</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="07 Jan 2025" data-subject="New food on plate" data-department="Sales Department" data-requestor="Annette" data-status="Replied">07 Jan 2025</td>
-              <td>07 Jan 2025</td>
-              <td>New food on plate</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-success">Replied</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="04 Jan 2025" data-subject="Black friday" data-department="Sales Department" data-requestor="Annette" data-status="Waiting Reply">04 Jan 2025</td>
-              <td>04 Jan 2025</td>
-              <td>Black friday</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-danger">Waiting Reply</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="02 Jan 2025" data-subject="Today holiday" data-department="Sales Department" data-requestor="Annette" data-status="Closed">02 Jan 2025</td>
-              <td>02 Jan 2025</td>
-              <td>Today holiday</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-info">Closed</span></td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" class="form-check-input"></td>
-              <td>515</td>
-              <td class="date-clickable" data-ticket-id="515" data-date="01 Jan 2025" data-subject="Winner of the day" data-department="Sales Department" data-requestor="Annette" data-status="Closed">01 Jan 2025</td>
-              <td>01 Jan 2025</td>
-              <td>Winner of the day</td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-primary me-2">
-                    <span class="avatar-initial rounded-circle">S</span>
-                  </div>
-                  <span>Sales</span>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-items-center">
-                  <div class="avatar avatar-sm bg-label-secondary me-2">
-                    <span class="avatar-initial rounded-circle">A</span>
-                  </div>
-                  <span>Annette</span>
-                </div>
-              </td>
-              <td><span class="badge bg-label-info">Closed</span></td>
-            </tr>
+           
           </tbody>
         </table>
       </div>
       <!-- Pagination -->
-      <div class="d-flex justify-content-between align-items-center mt-3">
-        <div>
-          <span>Showing 1 to 8 of 50 entries</span>
+      <div class="d-flex justify-content-end mt-3">
+        <div id="pagination-container" class="pagination-container">
+       
         </div>
-        <nav aria-label="Page navigation">
-          <ul class="pagination">
-            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">4</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">5</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0);">last</a></li>
-          </ul>
-        </nav>
       </div>
     </div>
   </div>
@@ -396,7 +192,7 @@
 
             <!-- Reply Button -->
             <div class="d-flex justify-content-end mb-5">
-              <button type="button" class="btn btn-lg" style="background-color: orange; color: white; border-color: orange;">Reply</button>
+              <button type="submit" class="btn btn-lg" style="background-color: orange; color: white; border-color: orange;">Reply</button>
             </div>
 
             <!-- Conversation History -->
@@ -464,7 +260,7 @@
 
 <!-- Image Detail Modal -->
 <style>
-  /* Fullscreen modal with left gray background */
+ 
   #imageDetailModal {
     --bs-modal-bg: transparent;
   }
@@ -521,48 +317,116 @@
 </div>
 
 @section Scripts {
-  <script src="~/custom/js/tickets.js"></script>
+  <script>
+    console.log('Loading pagination.js...');
+  
+    function initializePagination() {
+      try {
+        if (typeof window.pagination !== 'undefined') {
+          console.log('Initializing pagination...');
+          window.pagination.init();
+          return true;
+        }
+        console.error('window.pagination is undefined');
+        return false;
+      } catch (error) {
+        console.error('Error initializing pagination:', error);
+        return false;
+      }
+    }
+    
+   
+    let initialized = initializePagination();
+    
+    if (!initialized) {
+      console.log('Pagination not initialized yet, waiting for script to load...');
+      const script = document.createElement('script');
+      script.src = '/js/pagination.js';
+      script.onload = function() {
+        console.log('pagination.js loaded, initializing...');
+        if (!initializePagination()) {
+          console.error('Failed to initialize pagination after script load');
+        }
+      };
+      script.onerror = function() {
+        console.error('Failed to load pagination.js');
+     
+        console.log('Trying alternative path...');
+        const altScript = document.createElement('script');
+        altScript.src = '@Url.Content("~/js/pagination.js")';
+        altScript.onload = function() {
+          console.log('pagination.js loaded from alternative path, initializing...');
+          initializePagination();
+        };
+        altScript.onerror = function() {
+          console.error('Failed to load pagination.js from alternative path');
+        };
+        document.head.appendChild(altScript);
+      };
+      document.head.appendChild(script);
+    }
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Add click handlers to date cells
-      const dateCells = document.querySelectorAll('.date-clickable');
-      dateCells.forEach(function(cell) {
-        cell.style.cursor = 'pointer';
-        cell.addEventListener('click', function() {
-          const ticketId = this.getAttribute('data-ticket-id');
-          const date = this.getAttribute('data-date');
-          const subject = this.getAttribute('data-subject');
-          const department = this.getAttribute('data-department');
-          const requestor = this.getAttribute('data-requestor');
-          const status = this.getAttribute('data-status');
+      // Initialize pagination
+      if (typeof window.pagination !== 'undefined') {
+        window.pagination.init();
+      }
+      
+      // Handle ticket detail modal
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.date-clickable')) {
+          const ticketRow = e.target.closest('tr');
+          if (ticketRow) {
+            // Get ticket data from data attributes
+            const ticketId = ticketRow.querySelector('.date-clickable').getAttribute('data-ticket-id');
+            const ticketDate = ticketRow.querySelector('.date-clickable').getAttribute('data-date');
+            const ticketSubject = ticketRow.querySelector('.date-clickable').getAttribute('data-subject');
+            const ticketDepartment = ticketRow.querySelector('.date-clickable').getAttribute('data-department');
+            const ticketRequestor = ticketRow.querySelector('.date-clickable').getAttribute('data-requestor');
+            const ticketStatus = ticketRow.querySelector('.date-clickable').getAttribute('data-status');
+            
+            // Update modal with ticket data
+            document.getElementById('modal-ticket-id').textContent = ticketId;
+            document.getElementById('modal-ticket-subject').textContent = ticketSubject;
+            document.getElementById('modal-ticket-department').textContent = ticketDepartment;
+            document.getElementById('modal-ticket-requestor').textContent = ticketRequestor;
+            document.getElementById('modal-ticket-date').textContent = ticketDate;
+            document.getElementById('modal-ticket-status').textContent = ticketStatus;
+            
+            // Update status badge class
+            const statusBadge = document.getElementById('modal-ticket-status-badge');
+            statusBadge.className = 'badge';
+            if (ticketStatus === 'Pending') {
+              statusBadge.classList.add('bg-label-warning');
+            } else if (ticketStatus === 'Replied') {
+              statusBadge.classList.add('bg-label-success');
+            } else if (ticketStatus === 'Closed') {
+              statusBadge.classList.add('bg-label-info');
+            } else if (ticketStatus === 'Waiting Reply') {
+              statusBadge.classList.add('bg-label-danger');
+            }
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('ticketDetailModal'));
+            modal.show();
 
-          // Populate modal with ticket data
-          document.getElementById('modal-ticket-id').textContent = ticketId;
-          document.getElementById('modal-ticket-date').textContent = date;
-          document.getElementById('modal-ticket-subject').textContent = subject;
-          document.getElementById('modal-department').value = department;
-          document.getElementById('modal-subject').value = subject;
-          document.getElementById('modal-description').value = 'Please don\'t let the title of a post be more than 25 character and always make sure you use a trending tag and keywords in the description of each of my posts.';
+           
+            setTimeout(function() {
+              const clickableImages = document.querySelectorAll('#ticketDetailModal .clickable-image');
+              clickableImages.forEach(function(image) {
+                image.addEventListener('click', function() {
+                  const imageSrc = this.getAttribute('data-image-src');
+                  const imageTitle = this.getAttribute('data-image-title');
 
-          // Show the modal
-          const modal = new bootstrap.Modal(document.getElementById('ticketDetailModal'));
-          modal.show();
-
-          // Add click handlers to images in the modal after it's shown
-          setTimeout(function() {
-            const clickableImages = document.querySelectorAll('#ticketDetailModal .clickable-image');
-            clickableImages.forEach(function(image) {
-              image.addEventListener('click', function() {
-                const imageSrc = this.getAttribute('data-image-src');
-                const imageTitle = this.getAttribute('data-image-title');
-
-                document.getElementById('imageDetailModalImage').src = imageSrc;
-                const imageModal = new bootstrap.Modal(document.getElementById('imageDetailModal'));
-                imageModal.show();
+                  document.getElementById('imageDetailModalImage').src = imageSrc;
+                  const imageModal = new bootstrap.Modal(document.getElementById('imageDetailModal'));
+                  imageModal.show();
+                });
               });
-            });
-          }, 100);
-        });
+            }, 100);
+          }
+        }
       });
 
       // Initialize tooltips

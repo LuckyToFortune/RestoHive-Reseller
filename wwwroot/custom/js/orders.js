@@ -65,7 +65,7 @@ $(function () {
           targets: 1,
           render: function (data, type, full, meta) {
             var $order_id = full['order'];
-            return '<a href="/Ecommerce/OrderDetails"><span>#' + $order_id + '</span></a>';
+            return '<span class="fw-bold text-dark">#' + $order_id + '</span>';
           }
         },
         {
@@ -136,20 +136,15 @@ $(function () {
           responsivePriority: 1,
           render: function (data, type, full, meta) {
             return (
-              '<button class="btn btn-sm btn-track" style="background-color: #fd7e14; color: white; border-color: #fd7e14;" onclick="openTrackingPage(\'' + full.order + '\', \'' + (full.customer || '') + '\', \'' + full.date + '\', ' + full.status + ')">Track</button>'
+              '<button class="btn btn-sm btn-track" onclick="openTrackingPage(\'' + full.order + '\', \'' + (full.customer || '') + '\', \'' + full.date + '\', ' + full.status + ')">Track</button>'
             );
           }
         }
       ],
       order: [2, 'asc'], //set any columns order asc/desc
-      dom:
-        '<"card-header py-0 d-flex flex-column flex-md-row align-items-center"<f><"d-flex align-items-center justify-content-md-end gap-2 justify-content-center"l<"dt-action-buttons"B>>' +
-        '>t' +
-        '<"row"' +
-        '<"col-sm-12 col-md-6"i>' +
-        '<"col-sm-12 col-md-6"p>' +
-        '>',
-      lengthMenu: [10, 40, 60, 80, 100], //for length of menu
+      dom: "<'card-header py-0 d-flex flex-column flex-md-row align-items-center'<'head-label'f><'dt-action-buttons text-end'B>>t<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+      lengthChange: false,
+      pageLength: 10,
       language: {
         sLengthMenu: '_MENU_',
         search: '',
@@ -160,142 +155,30 @@ $(function () {
           previous: '<i class="bx bx-chevron-left bx-18px"></i>'
         }
       },
-      // Buttons with Dropdown
+      // Export Button
       buttons: [
         {
-          extend: 'collection',
-          className: 'btn btn-label-secondary dropdown-toggle',
-          text: '<i class="bx bx-export bx-sm me-2"></i>Export',
-          buttons: [
-            {
-              extend: 'print',
-              text: '<i class="bx bx-printer me-2" ></i>Print',
-              className: 'dropdown-item',
-              exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7],
-                format: {
-                  body: function (inner, coldex, rowdex) {
-                    if (inner.length <= 0) return inner;
-                    var el = $.parseHTML(inner);
-                    var result = '';
-                    $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('order-name')) {
-                        result = result + item.lastChild.firstChild.textContent;
-                      } else if (item.innerText === undefined) {
-                        result = result + item.textContent;
-                      } else result = result + item.innerText;
-                    });
-                    return result;
-                  }
-                }
-              },
-              customize: function (win) {
-                // Customize print view for dark
-                $(win.document.body)
-                  .css('color', headingColor)
-                  .css('border-color', borderColor)
-                  .css('background-color', bodyBg);
-                $(win.document.body)
-                  .find('table')
-                  .addClass('compact')
-                  .css('color', 'inherit')
-                  .css('border-color', 'inherit')
-                  .css('background-color', 'inherit');
-              }
-            },
-            {
-              extend: 'csv',
-              text: '<i class="bx bx-file me-2" ></i>Csv',
-              className: 'dropdown-item',
-              exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7],
-                format: {
-                  body: function (inner, coldex, rowdex) {
-                    if (inner.length <= 0) return inner;
-                    var el = $.parseHTML(inner);
-                    var result = '';
-                    $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('order-name')) {
-                        result = result + item.lastChild.firstChild.textContent;
-                      } else if (item.innerText === undefined) {
-                        result = result + item.textContent;
-                      } else result = result + item.innerText;
-                    });
-                    return result;
-                  }
-                }
-              }
-            },
-            {
-              extend: 'excel',
-              text: '<i class="bx bxs-file-export me-2"></i>Excel',
-              className: 'dropdown-item',
-              exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7],
-                format: {
-                  body: function (inner, coldex, rowdex) {
-                    if (inner.length <= 0) return inner;
-                    var el = $.parseHTML(inner);
-                    var result = '';
-                    $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('order-name')) {
-                        result = result + item.lastChild.firstChild.textContent;
-                      } else if (item.innerText === undefined) {
-                        result = result + item.textContent;
-                      } else result = result + item.innerText;
-                    });
-                    return result;
-                  }
-                }
-              }
-            },
-            {
-              extend: 'pdf',
-              text: '<i class="bx bxs-file-pdf me-2"></i>Pdf',
-              className: 'dropdown-item',
-              exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7],
-                format: {
-                  body: function (inner, coldex, rowdex) {
-                    if (inner.length <= 0) return inner;
-                    var el = $.parseHTML(inner);
-                    var result = '';
-                    $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('order-name')) {
-                        result = result + item.lastChild.firstChild.textContent;
-                      } else if (item.innerText === undefined) {
-                        result = result + item.textContent;
-                      } else result = result + item.innerText;
-                    });
-                    return result;
-                  }
-                }
-              }
-            },
-            {
-              extend: 'copy',
-              text: '<i class="bx bx-copy me-2" ></i>Copy',
-              className: 'dropdown-item',
-              exportOptions: {
-                columns: [2, 3, 4, 5, 6, 7, 8],
-                format: {
-                  body: function (inner, coldex, rowdex) {
-                    if (inner.length <= 0) return inner;
-                    var el = $.parseHTML(inner);
-                    var result = '';
-                    $.each(el, function (index, item) {
-                      if (item.classList !== undefined && item.classList.contains('order-name')) {
-                        result = result + item.lastChild.firstChild.textContent;
-                      } else if (item.innerText === undefined) {
-                        result = result + item.textContent;
-                      } else result = result + item.innerText;
-                    });
-                    return result;
-                  }
-                }
+          extend: 'excel',
+          className: 'btn btn-warning my-2',
+          text: '<i class="bx bx-export me-2"></i>Export',
+          exportOptions: {
+            columns: [1, 2, 3, 4, 5, 6, 7],
+            format: {
+              body: function (inner, coldex, rowdex) {
+                if (inner.length <= 0) return inner;
+                var el = $.parseHTML(inner);
+                var result = '';
+                $.each(el, function (index, item) {
+                  if (item.classList !== undefined && item.classList.contains('order-name')) {
+                    result = result + item.lastChild.firstChild.textContent;
+                  } else if (item.innerText === undefined) {
+                    result = result + item.textContent;
+                  } else result = result + item.innerText;
+                });
+                return result;
               }
             }
-          ]
+          }
         }
       ],
       // For responsive popup
@@ -332,6 +215,12 @@ $(function () {
         }
       }
     });
+    // Place Date & Time button into DataTables header next to Export
+    var dateBtnHtml = '<button class="btn border d-flex align-items-center px-3 py-2 rounded-pill my-2"><i class="bx bx-time-five me-2"></i>Date And Time</button>';
+    var $header = dt_order_table.closest('.card').find('.card-header');
+    $header.addClass('justify-content-between');
+    $('.head-label').empty().append(dateBtnHtml);
+    $('.dt-action-buttons').removeClass('text-end').addClass('d-flex align-items-center');
     $('.dataTables_length').addClass('ms-n2');
     $('.dt-action-buttons').addClass('pt-0');
     $('.dataTables_filter').addClass('ms-n3 mb-0 mb-md-6');
@@ -357,8 +246,8 @@ $(function () {
   }, 300);
 });
 
-// Order Tracking Modal Function
-function openTrackingPage(orderId, customerName, orderDate, orderStatus) {
+// Make the function globally available
+window.openTrackingPage = function(orderId, customerName, orderDate, orderStatus) {
   // Populate modal with order data (same as before)
   document.getElementById('tracking-order').textContent = '#' + orderId;
   document.getElementById('tracking-customer').textContent = customerName;
@@ -379,12 +268,12 @@ function openTrackingPage(orderId, customerName, orderDate, orderStatus) {
   document.getElementById('tracking-price').textContent = paymentAmount;
   var statusText = '';
   var deliveryDate = '';
-  var statusColor = '#fd7e14';
+  var statusColor = '#1dbf73';
   switch(parseInt(orderStatus)) {
     case 1:
-      statusText = 'Processing';
+      statusText = 'Shipped';
       deliveryDate = '17 June - 19 June';
-      statusColor = '#fd7e14';
+      statusColor = '#ff8f00';
       break;
     case 2:
       statusText = 'Delivered';
@@ -402,9 +291,9 @@ function openTrackingPage(orderId, customerName, orderDate, orderStatus) {
       statusColor = '#bfa21d';
       break;
     default:
-      statusText = 'Processing';
+      statusText = 'Shipped';
       deliveryDate = '17 June - 19 June';
-      statusColor = '#fd7e14';
+      statusColor = '#ff8f00';
   }
   document.getElementById('tracking-status').textContent = statusText;
   document.getElementById('tracking-status').style.color = statusColor;
@@ -419,17 +308,36 @@ function openTrackingPage(orderId, customerName, orderDate, orderStatus) {
   // Hide orders table and show tracking page
   document.querySelector('.datatables-order').parentElement.parentElement.style.display = 'none';
   document.getElementById('orderTrackingPage').style.display = '';
+  var ordersHeader = document.getElementById('ordersHeaderRow');
+  if (ordersHeader) ordersHeader.style.display = 'none';
+
+  // Show the shipping info and map sections
+  const shippingContainer = document.getElementById('shippingInfoContainer');
+  if (shippingContainer) {
+    shippingContainer.style.display = 'flex';
+  }
 }
 // Back button handler
 $(document).on('click', '#ordersBack', function(e) {
   e.preventDefault();
+  // Hide the tracking page
   document.getElementById('orderTrackingPage').style.display = 'none';
+
+  // Show the orders table
   document.querySelector('.datatables-order').parentElement.parentElement.style.display = '';
+  var ordersHeader = document.getElementById('ordersHeaderRow');
+  if (ordersHeader) ordersHeader.style.display = '';
+
+  // Hide the shipping info and map sections
+  const shippingContainer = document.getElementById('shippingInfoContainer');
+  if (shippingContainer) {
+    shippingContainer.style.display = 'none';
+  }
 });
 
 // Function to update tracking timeline based on order status
 function updateTrackingTimeline(orderStatus, orderDate) {
-  const timeline = document.querySelector('#tracking-timeline');
+  const timeline = document.getElementById('tracking-timeline');
   if (!timeline) return;
 
   // Format the order date
@@ -443,46 +351,41 @@ function updateTrackingTimeline(orderStatus, orderDate) {
   document.getElementById('order-placed-date').textContent = formattedDate;
   document.getElementById('dispatched-date').textContent = formattedDate;
 
-  // Set delivery date based on status
+  // Delivered date
   let deliveryDate = '';
   if (orderStatus == 2) {
     deliveryDate = '10-20-2020';
-  } else if (orderStatus >= 1) {
-    deliveryDate = '17 June - 19 June';
   } else {
-    deliveryDate = formattedDate + ' - 19 June';
+    deliveryDate = '17 June - 19 June';
   }
   document.getElementById('delivered-date').textContent = deliveryDate;
 
-  // Reset all timeline elements
-  const circles = timeline.querySelectorAll('.rounded-circle');
-  const lines = timeline.querySelectorAll('.flex-grow-1');
+  // Style circles and lines to match screenshot
+  const circles = timeline.querySelectorAll('.timeline-circle');
+  const firstLine = timeline.querySelector('.timeline-line.first');
+  const middleLine = timeline.querySelectorAll('.timeline-line.middle');
+  const lastLine = timeline.querySelector('.timeline-line.last');
 
-  // Order Placed - always completed
-  circles[0].className = 'rounded-circle bg-warning d-flex align-items-center justify-content-center me-3';
-  circles[0].style.width = '40px';
-  circles[0].style.height = '40px';
+  // Reset basic styles
+  firstLine.classList.remove('inactive');
+  lastLine.classList.add('inactive');
 
-  // Dispatched - completed for status 1, 2, 4
-  if (orderStatus >= 1) {
-    circles[1].className = 'rounded-circle bg-warning d-flex align-items-center justify-content-center me-3';
-    lines[0].className = 'flex-grow-1 bg-warning';
-    lines[0].style.height = '2px';
-  } else {
-    circles[1].className = 'rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3';
-    lines[0].className = 'flex-grow-1 bg-secondary';
-    lines[0].style.height = '2px';
+  // Order Placed circle active (orange)
+  circles[0].classList.add('bg-warning');
+  // Dispatched circle active for shipped/delivered
+  if (orderStatus == 1 || orderStatus == 2) {
+    circles[1].classList.add('bg-warning');
+    middleLine[0].classList.remove('inactive');
   }
-
-  // Delivered - completed for status 2
+  // Delivered circle active only when delivered
   if (orderStatus == 2) {
-    circles[2].className = 'rounded-circle bg-warning d-flex align-items-center justify-content-center me-3';
-    lines[1].className = 'flex-grow-1 bg-warning';
-    lines[1].style.height = '2px';
+    circles[2].style.backgroundColor = '#ffc107';
+    circles[2].querySelector('i') && (circles[2].querySelector('i').style.color = '#fff');
+    lastLine.classList.remove('inactive');
   } else {
-    circles[2].className = 'rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3';
-    lines[1].className = 'flex-grow-1 bg-secondary';
-    lines[1].style.height = '2px';
+    circles[2].style.backgroundColor = '#e9ecef';
+    const deliveredIcon = circles[2].querySelector('i');
+    if (deliveredIcon) deliveredIcon.style.color = '#6c757d';
   }
 }
 

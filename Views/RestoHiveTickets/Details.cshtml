@@ -2,7 +2,7 @@
     ViewData["Title"] = "Ticket Details";
     var ticketId = ViewBag.TicketId;
     ViewData["contentNavbar"] = true;
-    ViewData["isFooter"] = false; // Hide footer on this page
+    ViewData["isFooter"] = false; 
 }
 
 <style>
@@ -24,8 +24,8 @@
         padding: 1.5rem 0;
         margin-top: 2rem;
     }
-    
-    /* Ensure ticket content doesn't get cut off */
+
+   
     .container-fluid.py-4 {
         padding-bottom: 3rem;
     }
@@ -179,30 +179,34 @@
         <div class="col-md-3">
             <div class="card h-100">
                 <div class="card-body d-flex flex-column align-items-center justify-content-center text-center p-4">
-                    <div class="bg-black rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
-                        <img src="/img/discounts/Vector.png" alt="Ticket" class="img-fluid" style="max-height: 60px;">
+                    <div class="mb-3">
+                        <div style="width: 80px; height: 80px; background-color: #000000; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <img src="/img/discounts/Vector.png" alt="Ticket" style="width: 40px; height: 40px; object-fit: contain;">
+                        </div>
                     </div>
-                    <h5 class="mb-2">Promoting video</h5>
-                    <div class="text-muted">@DateTime.Now.ToString("dd MMM yyyy")</div>
+                    <h4 class="mb-1 fw-bold" style="font-size: 1.25rem;">Ticket</h4>
+                    <p class="mb-1 text-muted">@DateTime.Now.ToString("MMM dd, yyyy")</p>
+                    <p class="mb-0 text-muted">Promoting video</p>
                 </div>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="d-flex justify-content-start mb-4">
                 <a href="/RestoHiveTickets" class="btn btn-link text-dark p-0">
                     <i class="bx bx-arrow-back me-1"></i> Back
                 </a>
-                <h3 class="mb-0">Ticket Details</h3>
-                <div></div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <form class="needs-validation" novalidate>
+                    <form action="/RestoHiveTickets/Details" method="post" class="needs-validation" novalidate>
                         <div class="mb-3">
-                            <label for="department" class="form-label fw-medium">Department</label>
+                            <div class="mb-2">
+                                <h4 class="mb-0 fw-bold" style="font-size: 1.25rem;">Ticket #@ticketId</h4>
+                            </div>
+                            <label for="department" class="form-label">Department</label>
                             <select class="form-select" id="department" required>
                                 <option value="" disabled selected>Select Department</option>
                                 <option>Sales Department</option>
@@ -231,54 +235,72 @@
                             </div>
                         </div>
 
+                        <!-- Attached Image Section -->
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="/img/discounts/upload.png" alt="Attachment" style="width: 16px; height: 16px; margin-right: 8px;">
+                            <span style="color: #ff6b00; font-weight: 500;">Attached image</span>
+                        </div>
 
+                        <!-- Reply Button -->
+                        <div class="d-flex justify-content-end mb-4">
+                            <button type="button" class="btn btn-primary" style="background-color: #ff6b00; border-color: #ff6b00;">
+                                Reply
+                            </button>
+                        </div>
 
-                <!-- Replies Section -->
-                <div class="mt-5">
-                    <h5 class="mb-4">Replies</h5>
-                    
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <tbody>
-                                <!-- Reply 1 -->
-                                <tr>
-                                    <td class="border-0" style="vertical-align: top;">
-                                        <div class="d-flex">
-                                            <div class="text-muted small me-3" style="width: 120px;">09 Jan 2025, 11:45 AM</div>
-                                            <div class="flex-grow-1">
-                                        <p class="mb-3">Thank you for reaching out, Annette! We'd be happy to help you promote your video content. Here are our current promotion packages...</p>
-                                        <div class="d-flex gap-1 mb-2">
-                                            <div class="position-relative">
-                                                <img src="/img/discounts/image.png" class="cursor-pointer p-0 border-0" style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;" alt="Promotion Package" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewImage(this)">
-                                                <div class="position-absolute top-0 start-0 translate-middle">
-                                                    <img src="/img/discounts/Vector.png" width="12" height="12" class="d-block">
+                        <!-- Replies Section -->
+                        <div class="mt-5">
+
+                            <div class="table-responsive">
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 160px; font-weight: 500; color: #7e8299; padding-right: 40px;">DATE</th>
+                                            <th style="font-weight: 500; color: #7e8299;">DESCRIPTION</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Reply 1 -->
+                                        <tr>
+                                            <td class="border-0" style="vertical-align: top; padding-right: 40px;">
+                                                <div class="text-muted small">09 Jan 2025, 11:45 AM</div>
+                                            </td>
+                                            <td class="border-0" style="vertical-align: top;">
+                                                <p class="mb-3">Thank you for reaching out, Annette! We'd be happy to help you promote your video content. Here are our current promotion packages...</p>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/img/discounts/image.png" alt="Image" class="img-thumbnail" style="width: 50px; height: 40px; object-fit: cover; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="/img/discounts/image.png" onclick="viewImage(this)">
+                                                        <span class="text-muted small ms-2">image_001.jpg</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="/img/discounts/image.png" class="img-thumbnail" style="width: 50px; height: 40px; object-fit: cover; cursor: pointer;" alt="Promotion Package" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewImage(this)">
+                                                        <span class="text-muted small ms-2">promo_package.png</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="position-relative">
-                                                <img src="/img/discounts/image.png" class="cursor-pointer p-0 border-0" style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;" alt="Promotion Package" data-bs-toggle="modal" data-bs-target="#imageModal" onclick="viewImage(this)">
-                                                <div class="position-absolute top-0 start-0 translate-middle">
-                                                    <img src="/img/discounts/Vector.png" width="12" height="12" class="d-block">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            </td>
+                                        </tr>
 
-                                <!-- Divider -->
-                                <tr>
-                                    <td colspan="2" class="py-0">
-                                        <hr class="my-4">
-                                    </td>
-                                </tr>
+                                        <!-- Divider -->
+                                        <tr>
+                                            <td colspan="2" class="py-0">
+                                                <hr class="my-4">
+                                            </td>
+                                        </tr>
 
-                                <!-- Reply 2 -->
-                                <tr>
-                                    <td class="border-0" style="vertical-align: top;">
-                                        <div class="d-flex">
-                                            <div class="text-muted small me-3" style="width: 120px;">09 Jan 2025, 10:30 AM</div>
-                                            <div class="flex-grow-1">
-                                        <p class="mb-0">Hello, I would like to inquire about promoting our new video content. Could you please provide more information about the available promotion packages?</p>
-                                    </td>
+                                        <!-- Reply 2 -->
+                                        <tr>
+                                            <td class="border-0" style="vertical-align: top; padding-right: 40px;">
+                                                <div class="text-muted small">09 Jan 2025, 10:30 AM</div>
+                                            </td>
+                                            <td class="border-0" style="vertical-align: top;">
+                                                <p class="mb-0">Hello, I would like to inquire about promoting our new video content. Could you please provide more information about the available promotion packages?</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -317,35 +339,49 @@
     <script>
         function viewImage(element) {
             const modalImage = document.getElementById('modalImage');
-            modalImage.src = element.src;
-            modalImage.alt = element.alt;
+            if (modalImage) {
+                modalImage.src = element.src;
+                modalImage.alt = element.alt || 'Enlarged view';
+            }
         }
 
         // This would be populated with actual ticket data in a real application
         document.addEventListener('DOMContentLoaded', function() {
-            // Get ticket ID from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const ticketId = urlParams.get('id');
+            // Get ticket ID from the URL path
+            const pathParts = window.location.pathname.split('/');
+            const ticketId = pathParts[pathParts.length - 1];
 
-            if (ticketId) {
+            if (ticketId && !isNaN(ticketId)) {
                 // In a real app, you would fetch the ticket details from the server
                 // For now, we'll just update the UI with the ID
-                document.querySelectorAll('#ticket-id, #ticket-id-header').forEach(el => {
-                    el.textContent = ticketId;
-                });
-
+                const ticketIdElements = document.querySelectorAll('.ticket-id');
+                if (ticketIdElements.length > 0) {
+                    ticketIdElements.forEach(el => {
+                        el.textContent = ticketId;
+                    });
+                }
                 // You would also update other fields with the actual ticket data
             }
 
             // Handle form submission
-            const replyForm = document.getElementById('reply-form');
-            if (replyForm) {
-                replyForm.addEventListener('submit', function(e) {
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    // Handle reply submission
-                    alert('Your reply has been sent!');
+                    // Handle form submission
+                    alert('Your request has been submitted!');
                 });
-            }
+            });
+
+            // Initialize image modal functionality
+            document.querySelectorAll('img[data-bs-toggle="modal"]').forEach(img => {
+                img.addEventListener('click', function() {
+                    const modalImage = document.getElementById('modalImage');
+                    if (modalImage) {
+                        modalImage.src = this.src;
+                        modalImage.alt = this.alt || 'Enlarged view';
+                    }
+                });
+            });
         });
     </script>
 }

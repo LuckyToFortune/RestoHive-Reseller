@@ -38,10 +38,10 @@
   </div>
 
   <div class="card-datatable table-responsive">
-    <table class="invoice-table table border-top">
+    <table id="invoicesTable" class="table border-top">
       <thead>
         <tr>
-          <th><input type="checkbox"></th>
+          <th><input type="checkbox" id="selectAll"></th>
           <th>INVOICE ID</th>
           <th>ORDER NUMBER</th>
           <th>TRANSACTION NUMBER</th>
@@ -52,117 +52,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>38847849</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-paid">Paid</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>847874867</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-canceled">Canceled</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>38578783</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-refunded">Refunded</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>94856948</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-pending">Pending</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>847874867</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-unpaid">Unpaid</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>38578769</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-partial">Partially Refund</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>39589486</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-canceled">Canceled</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>49586794</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-pending">Pending</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>39458944</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-refunded">Refunded</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>94589648</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-paid">Paid</span></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td><a href="#">#6624</a></td>
-          <td>34856784</td>
-          <td>48567834678575</td>
-          <td>Mar 31, 4:33 PM</td>
-          <td>Mar 11, 2:33 PM</td>
-          <td><button class="btn btn-download">Download</button></td>
-          <td><span class="badge-status badge-paid">Paid</span></td>
-        </tr>
+      
       </tbody>
     </table>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination mb-0">
+         
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>

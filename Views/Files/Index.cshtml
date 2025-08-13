@@ -32,21 +32,22 @@
 <div class="row mb-4">
   <div class="col-12">
     <div class="d-flex gap-2">
-      <button class="btn btn-outline-secondary" onclick="switchToMyFiles()">
-        <i class="bx bx-search me-1"></i>
+      <button class="btn btn-outline-secondary rounded-pill px-4" onclick="switchToMyFiles()">
+        <img src="~/img/discounts/ic1.png" alt="My Files" style="width: 16px; height: 16px; margin-right: 6px;" />
         My Files
       </button>
-      <button class="btn btn-warning active" onclick="switchToCustomers()">
-        <i class="bx bx-search me-1"></i>
+      <button class="btn btn-warning active rounded-pill px-4" onclick="switchToCustomers()">
+        <img src="~/img/discounts/ic2.png" alt="Customers" style="width: 16px; height: 16px; margin-right: 6px;" />
         Customers
       </button>
     </div>
   </div>
 </div>
 
-<!-- Files Header -->
-<div class="row mb-4">
-  <div class="col-12">
+<!-- Documents Table -->
+<div class="card">
+  <!-- Card Header with Customer ID and Actions -->
+  <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
       <div>
         <h3 class="fw-bold mb-0">Customer ID: 5151</h3>
@@ -68,14 +69,12 @@
       </div>
     </div>
   </div>
-</div>
-
-<!-- Documents Table -->
-<div class="card">
+  
+  <!-- Table -->
   <div class="card-datatable table-responsive">
-    <table class="datatables-documents table border-top">
+    <table class="datatables-documents table">
       <thead>
-        <tr>
+        <tr style="background-color: #f9f9f9;">
           <th>DATE</th>
           <th>DOCUMENT TITLE</th>
           <th>FILE OF</th>
@@ -83,165 +82,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>01 Jan 2025</td>
-          <td>Contract employment</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-2">
-                <span class="avatar-initial rounded-circle bg-primary">
-                  <i class="bx bx-user text-white"></i>
-                </span>
-              </div>
-              <span>Annette</span>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(1)">
-                <i class="bx bx-download"></i>
-                Download
-              </button>
-              <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(1)">
-                <i class="bx bx-show"></i>
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>01 Jan 2025</td>
-          <td>Contract employment</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-2">
-                <span class="avatar-initial rounded-circle bg-primary">
-                  <i class="bx bx-user text-white"></i>
-                </span>
-              </div>
-              <span>Annette</span>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(2)">
-                <i class="bx bx-download"></i>
-                Download
-              </button>
-              <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(2)">
-                <i class="bx bx-show"></i>
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>01 Jan 2025</td>
-          <td>Contract employment</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-2">
-                <span class="avatar-initial rounded-circle bg-primary">
-                  <i class="bx bx-user text-white"></i>
-                </span>
-              </div>
-              <span>Annette</span>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(3)">
-                <i class="bx bx-download"></i>
-                Download
-              </button>
-              <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(3)">
-                <i class="bx bx-show"></i>
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>01 Jan 2025</td>
-          <td>Contract employment</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-2">
-                <span class="avatar-initial rounded-circle bg-primary">
-                  <i class="bx bx-user text-white"></i>
-                </span>
-              </div>
-              <span>Annette</span>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(4)">
-                <i class="bx bx-download"></i>
-                Download
-              </button>
-              <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(4)">
-                <i class="bx bx-show"></i>
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>01 Jan 2025</td>
-          <td>Contract employment</td>
-          <td>
-            <div class="d-flex align-items-center">
-              <div class="avatar avatar-sm me-2">
-                <span class="avatar-initial rounded-circle bg-primary">
-                  <i class="bx bx-user text-white"></i>
-                </span>
-              </div>
-              <span>Annette</span>
-            </div>
-          </td>
-          <td>
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-warning" onclick="downloadDocument(5)">
-                <i class="bx bx-download"></i>
-                Download
-              </button>
-              <button class="btn btn-sm btn-outline-warning" onclick="viewDocument(5)">
-                <i class="bx bx-show"></i>
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
+        
       </tbody>
     </table>
-  </div>
-
-  <!-- Pagination -->
-  <div class="card-footer">
-    <div class="d-flex justify-content-end">
-      <nav aria-label="Page navigation">
-        <ul class="pagination mb-0">
-          <li class="page-item active">
-            <a class="page-link" href="javascript:void(0);">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">4</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">5</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="javascript:void(0);">last</a>
-          </li>
-        </ul>
-      </nav>
+    
+    <!-- Pagination -->
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <nav aria-label="Page navigation">
+          <ul class="pagination mb-0">
+       
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </div>

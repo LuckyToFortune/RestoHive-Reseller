@@ -1,8 +1,173 @@
 /**
- * Academy Dashboard charts and datatable
+ * Balance page functionality including pagination
  */
 
 'use strict';
+
+// Mock data for payouts
+const mockPayouts = [];
+const statuses = [
+  { class: 'bg-label-info', icon: 'bx-time', text: 'Upcoming' },
+  { class: 'bg-label-primary', icon: 'bx-refresh', text: 'Processing' },
+  { class: 'bg-label-warning', icon: 'bx-minus-circle', text: 'Debited' },
+  { class: 'bg-label-success', icon: 'bx-check-circle', text: 'Paid' }
+];
+
+// Generate mock data
+for (let i = 1; i <= 50; i++) {
+  const amount = (Math.random() * 10000 + 500).toFixed(2);
+  const status = statuses[Math.floor(Math.random() * statuses.length)];
+  const date = new Date();
+  date.setDate(date.getDate() - Math.floor(Math.random() * 30));
+  
+  mockPayouts.push({
+    id: i,
+    amount: `$${amount} CAD`,
+    destination: 'STRIPE TEST BANK **** 6789',
+    date: date.toLocaleString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: '2-digit',
+      hour12: true 
+    }),
+    status: status
+  });
+}
+
+// Pagination state
+let currentPage = 1;
+const itemsPerPage = 5;
+const totalPages = Math.ceil(mockPayouts.length / itemsPerPage);
+
+// Initialize pagination
+function initPagination() {
+  renderTable();
+  renderPagination();
+  
+  // Handle pagination clicks
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('page-link')) {
+      e.preventDefault();
+      
+      const pageText = e.target.textContent.trim().toLowerCase();
+      
+      if (pageText === 'last') {
+        currentPage = totalPages;
+      } else if (pageText === 'first') {
+        currentPage = 1;
+      } else if (!isNaN(parseInt(pageText))) {
+        currentPage = parseInt(pageText);
+      } else if (pageText.includes('next') && currentPage < totalPages) {
+        currentPage++;
+      } else if (pageText.includes('prev') && currentPage > 1) {
+        currentPage--;
+      }
+      
+      renderTable();
+      renderPagination();
+    }
+  });
+}
+
+// Render table with current page data
+function renderTable() {
+  const tbody = document.querySelector('#payoutsTable tbody');
+  if (!tbody) return;
+  
+  const startIdx = (currentPage - 1) * itemsPerPage;
+  const endIdx = startIdx + itemsPerPage;
+  const currentItems = mockPayouts.slice(startIdx, endIdx);
+  
+  tbody.innerHTML = currentItems.map(item => `
+    <tr>
+      <td class="fw-bold">${item.amount}</td>
+      <td>${item.destination}</td>
+      <td>${item.date}</td>
+      <td><span class="badge ${item.status.class}"><i class="bx ${item.status.icon} me-1"></i>${item.status.text}</span></td>
+    </tr>
+  `).join('');
+}
+
+// Render pagination controls
+function renderPagination() {
+  const paginationContainer = document.querySelector('.pagination');
+  if (!paginationContainer) return;
+  
+  let paginationHTML = '';
+  const maxVisiblePages = 5;
+  let startPage, endPage;
+  
+  if (totalPages <= maxVisiblePages) {
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    const maxPagesBeforeCurrent = Math.floor(maxVisiblePages / 2);
+    const maxPagesAfterCurrent = Math.ceil(maxVisiblePages / 2) - 1;
+    
+    if (currentPage <= maxPagesBeforeCurrent) {
+      startPage = 1;
+      endPage = maxVisiblePages;
+    } else if (currentPage + maxPagesAfterCurrent >= totalPages) {
+      startPage = totalPages - maxVisiblePages + 1;
+      endPage = totalPages;
+    } else {
+      startPage = currentPage - maxPagesBeforeCurrent;
+      endPage = currentPage + maxPagesAfterCurrent;
+    }
+  }
+  
+  // Previous button
+  paginationHTML += `
+    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>`;
+  
+  // First page
+  if (startPage > 1) {
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#">1</a>
+      </li>`;
+    if (startPage > 2) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+  }
+  
+  // Page numbers
+  for (let i = startPage; i <= endPage; i++) {
+    paginationHTML += `
+      <li class="page-item ${i === currentPage ? 'active' : ''}">
+        <a class="page-link" href="#">${i}</a>
+      </li>`;
+  }
+  
+  // Last page
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      paginationHTML += '<li class="page-item disabled"><span class="page-link">...</span></li>';
+    }
+    paginationHTML += `
+      <li class="page-item">
+        <a class="page-link" href="#">${totalPages}</a>
+      </li>`;
+  }
+  
+  // Next button
+  paginationHTML += `
+    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>`;
+  
+  paginationContainer.innerHTML = paginationHTML;
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initPagination);
 
 // Hour pie chart
 

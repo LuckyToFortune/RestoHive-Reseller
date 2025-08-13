@@ -27,19 +27,23 @@
       font-size: 0.85rem;
       padding: 0.35rem 0.3rem;
     }
-    .btn-track {
-      background: #fd7e14;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      padding: 0.12rem 0.7rem;
-      border: none;
-      box-shadow: none;
-      transition: background 0.2s;
+    .btn.btn-track {
+      background-color: #fde1c5 !important;
+      color: #fd7e14 !important;
+      font-weight: 700;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      padding: 0.35rem 1rem;
+      border: 0 !important;
+      box-shadow: none !important;
+      transition: background-color 0.15s ease;
     }
-    .btn-track:hover {
-      background: #e96b00;
-      color: #fff;
+    .btn.btn-track:hover,
+    .btn.btn-track:focus,
+    .btn.btn-track:active {
+      background-color: #fde1c5 !important;
+      color: #fd7e14 !important;
+      box-shadow: none !important;
     }
     .order-status {
       font-size: 0.85rem;
@@ -52,6 +56,37 @@
     .order-status-canceled { background: #f7e6e6; color: #e74c3c; }
     .order-status-processing { background: #fff7e6; color: #fd7e14; }
     .order-status-hold { background: #fdf6e3; color: #bfa21d; }
+
+    /* Tracking header styles */
+    .tracking-title {
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #5a6076;
+      margin-bottom: 0.75rem;
+    }
+    .tracking-summary {
+      background: #f5f6f8;
+      border: 1px solid #e9ebef;
+      border-radius: 10px;
+      padding: 20px 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .tracking-summary .summary-label {
+      color: #8b90a0;
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .tracking-summary .summary-value {
+      color: #1a1d24;
+      font-weight: 600;
+    }
   </style>
 }
 
@@ -64,7 +99,7 @@
 }
 
 <!-- Orders Top Bar -->
-<div class="row align-items-center mb-3">
+<div class="row align-items-center mb-3" id="ordersHeaderRow">
   <div class="col-12">
     <h4 class="fw-bold">Orders</h4>
   </div>
@@ -87,94 +122,188 @@
         </tr>
       </thead>
       <tbody>
-        <!-- Table rows will be rendered by DataTables.js -->
+    
       </tbody>
     </table>
   </div>
 </div>
 
 <!-- Order Tracking Page (hidden by default) -->
-<div id="orderTrackingPage" style="display:none;">
+<div id="orderTrackingPage" style="display:none;background:#ffffff; padding: 6px 12px 0;">
   <div class="row align-items-center mb-3">
-    <div class="col-12 position-relative">
-      <span id="ordersBack" style="position:absolute;left:0;top:50%;transform:translateY(-50%);cursor:pointer;font-size:1.3rem;">
-        &larr;
-      </span>
-      <span class="fw-bold d-block text-center" style="font-size:1.5rem;">Order Tracking Page</span>
+    <div class="col-12 d-flex align-items-center">
+      <button id="ordersBack" class="btn btn-link p-0 me-2 text-body" type="button" aria-label="Back" style="text-decoration:none;">
+        <i class="bx bx-chevron-left" style="font-size:1.5rem; line-height:1;"></i>
+      </button>
+      <h5 class="mb-0 fw-semibold text-body">Order Tracking Page</h5>
     </div>
   </div>
-  <div class="card mb-4">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="d-flex flex-column">
-            <span class="text-muted small">DATE</span>
-            <span class="fw-bold" id="tracking-date">14 June</span>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="d-flex flex-column">
-            <span class="text-muted small">PRICE</span>
-            <span class="fw-bold" id="tracking-price">$85.00</span>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="d-flex flex-column">
-            <span class="text-muted small">SHIP TO</span>
-            <span class="fw-bold" id="tracking-customer">John Doe</span>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="d-flex flex-column">
-            <span class="text-muted small">ORDER</span>
-            <span class="fw-bold" id="tracking-order">#6624</span>
-          </div>
-        </div>
-      </div>
+  <div class="tracking-title">Order Tracking Page</div>
+  <div class="tracking-summary mb-4">
+    <div>
+      <span class="summary-label">DATE</span>
+      <span class="summary-value" id="tracking-date">14 June</span>
+    </div>
+    <div>
+      <span class="summary-label">PRICE</span>
+      <span class="summary-value" id="tracking-price">$85.00</span>
+    </div>
+    <div>
+      <span class="summary-label">SHIP TO</span>
+      <span class="summary-value" id="tracking-customer">John Doe</span>
+    </div>
+    <div class="text-md-end">
+      <span class="summary-label">ORDER</span>
+      <span class="summary-value" id="tracking-order">#6624</span>
     </div>
   </div>
+
   <!-- Vertical Order Status and Estimated Delivery Date -->
   <div class="mb-4 text-center" style="font-size:1.1rem;">
     <div style="font-weight:600; color:#566a7f;">Order Status: <span id="tracking-status" style="color: #1dbf73; font-weight:600;">Delivered</span></div>
     <div style="color:#888; font-weight:500;">Estimated Delivery Date: <span id="tracking-delivery" style="color:#222; font-weight:700;">10-20-2020</span></div>
   </div>
   <!-- Tracking Timeline -->
-  
-    <div class="d-flex align-items-center mb-3 justify-content-center" id="tracking-timeline">
-      <div class="d-flex align-items-center me-4">
-        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-          <i class="bx bx-check text-white"></i>
-        </div>
-        <div>
-          <div class="fw-bold">Order Placed</div>
-          <small class="text-muted" id="order-placed-date">14 June</small>
-        </div>
+  <style>
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0;
+      position: relative;
+      margin: 0 auto;
+      max-width: 900px;
+      min-height: 150px;
+
+    }
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2; 
+      flex: 1;
+      padding: 0 15px;
+      height: 100%;
+    }
+    .timeline-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 3; 
+      margin: 0 0 10px 0;
+      background-color: white; 
+    }
+    .timeline-line {
+      height: 6px;
+      background: #ffc107;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      z-index: 1; 
+    }
+    .timeline-line.inactive {
+      background: #e9ecef;
+    }
+    .timeline-line.first {
+      left: 0;
+      right: 50%;
+      margin-left: -15px;
+    }
+    .timeline-line.middle {
+      left: 0;
+      right: 0;
+      width: 100%;
+    }
+    .timeline-line.orange-portion {
+      position: absolute;
+      left: 0;
+      right: 30%;
+      background: #ffc107;
+      height: 100%;
+    }
+    .timeline-line.gray-portion {
+      position: absolute;
+      left: 70%;
+      right: 0;
+      background: #e9ecef;
+      height: 100%;
+    }
+    .timeline-line.last {
+      left: 50%;
+      right: -15px;
+      margin-right: -15px;
+    }
+    .timeline-content {
+      text-align: center;
+      margin-top: 5px;
+    }
+    .timeline-content .fw-bold {
+      font-size: 0.9rem;
+    }
+    .timeline-content small {
+      display: block;
+      margin-top: 2px;
+    }
+  </style>
+  <div class="timeline-container" id="tracking-timeline">
+   
+    <div class="timeline-line first"></div>
+
+ 
+    <div class="timeline-step">
+      <div class="timeline-circle bg-warning">
+        <i class="bx bx-check text-white"></i>
       </div>
-      <div class="flex-grow-1 bg-warning" style="height: 2px;"></div>
-      <div class="d-flex align-items-center me-4">
-        <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-          <i class="bx bx-truck text-white"></i>
-        </div>
-        <div>
-          <div class="fw-bold">Dispatched</div>
-          <small class="text-muted" id="dispatched-date">14 June</small>
-        </div>
-      </div>
-      <div class="flex-grow-1 bg-secondary" style="height: 2px;"></div>
-      <div class="d-flex align-items-center">
-        <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
-          <i class="bx bx-package text-white"></i>
-        </div>
-        <div>
-          <div class="fw-bold">Delivered</div>
-          <small class="text-muted" id="delivered-date">14 June - 19 June</small>
-        </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Order Placed</div>
+        <small class="text-muted" id="order-placed-date">14 June</small>
       </div>
     </div>
+
+   
+    <div class="timeline-line middle"></div>
+
+    <!-- Dispatched -->
+    <div class="timeline-step">
+      <div class="timeline-circle bg-warning">
+        <img src="~/img/discounts/truck.png" alt="Dispatched" style="width: 24px; height: 24px; filter: brightness(0) invert(1); display: block; margin: 0 auto;" />
+      </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Dispatched</div>
+        <small class="text-muted" id="dispatched-date">14 June</small>
+      </div>
+    </div>
+
+    <!-- Middle Line -->
+    <div class="timeline-line middle">
+      <div class="orange-portion"></div>
+      <div class="gray-portion"></div>
+    </div>
+
+    <!-- Delivered -->
+    <div class="timeline-step">
+      <div class="timeline-circle" style="background-color: #e9ecef;">
+        <i class="bx bx-package" style="color: #6c757d;"></i>
+      </div>
+      <div class="timeline-content">
+        <div class="fw-bold">Delivered</div>
+        <small class="text-muted" id="delivered-date">14 June - 19 June</small>
+      </div>
+    </div>
+
+    <div class="timeline-line last inactive"></div>
+  </div>
   </div>
   <!-- Shipping Information and Map -->
-  <div class="row">
-    <div class="col-md-6">
+  <div class="row" style="display: none;" id="shippingInfoContainer">
+    <div class="col-12 col-md-6">
       <div class="card">
         <div class="card-header">
           <h6 class="mb-0">Shipping Information</h6>
@@ -195,21 +324,16 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          <h6 class="mb-0">Map</h6>
-        </div>
-        <div class="card-body p-0">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25436351647!2d-74.11976404999999!3d40.69766374999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1645000000000!5m2!1sen!2s"
-            width="100%"
-            height="200"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy">
-          </iframe>
-        </div>
+    <div class="col-12 col-md-6 mt-3 mt-md-0">
+      <div style="background:#ffffff; border:1px solid #e9ebef; border-radius: 10px; overflow: hidden;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25436351647!2d-74.11976404999999!3d40.69766374999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1645000000000!5m2!1sen!2s"
+          width="100%"
+          height="260"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </div>

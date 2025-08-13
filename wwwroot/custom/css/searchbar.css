@@ -1,0 +1,48 @@
+/* Style all search forms in the navbar */
+.navbar-nav-right form[role="search"] {
+    min-width: 250px !important;
+    margin-right: 1rem !important;
+}
+
+/* Style the input group */
+.navbar-nav-right .input-group {
+    border-bottom: 1px solid #dee2e6 !important;
+    border-radius: 0 !important;
+    padding-bottom: 0.25rem !important;
+    background: transparent !important;
+}
+
+/* Style the search input */
+.navbar-nav-right .form-control {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0.25rem 0.5rem !important;
+    color: #495057 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Style the search icon */
+.navbar-nav-right .input-group-text {
+    background: transparent !important;
+    border: none !important;
+    color: #6c757d !important;
+    padding: 0.25rem 0.5rem !important;
+}
+
+/* Focus state */
+.navbar-nav-right .input-group:focus-within {
+    border-bottom-color: #0d6efd !important;
+}
+
+/* Remove all outlines and shadows */
+.navbar-nav-right .form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Style the placeholder text */
+.navbar-nav-right .form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
+}
