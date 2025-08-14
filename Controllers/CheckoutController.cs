@@ -19,11 +19,18 @@ namespace RestoHive_Reseller.Controllers
             try
             {
            
-                var decodedCart = System.Web.HttpUtility.UrlDecode(cartData);
-                var cartItems = JsonSerializer.Deserialize<List<CartItem>>(decodedCart);
+                // Do not double-decode; ASP.NET Core already decodes query values
+                var decodedCart = cartData;
+                var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var cartItems = JsonSerializer.Deserialize<List<CartItem>>(decodedCart, jsonOptions);
+                
+                if (cartItems == null || cartItems.Count == 0)
+                {
+                    return RedirectToAction("Index", "Store");
+                }
                 
                 ViewBag.CartItems = cartItems;
-                ViewBag.Total = cartItems?.Sum(item => item.Price * item.Quantity) ?? 0;
+                ViewBag.Total = cartItems.Sum(item => item.Price * item.Quantity);
                 
                 return View();
             }

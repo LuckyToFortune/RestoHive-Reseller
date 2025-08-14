@@ -1,0 +1,918 @@
+@{
+  ViewData["Title"] = "Sub-Resellers";
+}
+
+@section VendorStyles {
+  <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+  <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+  <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+  <link rel="stylesheet" href="~/vendor/libs/select2/select2.css" />
+  <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/form-validation.css" />
+  <link rel="stylesheet" href="~/css/reseller.css" />
+}
+
+@section VendorScripts {
+  <script src="~/vendor/libs/moment/moment.js"></script>
+  <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+  <script src="~/vendor/libs/select2/select2.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/popular.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/bootstrap5.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/auto-focus.js"></script>
+  <script src="~/vendor/libs/cleavejs/cleave.js"></script>
+  <script src="~/vendor/libs/cleavejs/cleave-phone.js"></script>
+}
+
+@section PageScripts {
+  <script src="~/custom/js/reseller.js"></script>
+}
+
+@* ************** Content ************** *@
+
+<div class="row">
+  <div class="col-12">
+    <h4 class="fw-bold">Sub-Resellers</h4>
+  </div>
+</div>
+
+<!-- Summary Cards Row -->
+<div class="row g-6 mb-6">
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="text-heading">Total Sub-Resellers</span>
+            <div class="d-flex align-items-center my-1">
+              <h4 class="mb-0 me-2" style="color: orange;">522</h4>
+            </div>
+          </div>
+          <div class="avatar" style="align-self: flex-start; background-color: rgba(255, 159, 67, 0.15); padding: 8px; border-radius: 8px;">
+            <i class="bx bx-group" style="font-size: 22px; color: orange;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="text-heading">New Sub-Reseller</span>
+            <div class="d-flex align-items-center my-1">
+              <h4 class="mb-0 me-2" style="color: green;">22</h4>
+            </div>
+          </div>
+          <div class="avatar" style="align-self: flex-start; background-color: rgba(40, 199, 111, 0.15); padding: 8px; border-radius: 8px;">
+            <i class="bx bx-user-plus" style="font-size: 22px; color: green;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div class="content-left">
+            <span class="text-heading">Earning</span>
+            <div class="d-flex align-items-center my-1">
+              <h4 class="mb-0 me-2" style="color: blue;">$25,460.50</h4>
+            </div>
+          </div>
+          <div class="avatar" style="align-self: flex-start; background-color: rgba(105, 108, 255, 0.15); padding: 8px; border-radius: 8px;">
+            <i class="bx bx-dollar-circle" style="font-size: 22px; color: blue;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sub-Resellers Table -->
+<div class="card">
+  <div class="card-datatable table-responsive">
+    <div class="d-flex justify-content-end mb-3 mt-2">
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-info btn-sm">
+          <i class="bx bx-snowflake me-1"></i>Freeze
+        </button>
+        <button id="addSubResellerBtn" class="btn btn-sm btn-add-subreseller" style="background-color: #ec7905; color: white;">
+          <i class="bx bx-plus me-1"></i>New Sub-Seller
+        </button>
+      </div>
+    </div>
+    <table class="datatables-subresellers table border-top" id="subResellersTable">
+      <thead>
+        <tr>
+          <th style="width: 50px; text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox" id="selectAllSubResellers">
+            </div>
+          </th>
+          <th class="text-start">SUB-RESELLER</th>
+          <th>LAST CUSTOMER</th>
+          <th>TOTAL CUSTOMERS</th>
+          <th>EARNING</th>
+          <th>RATE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="clickable-row" data-id="1">
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/1.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Zsazsa McCleverty</div>
+                <small class="text-muted">zsazsa@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-active">
+              <i class="bx bx-check"></i>Active
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/2.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Yoko Pottie</div>
+                <small class="text-muted">yoko@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-pending">
+              <i class="bx bx-time"></i>Pending
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/3.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Wesley Burland</div>
+                <small class="text-muted">wesley@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-active">
+              <i class="bx bx-check"></i>Active
+            </span>
+          </td>
+        </tr>
+        <tr class="clickable-row" data-id="3">
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/4.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Tyne Widmore</div>
+                <small class="text-muted">tyne@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-active">
+              <i class="bx bx-check"></i>Active
+            </span>
+          </td>
+        </tr>
+        <tr class="clickable-row" data-id="3">
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/5.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Travus Bruntjen</div>
+                <small class="text-muted">travus@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-deactivated">
+              <i class="bx bx-x"></i>Deactivated
+            </span>
+          </td>
+        </tr>
+        <tr class="clickable-row" data-id="3">
+          <td style="text-align: center;">
+            <div class="form-check d-inline-flex">
+              <input class="form-check-input" type="checkbox">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="avatar avatar-sm me-3">
+                <img src="~/img/avatars/6.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+              </div>
+              <div>
+                <div class="fw-semibold">Stu Delamaine</div>
+                <small class="text-muted">stu@example.com</small>
+              </div>
+            </div>
+          </td>
+          <td>11/06/2025</td>
+          <td>55</td>
+          <td style="color: blue; font-weight: 600;">$25,460.50</td>
+          <td>18.69 %</td>
+          <td>
+            <span class="status-badge status-pending">
+              <i class="bx bx-time"></i>Pending
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Pagination -->
+    <div class="d-flex justify-content-end mt-3">
+      <nav aria-label="Page navigation">
+        <ul class="pagination mb-0" id="pagination">
+          <!-- Pagination will be inserted here by JavaScript -->
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- Add Sub-Reseller Offcanvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addSubResellerModal" aria-labelledby="addSubResellerModalLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="addSubResellerModalLabel">Add New Sub-Reseller</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
+    <form id="addSubResellerForm">
+      <div class="form-fields">
+     
+        <div class="form-row">
+          <label for="addFirstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="addFirstName" name="firstName" required>
+        </div>
+
+       
+        <div class="form-row">
+          <label for="addLastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="addLastName" name="lastName" required>
+        </div>
+
+      
+        <div class="form-row">
+          <label for="addEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="addEmail" name="email" required>
+        </div>
+
+        <div class="form-row">
+          <label for="addLanguage" class="form-label">Language</label>
+          <select class="form-select" id="addLanguage" name="language" required>
+            <option value="">Select Language</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="de">German</option>
+          </select>
+        </div>
+
+  
+        <div class="form-row">
+          <label for="addAddress" class="form-label">Address</label>
+          <textarea class="form-control" id="addAddress" name="address" rows="2" required></textarea>
+        </div>
+
+      
+        <div class="form-row">
+          <label for="addRate" class="form-label">Rate</label>
+          <input type="number" class="form-control" id="addRate" name="rate" min="0" max="100" step="0.01" value="0.00" required>
+        </div>
+
+        <div class="form-row">
+          <label for="addStatus" class="form-label">Status</label>
+          <select class="form-select" id="addStatus" name="status" required>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="deactivated">Deactivated</option>
+          </select>
+        </div>
+
+        <!-- File Upload -->
+        <div class="form-row">
+          <label class="form-label">Upload Photo</label>
+          <label for="addPhoto" class="custom-file-upload">
+            <i class="bx bx-cloud-upload"></i> Choose File
+          </label>
+          <input type="file" id="addPhoto" name="photo" accept="image/*" style="display: none;">
+          <div id="addPhotoPreview" class="mt-2"></div>
+        </div>
+      </div>
+      <div class="d-flex gap-2 mt-4">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Sub-Reseller</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Sub-Reseller Offcanvas -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="editSubResellerModal" aria-labelledby="editSubResellerModalLabel">
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title" id="editSubResellerModalLabel">Edit Sub-Reseller</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body mx-0 flex-grow-0 p-6 h-100">
+    <form id="editSubResellerForm">
+      <div class="form-fields">
+        <!-- First Name -->
+        <div class="form-row">
+          <label for="editFirstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="editFirstName" name="firstName" required>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-row">
+          <label for="editLastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="editLastName" name="lastName" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+          <label for="editEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="editEmail" name="email" required>
+        </div>
+
+        <!-- Language -->
+        <div class="form-row">
+          <label for="editLanguage" class="form-label">Language</label>
+          <select class="form-select" id="editLanguage" name="language" required>
+            <option value="">Select Language</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="de">German</option>
+          </select>
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+          <label for="editAddress" class="form-label">Address</label>
+          <textarea class="form-control" id="editAddress" name="address" rows="2" required></textarea>
+        </div>
+
+        <!-- Rate -->
+        <div class="form-row">
+          <label for="editRate" class="form-label">Rate</label>
+          <input type="number" class="form-control" id="editRate" name="rate" min="0" max="100" step="0.01" required>
+        </div>
+
+        <!-- Status -->
+        <div class="form-row">
+          <label for="editStatus" class="form-label">Status</label>
+          <select class="form-select" id="editStatus" name="status" required>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+            <option value="deactivated">Deactivated</option>
+          </select>
+        </div>
+
+        <!-- File Upload -->
+        <div class="form-row">
+          <label class="form-label">Upload Photo</label>
+          <label for="editPhoto" class="custom-file-upload">
+            <i class="bx bx-cloud-upload"></i> Choose File
+          </label>
+          <input type="file" id="editPhoto" name="photo" accept="image/*" style="display: none;">
+          <div id="editPhotoPreview" class="mt-2"></div>
+        </div>
+      </div>
+      <div class="d-flex gap-2 mt-4">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete the selected sub-reseller(s)? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Sample data for pagination demonstration
+const subResellersData = [
+  // First page data (already in HTML)
+  { name: "Zsazsa McCleverty", email: "zsazsa@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "active" },
+  { name: "Yoko Pottie", email: "yoko@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "pending" },
+  { name: "Wesley Burland", email: "wesley@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "active" },
+  { name: "Tyne Widmore", email: "tyne@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "active" },
+  { name: "Travus Bruntjen", email: "travus@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "deactivated" },
+  { name: "Stu Delamaine", email: "stu@example.com", lastCustomer: "11/06/2025", totalCustomers: 55, earning: "$25,460.50", rate: "18.69 %", status: "pending" },
+  
+  // Additional data for other pages
+  { name: "John Smith", email: "john@example.com", lastCustomer: "10/06/2025", totalCustomers: 48, earning: "$22,150.30", rate: "17.25 %", status: "active" },
+  { name: "Jane Doe", email: "jane@example.com", lastCustomer: "09/06/2025", totalCustomers: 42, earning: "$19,800.75", rate: "16.80 %", status: "pending" },
+  { name: "Mike Johnson", email: "mike@example.com", lastCustomer: "08/06/2025", totalCustomers: 38, earning: "$18,450.20", rate: "15.90 %", status: "active" },
+  { name: "Sarah Wilson", email: "sarah@example.com", lastCustomer: "07/06/2025", totalCustomers: 35, earning: "$17,200.10", rate: "15.45 %", status: "frozen" },
+  { name: "David Brown", email: "david@example.com", lastCustomer: "06/06/2025", totalCustomers: 32, earning: "$16,100.50", rate: "14.95 %", status: "active" },
+  { name: "Lisa Davis", email: "lisa@example.com", lastCustomer: "05/06/2025", totalCustomers: 29, earning: "$15,050.25", rate: "14.30 %", status: "deactivated" }
+];
+
+let currentPage = 1;
+const itemsPerPage = 6;
+const totalPages = Math.ceil(subResellersData.length / itemsPerPage);
+
+function renderTable(data) {
+  const tbody = document.querySelector('#subResellersTable tbody');
+  tbody.innerHTML = '';
+  
+  data.forEach(item => {
+    const statusClass = `status-${item.status}`;
+    const statusIcon = item.status === 'active' ? 'bx-check' : 
+                      item.status === 'pending' ? 'bx-time' : 
+                      item.status === 'deactivated' ? 'bx-x' : 'bx-snowflake';
+    
+    const row = `
+      <tr>
+        <td style="text-align: center;">
+          <div class="form-check d-inline-flex">
+            <input class="form-check-input" type="checkbox">
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <div class="avatar avatar-sm me-3">
+              <img src="~/img/avatars/1.png" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px;">
+            </div>
+            <div>
+              <div class="fw-semibold">${item.name}</div>
+              <small class="text-muted">${item.email}</small>
+            </div>
+          </div>
+        </td>
+        <td>${item.lastCustomer}</td>
+        <td>${item.totalCustomers}</td>
+        <td style="color: blue; font-weight: 600;">${item.earning}</td>
+        <td>${item.rate}</td>
+        <td>
+          <span class="status-badge ${statusClass}">
+            <i class="bx ${statusIcon}"></i>${item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+          </span>
+        </td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+}
+
+function renderPagination() {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+  
+  // Previous button
+  const prevLi = document.createElement('li');
+  prevLi.className = `page-item ${currentPage === 1 ? 'disabled' : ''}`;
+  prevLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+  pagination.appendChild(prevLi);
+  
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const li = document.createElement('li');
+    li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+    li.innerHTML = `<a class="page-link" href="#" onclick="changePage(${i})">${i}</a>`;
+    pagination.appendChild(li);
+  }
+  
+  // Next button
+  const nextLi = document.createElement('li');
+  nextLi.className = `page-item ${currentPage === totalPages ? 'disabled' : ''}`;
+  nextLi.innerHTML = `<a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+  pagination.appendChild(nextLi);
+}
+
+function changePage(page) {
+  if (page < 1 || page > totalPages) return;
+  
+  currentPage = page;
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const pageData = subResellersData.slice(startIndex, endIndex);
+  
+  renderTable(pageData);
+  renderPagination();
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderPagination();
+  
+
+  const addSubResellerBtn = document.querySelector('.btn-add-subreseller');
+  const addSubResellerModal = new bootstrap.Modal(document.getElementById('addSubResellerModal'));
+  
+  if (addSubResellerBtn) {
+    addSubResellerBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      addSubResellerModal.show();
+    });
+  }
+  
+  
+  const addSubResellerForm = document.getElementById('addSubResellerForm');
+  if (addSubResellerForm) {
+    addSubResellerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Here you would typically collect the form data and send it to your server
+      // For now, we'll just show a success message and close the modal
+      alert('Sub-reseller added successfully!');
+      addSubResellerModal.hide();
+      // Reset the form
+      this.reset();
+    });
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const rows = document.querySelectorAll('tr.clickable-row');
+  rows.forEach(row => {
+    
+    row.addEventListener('mousedown', function() {
+      this.style.transform = 'translateY(1px)';
+    });
+    
+    row.addEventListener('mouseup', function() {
+      this.style.transform = '';
+    });
+    
+    row.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
+});
+
+
+document.addEventListener('click', function(e) {
+  const row = e.target.closest('tr.clickable-row');
+  if (!row) return;
+  
+ 
+  if (e.target.matches('input[type="checkbox"], button, a, .btn-action, .form-check, .form-check *')) return;
+  
+  const id = row.getAttribute('data-id');
+  if (id) {
+   
+    const name = row.querySelector('.fw-semibold')?.textContent || '';
+    const email = row.querySelector('.text-muted')?.textContent || '';
+    const status = row.querySelector('.status-badge')?.textContent.trim() || 'active';
+    
+    
+    const subReseller = {
+      id: id,
+      firstName: name.split(' ')[0] || '',
+      lastName: name.split(' ').slice(1).join(' ') || '',
+      email: email,
+      status: status.toLowerCase(),
+    
+    };
+    
+   
+    openEditModal(subReseller);
+  }
+});
+
+
+function openEditModal(subReseller) {
+  const editModal = new bootstrap.Modal(document.getElementById('editSubResellerModal'));
+  
+
+  const form = document.getElementById('editSubResellerForm');
+  form.reset();
+  
+
+  if (subReseller.firstName) document.getElementById('editFirstName').value = subReseller.firstName;
+  if (subReseller.lastName) document.getElementById('editLastName').value = subReseller.lastName;
+  if (subReseller.email) document.getElementById('editEmail').value = subReseller.email;
+  if (subReseller.status) document.getElementById('editStatus').value = subReseller.status;
+  
+ 
+  form.setAttribute('data-edit-id', subReseller.id);
+  
+ 
+  editModal.show();
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const selectAllCheckbox = document.getElementById('selectAllSubResellers');
+  if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener('change', function() {
+      const checkboxes = document.querySelectorAll('#subResellersTable tbody input[type="checkbox"]');
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = this.checked;
+      });
+    });
+  }
+});
+
+// Add delete selected button to the page
+const actionButtons = document.querySelector('.card-datatable .d-flex.gap-2');
+if (actionButtons) {
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'btn btn-outline-danger btn-sm btn-delete-selected';
+  deleteBtn.disabled = true;
+  deleteBtn.innerHTML = '<i class="bx bx-trash me-1"></i>Delete Selected';
+  deleteBtn.onclick = deleteSelectedSubResellers;
+  actionButtons.insertBefore(deleteBtn, actionButtons.firstChild);
+}
+
+const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
+
+const dateInputs = document.querySelectorAll('input[type="date"]');
+dateInputs.forEach(input => {
+  if (!input.value) {
+    const today = new Date().toISOString().split('T')[0];
+    input.value = today;
+  }
+});
+
+// Initialize phone input mask
+if (typeof Cleave !== 'undefined') {
+  new Cleave('.phone-mask', {
+    phone: true,
+    phoneRegionCode: 'US'
+  });
+}
+
+// Initialize form validation
+if (typeof FormValidation !== 'undefined') {
+  // Add validation for add form
+  const addForm = document.getElementById('addSubResellerForm');
+  if (addForm) {
+    new FormValidation(addForm, {
+      fields: {
+        firstName: {
+          validators: {
+            notEmpty: {
+              message: 'First name is required'
+            }
+          }
+        },
+        lastName: {
+          validators: {
+            notEmpty: {
+              message: 'Last name is required'
+            }
+          }
+        },
+        email: {
+          validators: {
+            notEmpty: {
+              message: 'Email is required'
+            },
+            emailAddress: {
+              message: 'Please enter a valid email address'
+            }
+          }
+        },
+        rate: {
+          validators: {
+            notEmpty: {
+              message: 'Rate is required'
+            },
+            between: {
+              min: 0,
+              max: 100,
+              message: 'Rate must be between 0 and 100%'
+            }
+          }
+        }
+      },
+      plugins: {
+        trigger: new FormValidation.plugins.Trigger(),
+        bootstrap5: new FormValidation.plugins.Bootstrap5({
+         
+          eleValidClass: '',
+          rowSelector: function (field, ele) {
+         
+            return '.mb-3';
+          }
+        }),
+        submitButton: new FormValidation.plugins.SubmitButton(),
+        autoFocus: new FormValidation.plugins.AutoFocus()
+      }
+    });
+  }
+  
+  // Add validation for edit form
+  const editForm = document.getElementById('editSubResellerForm');
+  if (editForm) {
+    new FormValidation(editForm, {
+      fields: {
+        firstName: {
+          validators: {
+            notEmpty: {
+              message: 'First name is required'
+            }
+          }
+        },
+        lastName: {
+          validators: {
+            notEmpty: {
+              message: 'Last name is required'
+            }
+          }
+        },
+        email: {
+          validators: {
+            notEmpty: {
+              message: 'Email is required'
+            },
+            emailAddress: {
+              message: 'Please enter a valid email address'
+            }
+          }
+        },
+        rate: {
+          validators: {
+            notEmpty: {
+              message: 'Rate is required'
+            },
+            between: {
+              min: 0,
+              max: 100,
+              message: 'Rate must be between 0 and 100%'
+            }
+          }
+        }
+      },
+      plugins: {
+        trigger: new FormValidation.plugins.Trigger(),
+        bootstrap5: new FormValidation.plugins.Bootstrap5({
+          // Use this for enabling/changing valid/invalid class
+          eleValidClass: '',
+          rowSelector: function (field, ele) {
+            // Customize the row selector for better styling
+            return '.mb-3';
+          }
+        }),
+        submitButton: new FormValidation.plugins.SubmitButton(),
+        autoFocus: new FormValidation.plugins.AutoFocus()
+      }
+    });
+  }
+}
+
+// Handle image preview for photo uploads
+function handleImagePreview(input, previewId) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      let preview = document.getElementById(previewId);
+      if (!preview) {
+        preview = document.createElement('div');
+        preview.id = previewId;
+        preview.className = 'mt-2 text-center';
+        input.parentNode.insertBefore(preview, input.nextSibling);
+      }
+      preview.innerHTML = `<img src="${e.target.result}" class="img-thumbnail" style="max-width: 150px; max-height: 150px;">`;
+    }
+    
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// All JavaScript code has been moved to reseller.js for better maintainability
+</script>
+
+<style>
+.datatables-subresellers th {
+  background: #f7f7fa;
+  font-weight: 600;
+  font-size: 0.90rem;
+  border-bottom: 2px solid #f0f0f0;
+  color: #222;
+  padding: 0.45rem 0.3rem;
+}
+
+.datatables-subresellers td {
+  vertical-align: middle;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.3rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-badge i {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.status-active {
+  background-color: rgba(40, 199, 111, 0.15);
+  color: #28c76f;
+}
+
+.status-pending {
+  background-color: rgba(255, 159, 67, 0.15);
+  color: #ff9f43;
+}
+
+.status-deactivated {
+  background-color: rgba(108, 117, 125, 0.15);
+  color: #6c757d;
+}
+
+.status-frozen {
+  color: #5dade2;
+}
+
+.avatar-sm img {
+  object-fit: cover;
+}
+</style>

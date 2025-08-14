@@ -332,8 +332,7 @@ window.openTrackingPage = function(orderId, customerName, orderDate, orderStatus
   }
 }
 // Back button handler
-$(document).on('click', '#ordersBack', function(e) {
-  e.preventDefault();
+function backToOrders() {
   // Hide the tracking page
   document.getElementById('orderTrackingPage').style.display = 'none';
 
@@ -347,6 +346,11 @@ $(document).on('click', '#ordersBack', function(e) {
   if (shippingContainer) {
     shippingContainer.style.display = 'none';
   }
+}
+
+$(document).on('click', '#ordersBackButton', function(e) {
+  e.preventDefault();
+  backToOrders();
 });
 
 // Function to update tracking timeline based on order status
