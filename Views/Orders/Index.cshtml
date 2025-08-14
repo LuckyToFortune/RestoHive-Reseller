@@ -55,7 +55,7 @@
     .order-status-delivered { background: #e6f7e6; color: #1dbf73; }
     .order-status-canceled { background: #f7e6e6; color: #e74c3c; }
     .order-status-processing { background: #fff7e6; color: #fd7e14; }
-    .order-status-hold { background: #fdf6e3; color: #bfa21d; }
+    .order-status-hold { background: #fdf6e3; color: #ec7905; }
 
     /* Tracking header styles */
     .tracking-title {
@@ -197,11 +197,11 @@
       position: relative;
       z-index: 3; 
       margin: 0 0 10px 0;
-      background-color: white; 
+      background-color: #ec7905; 
     }
     .timeline-line {
       height: 6px;
-      background: #ffc107;
+      background: #ec7905;
       position: absolute;
       top: 60px;
       left: 0;
@@ -225,7 +225,7 @@
       position: absolute;
       left: 0;
       right: 30%;
-      background: #ffc107;
+      background: #ec7905;
       height: 100%;
     }
     .timeline-line.gray-portion {
@@ -258,7 +258,7 @@
 
  
     <div class="timeline-step">
-      <div class="timeline-circle bg-warning">
+      <div class="timeline-circle" style="background-color: #ec7905;">
         <i class="bx bx-check text-white"></i>
       </div>
       <div class="timeline-content">
@@ -272,7 +272,7 @@
 
     <!-- Dispatched -->
     <div class="timeline-step">
-      <div class="timeline-circle bg-warning">
+      <div class="timeline-circle" style="background-color: #ec7905;">
         <img src="~/img/discounts/truck.png" alt="Dispatched" style="width: 24px; height: 24px; filter: brightness(0) invert(1); display: block; margin: 0 auto;" />
       </div>
       <div class="timeline-content">
