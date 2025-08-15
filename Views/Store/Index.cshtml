@@ -131,22 +131,79 @@
     
     // Update item quantity in cart
     window.updateQuantity = function(productId, change) {
-      const item = cart.find(item => item.id === productId);
-      if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) {
-          cart = cart.filter(item => item.id !== productId);
-          // Reset button to "Add To Cart"
-          const button = document.querySelector(`[data-product-id="${productId}"]`);
-          if (button) {
-            button.textContent = 'Add To Cart';
-            button.classList.remove('btn-outline-warning');
-            button.classList.add('btn-outline-dark');
+      console.log('Updating quantity for product:', productId, 'Change:', change);
+      
+      // Find the item in the cart
+      const itemIndex = cart.findIndex(item => item.id === productId);
+      
+      if (itemIndex !== -1) {
+        // Update quantity
+        cart[itemIndex].quantity += change;
+        
+        // If quantity is 0 or less, remove the item from cart
+        if (cart[itemIndex].quantity <= 0) {
+          // Store the removed item for button reset
+          const removedItem = cart[itemIndex];
+          cart.splice(itemIndex, 1);
+          
+          // Reset the "Add to Cart" button in the product grid
+          const productButtons = document.querySelectorAll(`.add-to-cart-btn[data-product-id="${productId}"]`);
+          productButtons.forEach(button => {
+            if (button) {
+              button.textContent = 'Add To Cart';
+              button.classList.remove('btn-outline-warning');
+              button.classList.add('btn-outline-dark');
+            }
+          });
+          
+          // Show toast notification for removed item
+          showToast('Item Removed', `${removedItem.name} has been removed from your cart`, 'info');
+        }
+        
+        // Save updated cart to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update the cart UI
+        updateCart();
+        
+        // If cart is empty after update, ensure the cart is hidden
+        if (cart.length === 0) {
+          const cartSidebar = document.getElementById('shopping-cart-sidebar');
+          if (cartSidebar) {
+            cartSidebar.style.display = 'none';
           }
         }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCart();
       }
+    }
+    
+    // Show toast notification
+    function showToast(title, message, type = 'success') {
+      const toastContainer = document.getElementById('toast-container');
+      if (!toastContainer) return;
+      
+      const toast = document.createElement('div');
+      toast.className = `toast align-items-center text-white bg-${type} border-0 show`;
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">
+            <i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-info-circle'} me-2'></i>
+            <strong>${title}:</strong> ${message}
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      `;
+      
+      toastContainer.appendChild(toast);
+      
+      // Auto remove toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
     }
     
     // Close cart overlay

@@ -575,33 +575,9 @@ function changePage(page) {
 }
 
 
+// Initialize pagination when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   renderPagination();
-  
-
-  const addSubResellerBtn = document.querySelector('.btn-add-subreseller');
-  const addSubResellerModal = new bootstrap.Modal(document.getElementById('addSubResellerModal'));
-  
-  if (addSubResellerBtn) {
-    addSubResellerBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      addSubResellerModal.show();
-    });
-  }
-  
-  
-  const addSubResellerForm = document.getElementById('addSubResellerForm');
-  if (addSubResellerForm) {
-    addSubResellerForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Here you would typically collect the form data and send it to your server
-      // For now, we'll just show a success message and close the modal
-      alert('Sub-reseller added successfully!');
-      addSubResellerModal.hide();
-      // Reset the form
-      this.reset();
-    });
-  }
 });
 
 
