@@ -1,0 +1,489 @@
+<!-- Pricing Comparison Table -->
+<div class="pricing-table-container">
+    <div class="pricing-table-wrapper">
+        <!-- Features Column -->
+        <div class="features-column">
+            <div class="features-header">
+                <h2 class="features-title">Features</h2>
+                <p class="features-subtitle">Sell faster and smarter</p>
+                <div class="features-divider"></div>
+                <!-- Up Arrow -->
+                <div class="arrow-up">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Feature Rows -->
+            <div class="feature-row">
+                <span class="feature-text">24/7 Support<br>and configuration services</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-text">24/7 Support<br>and configuration services</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-text">24/7 Support<br>and configuration services</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-text">24/7 Support<br>and configuration services</span>
+            </div>
+            <div class="feature-row">
+                <span class="feature-text">24/7 Support<br>and configuration services</span>
+            </div>
+            
+            <!-- Down Arrow -->
+            <div class="features-footer">
+                <div class="arrow-down">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vertical Divider -->
+        <div class="vertical-divider"></div>
+
+        <!-- Product Columns -->
+        <div class="product-columns">
+            <!-- Clover Columns -->
+            @for (int i = 0; i < 6; i++)
+            {
+                <div class="product-column">
+                    <!-- Header -->
+                    <div class="product-header">
+                        <div class="product-logo">
+                            <img src="~/img/clover-logo.png" alt="Clover" class="clover-logo" />
+                        </div>
+                        <div class="product-name">Clover</div>
+                        <div class="price-circle">
+                            <span class="price-text">$25.99</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Feature Icons -->
+                    @{
+                        var featureMatrix = new bool[,] {
+                            { true, false, false, false, false, false },
+                            { false, true, false, true, true, true },
+                            { true, true, true, false, true, true },
+                            { true, false, true, false, true, false },
+                            { true, true, false, false, false, true }
+                        };
+                    }
+                    
+                    @for (int row = 0; row < 5; row++)
+                    {
+                        <div class="feature-icon-row">
+                            @if (featureMatrix[row, i])
+                            {
+                                <div class="icon-circle check-circle">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m9 12 2 2 4-4"/>
+                                    </svg>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="icon-circle x-circle">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="m18 6-12 12"/>
+                                        <path d="m6 6 12 12"/>
+                                    </svg>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+                
+                <!-- Vertical Divider between columns -->
+                @if (i < 5)
+                {
+                    <div class="column-divider"></div>
+                }
+            }
+
+            <!-- Resto POS Column -->
+            <div class="column-divider"></div>
+            <div class="product-column resto-column">
+                <!-- Header -->
+                <div class="product-header resto-header">
+                    <div class="product-logo">
+                        <img src="~/img/restaurant-icon.png" alt="Restaurant" class="restaurant-icon" />
+                    </div>
+                    <div class="product-name">Resto POS</div>
+                    <div class="price-circle resto-price">
+                        <span class="price-text resto-price-text">$25.99</span>
+                    </div>
+                </div>
+                
+                <!-- Feature Icons -->
+                @{
+                    var restoFeatures = new bool[] { true, true, true, true, true };
+                }
+                
+                @for (int row = 0; row < 5; row++)
+                {
+                    <div class="feature-icon-row resto-icon-row">
+                        <div class="icon-circle check-circle">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+            <!-- Final Vertical Divider -->
+            <div class="column-divider"></div>
+        </div>
+    </div>
+    
+    <!-- Table Overlays -->
+    <div class="table-overlays">
+        <!-- Row 2 Overlay -->
+        <div class="row-overlay" style="top: 274px;"></div>
+        <!-- Row 3 Overlay -->
+        <div class="row-overlay" style="top: 411px;"></div>
+        <!-- Row 4 Overlay -->
+        <div class="row-overlay" style="top: 548px;"></div>
+        <!-- Row 5 Overlay -->
+        <div class="row-overlay" style="top: 685px;"></div>
+        <!-- Row 6 Overlay -->
+        <div class="row-overlay" style="top: 822px;"></div>
+    </div>
+</div>
+
+<style>
+/* Pricing Table Styles - 878px x 921px dimensions */
+.pricing-table-container { 
+    position: relative; 
+    margin-top: 1rem; 
+    width: 100%;
+    max-width: 878px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pricing-table-wrapper { 
+    display: flex; 
+    background: white; 
+    border-radius: 12px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+    overflow: hidden; 
+    position: relative; 
+    width: 100%;
+    height: 921px;
+}
+
+/* Features Column */
+.features-column { 
+    background: #1e293b; 
+    color: white; 
+    width: 200px; 
+    display: flex; 
+    flex-direction: column; 
+    flex-shrink: 0;
+}
+
+.features-header { 
+    padding: 1.5rem; 
+    text-align: center; 
+    height: 129px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    position: relative; 
+}
+
+.features-title { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    margin: 0; 
+}
+
+.features-subtitle { 
+    font-size: 0.875rem; 
+    margin: 0.25rem 0; 
+    opacity: 0.8; 
+}
+
+.features-divider { 
+    height: 1px; 
+    background: rgba(255,255,255,0.3); 
+    margin: 0.5rem 0; 
+}
+
+.arrow-up { 
+    color: #f97316; 
+    display: flex; 
+    justify-content: center; 
+    margin-top: 0.5rem;
+}
+
+.feature-row { 
+    height: 129px; 
+    padding: 1.5rem; 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 12px; 
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.feature-row:last-child { 
+    margin-bottom: 0; 
+    border-bottom: none;
+}
+
+.feature-text { 
+    font-size: 0.875rem; 
+    line-height: 1.4; 
+}
+
+.features-footer { 
+    padding: 1rem; 
+    display: flex; 
+    justify-content: center; 
+    margin-top: auto;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.arrow-down { 
+    color: #f97316; 
+}
+
+/* Vertical Dividers */
+.vertical-divider { 
+    width: 10px; 
+    background: #1d2b4b; 
+    z-index: 5; 
+    flex-shrink: 0;
+}
+
+.column-divider { 
+    width: 10px; 
+    background: #1d2b4b; 
+    z-index: 5; 
+    flex-shrink: 0;
+}
+
+/* Product Columns */
+.product-columns { 
+    display: flex; 
+    flex: 1; 
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.product-column { 
+    flex: 1; 
+    min-width: 120px;
+    display: flex; 
+    flex-direction: column; 
+    background: #f3f4f6; 
+}
+
+.resto-column { 
+    background: #cad64a; 
+}
+
+/* Product Headers */
+.product-header { 
+    height: 129px; 
+    padding: 1rem; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 0.5rem; 
+    text-align: center;
+}
+
+.resto-header { 
+    background: #cad64a; 
+}
+
+.product-logo { 
+    height: 32px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.clover-logo, 
+.restaurant-icon { 
+    height: 28px; 
+    width: auto; 
+    max-width: 100%;
+}
+
+.product-name { 
+    font-size: 0.875rem; 
+    font-weight: 600; 
+    color: #374151; 
+}
+
+.price-circle { 
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    background: #d1d5db; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-top: 0.5rem;
+}
+
+.resto-price { 
+    background: white; 
+}
+
+.price-text { 
+    font-size: 1rem; 
+    font-weight: 600; 
+    color: #374151; 
+}
+
+.resto-price-text { 
+    color: #dc2626; 
+}
+
+/* Feature Icon Rows */
+.feature-icon-row { 
+    height: 129px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 12px; 
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.resto-icon-row { 
+    height: 141px; 
+    margin-bottom: 6px; 
+}
+
+.feature-icon-row:last-child, 
+.resto-icon-row:last-child { 
+    margin-bottom: 0; 
+    border-bottom: none;
+}
+
+.icon-circle { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.check-circle { 
+    background: #8dc243; 
+    color: black; 
+}
+
+.x-circle { 
+    background: #9598a9; 
+    color: black; 
+}
+
+/* Table Overlays */
+.table-overlays { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    pointer-events: none; 
+    z-index: 10; 
+}
+
+.row-overlay { 
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    height: 129px; 
+    background: rgba(192, 193, 198, 0.2);
+    pointer-events: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) { 
+    .pricing-table-wrapper { 
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .features-column { 
+        width: 100%;
+        height: auto;
+    }
+    
+    .product-columns { 
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    
+    .product-column {
+        min-width: 150px;
+    }
+    
+    .vertical-divider,
+    .column-divider {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-table-container { 
+        margin: 0.5rem;
+    }
+    
+    .competitors-page { 
+        padding: 0.6rem; 
+    }
+    
+    .top-section { 
+        padding: 0.45rem; 
+    }
+    
+    .competitor-items { 
+        gap: 0.7rem; 
+    }
+    
+    .feature-row,
+    .feature-icon-row {
+        height: 100px;
+        padding: 1rem;
+    }
+    
+    .features-header,
+    .product-header {
+        height: 100px;
+        padding: 1rem;
+    }
+    
+    .price-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .price-text {
+        font-size: 0.875rem;
+    }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.product-columns::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.product-columns {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+</style>

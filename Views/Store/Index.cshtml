@@ -22,10 +22,13 @@
   <script>
     // Initialize cart from localStorage or empty array
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log('Cart initialized from localStorage:', cart);
     
     // Function to check if cart is empty
     function isCartEmpty() {
-      return cart.length === 0;
+      const isEmpty = cart.length === 0;
+      console.log('isCartEmpty check:', isEmpty, 'Cart length:', cart.length);
+      return isEmpty;
     }
     
     // Function to display empty cart state
@@ -154,18 +157,48 @@
     
     // Go to checkout page
     window.goToCheckout = function() {
+      console.log('goToCheckout function called');
+      console.log('Cart contents:', cart);
+      
       if (isCartEmpty()) {
+        console.log('Cart is empty, showing alert');
         alert('Your cart is empty!');
         return;
       }
       
       // Navigate to checkout page with cart data
       const cartData = encodeURIComponent(JSON.stringify(cart));
-      window.location.href = `/Checkout?cart=${cartData}`;
+      console.log('Encoded cart data:', cartData);
+      console.log('Redirecting to:', `/Checkout?cart=${cartData}`);
+      
+      // Try multiple redirect approaches
+      try {
+        console.log('Attempting redirect...');
+        
+        // Method 1: Direct assignment
+        const redirectUrl = `/Checkout?cart=${cartData}`;
+        console.log('Redirect URL:', redirectUrl);
+        
+        // Method 2: Try using location.assign
+        window.location.assign(redirectUrl);
+        
+        // Method 3: Fallback to direct assignment after a short delay
+        setTimeout(() => {
+          console.log('Fallback redirect attempt...');
+          window.location.href = redirectUrl;
+        }, 100);
+        
+      } catch (error) {
+        console.error('Redirect error:', error);
+        alert('Redirect failed: ' + error.message);
+      }
     }
     
     // Initialize cart on page load
     document.addEventListener('DOMContentLoaded', function() {
+      // Test if function is available globally
+      console.log('goToCheckout function available:', typeof window.goToCheckout);
+      
       // Ensure navbar cart icon toggles this page's sidebar cart
       const cartIcon = document.getElementById('cart-icon');
       if (cartIcon) {
@@ -193,22 +226,27 @@
           const existingItem = cart.find(item => item.id === productId);
           if (existingItem) {
             existingItem.quantity += 1;
+            console.log('Updated existing item:', existingItem);
           } else {
-            cart.push({
+            const newItem = {
               id: productId,
               name: productName,
               price: productPrice,
               quantity: 1,
               image: productImage
-            });
-            
-            // Update button text and style
-            this.textContent = 'Added';
-            this.classList.remove('btn-outline-dark');
-            this.classList.add('btn-outline-warning');
+            };
+            cart.push(newItem);
+            console.log('Added new item to cart:', newItem);
           }
           
+          console.log('Current cart state:', cart);
           localStorage.setItem('cart', JSON.stringify(cart));
+          
+          // Update button text and style
+          this.textContent = 'Added';
+          this.classList.remove('btn-outline-dark');
+          this.classList.add('btn-outline-warning');
+          
           updateCart();
           // Show sidebar when first item is added or when cart becomes non-empty
           toggleCart(true);

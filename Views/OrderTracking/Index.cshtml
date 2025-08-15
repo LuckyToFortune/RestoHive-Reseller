@@ -3,19 +3,19 @@
     var order = ViewBag.Order as RestoHive_Reseller.Models.OrderData;
 }
 
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl flex-grow-1 container-p-y" style="color: black;">
 
     <div class="mb-4">
-        <a href="/Store" class="fw-bold">
+        <a href="/Store" class="fw-bold" style="color: black;">
             <i class="bx bx-arrow-back me-2"></i>Order Tracking Page
         </a>
     </div>
 
     <div class="card" style="background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-        <div class="card-body p-4">
+        <div class="card-body p-4" style="color: black;">
 
             <div class="text-center mb-4">
-                <h3 class="fw-bold">Tracking Page</h3>
+                <h3 class="fw-bold" style="color: black;">Tracking Page</h3>
             </div>
 
             <!-- Tracking Input Section -->
@@ -33,23 +33,23 @@
             <!-- Order Summary -->
             <div class="row mb-4">
                 <div class="col-12">
-                    <div class="bg-light p-3 rounded">
+                    <div class="bg-light p-3 rounded" style="color: black;">
                         <div class="row text-center">
                             <div class="col-md-3">
-                                <div class="fw-bold">DATE</div>
-                                <div>@order?.OrderDate</div>
+                                <div class="fw-bold" style="color: black;">DATE</div>
+                                <div style="color: black;">@order?.OrderDate</div>
                             </div>
                             <div class="col-md-3">
-                                <div class="fw-bold">PRICE</div>
-                                <div>$@order?.Total.ToString("F2")</div>
+                                <div class="fw-bold" style="color: black;">PRICE</div>
+                                <div style="color: black;">$@order?.Total.ToString("F2")</div>
                             </div>
                             <div class="col-md-3">
-                                <div class="fw-bold">SHIP TO</div>
-                                <div>@order?.CustomerName</div>
+                                <div class="fw-bold" style="color: black;">SHIP TO</div>
+                                <div style="color: black;">@order?.CustomerName</div>
                             </div>
                             <div class="col-md-3">
-                                <div class="fw-bold">ORDER</div>
-                                <div>#@(order?.TrackingNumber?.Substring(0, 4) ?? "6624")</div>
+                                <div class="fw-bold" style="color: black;">ORDER</div>
+                                <div style="color: black;">#@(order?.TrackingNumber?.Substring(0, 4) ?? "6624")</div>
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,9 @@
 
             
   <!-- Vertical Order Status and Estimated Delivery Date -->
-  <div class="mb-4 text-center" style="font-size:1.1rem;">
-    <div style="font-weight:600; color:#566a7f;">Order Status: <span id="tracking-status" style="color: #1dbf73; font-weight:600;">Delivered</span></div>
-    <div style="color:#888; font-weight:500;">Estimated Delivery Date: <span id="tracking-delivery" style="color:#222; font-weight:700;">10-20-2020</span></div>
+  <div class="mb-4 text-center" style="font-size:1.1rem; color: black;">
+    <div style="font-weight:600; color:black;">Order Status: <span id="tracking-status" style="color: #1dbf73; font-weight:600;">Delivered</span></div>
+    <div style="color:black; font-weight:500;">Estimated Delivery Date: <span id="tracking-delivery" style="color:black; font-weight:700;">10-20-2020</span></div>
   </div>
   <!-- Tracking Timeline -->
   <style>
@@ -73,7 +73,7 @@
       margin: 0 auto;
       max-width: 900px;
       min-height: 150px;
-
+      color: black;
     }
     .timeline-step {
       display: flex;
@@ -85,6 +85,7 @@
       flex: 1;
       padding: 0 15px;
       height: 100%;
+      color: black;
     }
     .timeline-circle {
       width: 50px;
@@ -98,7 +99,7 @@
     }
     .timeline-line {
       height: 6px;
-      background: #ffc107;
+      background: #fd7e14;
       position: absolute;
       top: 60px;
       left: 0;
@@ -122,7 +123,7 @@
       position: absolute;
       left: 0;
       right: 30%;
-      background: #ffc107;
+      background: #fd7e14;
       height: 100%;
     }
     .timeline-line.gray-portion {
@@ -140,13 +141,16 @@
     .timeline-content {
       text-align: center;
       margin-top: 5px;
+      color: black;
     }
     .timeline-content .fw-bold {
       font-size: 0.9rem;
+      color: black;
     }
     .timeline-content small {
       display: block;
       margin-top: 2px;
+      color: black;
     }
   </style>
   <div class="timeline-container" id="tracking-timeline">
@@ -159,8 +163,8 @@
         <i class="bx bx-check text-white"></i>
       </div>
       <div class="timeline-content">
-        <div class="fw-bold">Order Placed</div>
-        <small class="text-muted" id="order-placed-date">14 June</small>
+        <div class="fw-bold" style="color: black;">Order Placed</div>
+        <small class="text-muted" id="order-placed-date" style="color: black;">14 June</small>
       </div>
     </div>
 
@@ -173,8 +177,8 @@
         <img src="~/img/discounts/truck.png" alt="Dispatched" style="width: 24px; height: 24px; filter: brightness(0) invert(1); display: block; margin: 0 auto;" />
       </div>
       <div class="timeline-content">
-        <div class="fw-bold">Dispatched</div>
-        <small class="text-muted" id="dispatched-date">14 June</small>
+        <div class="fw-bold" style="color: black;">Dispatched</div>
+        <small class="text-muted" id="dispatched-date" style="color: black;">14 June</small>
       </div>
     </div>
 
@@ -190,8 +194,8 @@
         <i class="bx bx-package" style="color: #6c757d;"></i>
       </div>
       <div class="timeline-content">
-        <div class="fw-bold">Delivered</div>
-        <small class="text-muted" id="delivered-date">14 June - 19 June</small>
+        <div class="fw-bold" style="color: black;">Delivered</div>
+        <small class="text-muted" id="delivered-date" style="color: black;">14 June - 19 June</small>
       </div>
     </div>
 
@@ -200,24 +204,24 @@
   </div>
   </div>
   <!-- Shipping Information and Map -->
-  <div class="row" id="shippingInfoContainer">
+  <div class="row" id="shippingInfoContainer" style="color: black;">
     <div class="col-12 col-md-6">
       <div class="card">
         <div class="card-header">
-          <h6 class="mb-0">Shipping Information</h6>
+          <h6 class="mb-0" style="color: black;">Shipping Information</h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="color: black;">
           <div class="mb-3">
-            <span class="text-muted">Address:</span>
-            <div class="fw-bold" id="tracking-address">123 Main St, New York</div>
+            <span class="text-muted" style="color: black;">Address:</span>
+            <div class="fw-bold" id="tracking-address" style="color: black;">123 Main St, New York</div>
           </div>
           <div class="mb-3">
-            <span class="text-muted">Courier:</span>
-            <div class="fw-bold" id="tracking-courier">14 June</div>
+            <span class="text-muted" style="color: black;">Courier:</span>
+            <div class="fw-bold" id="tracking-courier" style="color: black;">14 June</div>
           </div>
           <div>
-            <span class="text-muted">Tracking number:</span>
-            <div class="fw-bold text-warning" id="tracking-number">4889ugirojgiknjfkbnkflbn</div>
+            <span class="text-muted" style="color: black;">Tracking number:</span>
+            <div class="fw-bold" id="tracking-number" style="color: #fd7e14;">4889ugirojgiknjfkbnkflbn</div>
           </div>
         </div>
       </div>

@@ -173,8 +173,12 @@ function updateCheckoutTotal() {
 }
 
 function processCheckout() {
+    console.log('processCheckout function called');
+    console.log('Current cart:', cart);
+    
     // Generate a random tracking number
     const trackingNumber = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    console.log('Generated tracking number:', trackingNumber);
     
     // Create order data
     const orderData = {
@@ -190,8 +194,13 @@ function processCheckout() {
         courier: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'long' })
     };
     
+    console.log('Order data created:', orderData);
+    
     // Navigate to order tracking page with order data
     const orderDataEncoded = encodeURIComponent(JSON.stringify(orderData));
+    console.log('Encoded order data:', orderDataEncoded);
+    console.log('Redirecting to:', `/OrderTracking?order=${orderDataEncoded}`);
+    
     window.location.href = `/OrderTracking?order=${orderDataEncoded}`;
 }
 </script>

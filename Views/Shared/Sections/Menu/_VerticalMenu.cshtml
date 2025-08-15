@@ -33,6 +33,12 @@
         <div data-i18n="Home">Home</div>
       </a>
     </li>
+    <li class='menu-item@(currentPage == "/Reseller" ? " active" : "")'>
+      <a asp-controller="Reseller" asp-action="Index" class="menu-link">
+        <img src="~/img/discounts/icon3.png" alt="Reseller" class="menu-icon" style="width: 15px; height: 15px; margin-right: 10px;" onerror="this.style.display='none'" />
+        <div data-i18n="Sub-Reseller">Sub-Reseller</div>
+      </a>
+    </li>
     <li class='menu-item@(currentPage == "/Orders" ? " active" : "")'>
       <a asp-controller="Orders" asp-action="Index" class="menu-link">
         <i class="menu-icon tf-icons bx bx-clipboard"></i>

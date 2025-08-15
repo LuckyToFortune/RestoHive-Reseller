@@ -129,34 +129,35 @@
 </div>
 
 <!-- Order Tracking Page (hidden by default) -->
-<div id="orderTrackingPage" style="display:none;background:#ffffff; padding: 6px 12px 0;">
-  <div class="row align-items-center mb-3">
-    <div class="col-12 d-flex align-items-center">
-      <button id="ordersBack" class="btn btn-link p-0 me-2 text-body" type="button" aria-label="Back" style="text-decoration:none;">
-        <i class="bx bx-chevron-left" style="font-size:1.5rem; line-height:1;"></i>
-      </button>
-      <h5 class="mb-0 fw-semibold text-body">Order Tracking Page</h5>
-    </div>
+<div id="orderTrackingPage" style="display:none;">
+  <!-- Back Button and Title - Positioned at top like OrderTracking page -->
+  <div class="mb-4">
+    <a href="javascript:void(0)" id="ordersBackButton" class="fw-bold" style="color: black; text-decoration: none;">
+      <i class="bx bx-arrow-back me-2"></i>Order Tracking Page
+    </a>
   </div>
-  <div class="tracking-title">Order Tracking Page</div>
-  <div class="tracking-summary mb-4">
-    <div>
-      <span class="summary-label">DATE</span>
-      <span class="summary-value" id="tracking-date">14 June</span>
-    </div>
-    <div>
-      <span class="summary-label">PRICE</span>
-      <span class="summary-value" id="tracking-price">$85.00</span>
-    </div>
-    <div>
-      <span class="summary-label">SHIP TO</span>
-      <span class="summary-value" id="tracking-customer">John Doe</span>
-    </div>
-    <div class="text-md-end">
-      <span class="summary-label">ORDER</span>
-      <span class="summary-value" id="tracking-order">#6624</span>
-    </div>
-  </div>
+
+  <div class="card" style="background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+    <div class="card-body p-4">
+      <div class="tracking-title">Order Tracking Page</div>
+      <div class="tracking-summary mb-4">
+        <div>
+          <span class="summary-label">DATE</span>
+          <span class="summary-value" id="tracking-date">14 June</span>
+        </div>
+        <div>
+          <span class="summary-label">PRICE</span>
+          <span class="summary-value" id="tracking-price">$85.00</span>
+        </div>
+        <div>
+          <span class="summary-label">SHIP TO</span>
+          <span class="summary-value" id="tracking-customer">John Doe</span>
+        </div>
+        <div class="text-md-end">
+          <span class="summary-label">ORDER</span>
+          <span class="summary-value" id="tracking-order">#6624</span>
+        </div>
+      </div>
 
   <!-- Vertical Order Status and Estimated Delivery Date -->
   <div class="mb-4 text-center" style="font-size:1.1rem;">

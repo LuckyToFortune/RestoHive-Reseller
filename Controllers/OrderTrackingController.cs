@@ -21,8 +21,15 @@ namespace RestoHive_Reseller.Controllers
             try
             {
                
-                var decodedOrder = System.Web.HttpUtility.UrlDecode(orderData);
-                var order = JsonSerializer.Deserialize<OrderData>(decodedOrder);
+                // Do not double-decode; ASP.NET Core already decodes query values
+                var decodedOrder = orderData;
+                var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var order = JsonSerializer.Deserialize<OrderData>(decodedOrder, jsonOptions);
+                
+                if (order == null)
+                {
+                    return RedirectToAction("Index", "Store");
+                }
                 
                 ViewBag.Order = order;
                 
