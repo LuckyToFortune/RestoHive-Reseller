@@ -148,6 +148,12 @@ function renderTable() {
     tableBody.appendChild(row);
   });
   
+  // Add event listeners for checkboxes
+  const checkboxes = document.querySelectorAll('#subResellersTable tbody input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateDeleteButtonState);
+  });
+  
   // Update pagination controls
   renderPagination();
   
@@ -172,6 +178,15 @@ function getStatusIcon(status) {
 // Get status text with proper capitalization
 function getStatusText(status) {
   return status.charAt(0).toUpperCase() + status.slice(1);
+}
+
+// Update delete button state based on selected checkboxes
+function updateDeleteButtonState() {
+  const deleteButton = document.querySelector('.btn-delete-selected');
+  if (!deleteButton) return;
+  
+  const selectedCheckboxes = document.querySelectorAll('#subResellersTable tbody input[type="checkbox"]:checked');
+  deleteButton.disabled = selectedCheckboxes.length === 0;
 }
 
 // Render pagination controls
@@ -236,24 +251,77 @@ function renderPagination() {
 
 // Initialize event listeners
 function initializeEventListeners() {
+  console.log('Initializing event listeners...');
+  
   // Add Sub-Reseller button
   const addSubResellerBtn = document.getElementById('addSubResellerBtn');
   if (addSubResellerBtn) {
-    addSubResellerBtn.addEventListener('click', () => {
+    console.log('Found add sub-reseller button');
+    
+    // Remove any existing click event listeners to prevent duplicates
+    const newBtn = addSubResellerBtn.cloneNode(true);
+    addSubResellerBtn.parentNode.replaceChild(newBtn, addSubResellerBtn);
+    
+    // Add new click event listener
+    newBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Add sub-reseller button clicked');
+      
       try {
+        // Reset the form
         const form = document.getElementById('addSubResellerForm');
-        if (form) form.reset();
+        if (form) {
+          form.reset();
+          console.log('Add sub-reseller form reset');
+        }
         
-        // Use the global offcanvas instance
-        if (addSubResellerOffcanvas) {
-          addSubResellerOffcanvas.show();
+        // Get the offcanvas element
+        const addEl = document.getElementById('addSubResellerModal');
+        if (addEl) {
+          try {
+            // Hide any existing offcanvas first
+            const existingOffcanvas = bootstrap.Offcanvas.getInstance(addEl);
+            if (existingOffcanvas) {
+              existingOffcanvas.hide();
+              // Wait for the hide transition to complete
+              setTimeout(() => {
+                existingOffcanvas.dispose();
+                const newOffcanvas = new bootstrap.Offcanvas(addEl);
+                newOffcanvas.show();
+                addSubResellerOffcanvas = newOffcanvas;
+              }, 300);
+            } else {
+              // No existing instance, create a new one
+              const newOffcanvas = new bootstrap.Offcanvas(addEl);
+              newOffcanvas.show();
+              addSubResellerOffcanvas = newOffcanvas;
+            }
+            console.log('Add sub-reseller offcanvas shown');
+          } catch (error) {
+            console.error('Error creating/showing add sub-reseller offcanvas:', error);
+            // Fallback to Bootstrap Modal if Offcanvas fails
+            try {
+              const modal = new bootstrap.Modal(addEl);
+              modal.show();
+            } catch (modalError) {
+              console.error('Failed to show as modal:', modalError);
+              showToast('Error', 'Could not open the form. Please try again.', 'error');
+            }
+          }
         } else {
-          console.error('Add sub-reseller offcanvas instance not found');
+          console.error('Add sub-reseller modal element not found');
+          showToast('Error', 'Form not found. Please refresh the page and try again.', 'error');
         }
       } catch (error) {
-        console.error('Error showing add sub-reseller offcanvas:', error);
+        console.error('Error in add sub-reseller button click handler:', error);
+        showToast('Error', 'An unexpected error occurred. Please try again.', 'error');
       }
     });
+    
+    console.log('Add sub-reseller button event listener initialized');
+  } else {
+    console.warn('Add sub-reseller button not found');
   }
 
   // Add Sub-Reseller form submission
@@ -499,66 +567,98 @@ function handleUpdateSubReseller(e) {
 let addSubResellerOffcanvas = null;
 let editSubResellerOffcanvas = null;
 
-// Initialize when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM fully loaded, initializing sub-resellers...');
-  console.log('Bootstrap available:', typeof bootstrap !== 'undefined');
-  console.log('Offcanvas available:', typeof bootstrap.Offcanvas !== 'undefined');
+// Initialize when the DOM is fully loaded and Bootstrap is loaded
+function initializeApp() {
+  console.log('Initializing sub-resellers application...');
+  
+  // Check if Bootstrap is loaded
+  if (typeof bootstrap === 'undefined') {
+    console.error('Bootstrap is not loaded. Please make sure Bootstrap JS is included before this script.');
+    return;
+  }
   
   try {
-    // Initialize offcanvas instances once
+    // Initialize offcanvas instances
     const addEl = document.getElementById('addSubResellerModal');
     const editEl = document.getElementById('editSubResellerModal');
     
-    if (addEl && typeof bootstrap !== 'undefined') {
+    // Initialize add sub-reseller offcanvas
+    if (addEl) {
       try {
-       
-        const existingModal = bootstrap.Modal.getInstance(addEl);
+        // Dispose any existing instances
         const existingOffcanvas = bootstrap.Offcanvas.getInstance(addEl);
-        
-      
-        if (existingModal) existingModal.dispose();
         if (existingOffcanvas) existingOffcanvas.dispose();
         
-     
+        // Initialize new offcanvas
         addSubResellerOffcanvas = new bootstrap.Offcanvas(addEl);
+        console.log('Add sub-reseller offcanvas initialized');
       } catch (error) {
         console.error('Error initializing add sub-reseller offcanvas:', error);
       }
     }
     
-    if (editEl && typeof bootstrap !== 'undefined') {
+    // Initialize edit sub-reseller offcanvas
+    if (editEl) {
       try {
-       
-        const existingModal = bootstrap.Modal.getInstance(editEl);
+        // Dispose any existing instances
         const existingOffcanvas = bootstrap.Offcanvas.getInstance(editEl);
-        
-      
-        if (existingModal) existingModal.dispose();
         if (existingOffcanvas) existingOffcanvas.dispose();
         
-       
+        // Initialize new offcanvas
         editSubResellerOffcanvas = new bootstrap.Offcanvas(editEl);
+        console.log('Edit sub-reseller offcanvas initialized');
       } catch (error) {
         console.error('Error initializing edit sub-reseller offcanvas:', error);
       }
     }
     
-    
+    // Initialize the application
     initializeSubResellers();
-    
     initializeEventListeners();
     
     // Add event listeners for photo upload previews
-    document.getElementById('addPhoto')?.addEventListener('change', function() {
-      handleImagePreview(this, 'addPhotoPreview');
-    });
-
-    document.getElementById('editPhoto')?.addEventListener('change', function() {
-      handleImagePreview(this, 'editPhotoPreview');
-    });
+    const addPhotoInput = document.getElementById('addPhoto');
+    const editPhotoInput = document.getElementById('editPhoto');
+    
+    if (addPhotoInput) {
+      addPhotoInput.addEventListener('change', function() {
+        handleImagePreview(this, 'addPhotoPreview');
+      });
+    }
+    
+    if (editPhotoInput) {
+      editPhotoInput.addEventListener('change', function() {
+        handleImagePreview(this, 'editPhotoPreview');
+      });
+    }
+    
+    console.log('Sub-resellers application initialized successfully');
   } catch (error) {
-    console.error('Error initializing sub-resellers:', error);
+    console.error('Error initializing sub-resellers application:', error);
+  }
+}
+
+// Wait for both DOM and Bootstrap to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // If Bootstrap is already loaded, initialize immediately
+  if (typeof bootstrap !== 'undefined') {
+    initializeApp();
+  } else {
+    // Otherwise, wait for the Bootstrap script to load
+    const checkBootstrap = setInterval(function() {
+      if (typeof bootstrap !== 'undefined') {
+        clearInterval(checkBootstrap);
+        initializeApp();
+      }
+    }, 100);
+    
+    // Timeout after 5 seconds if Bootstrap doesn't load
+    setTimeout(function() {
+      clearInterval(checkBootstrap);
+      if (typeof bootstrap === 'undefined') {
+        console.error('Bootstrap not loaded after 5 seconds. Please check your script includes.');
+      }
+    }, 5000);
   }
 });
 
