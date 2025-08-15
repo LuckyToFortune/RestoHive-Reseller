@@ -8,7 +8,7 @@
     class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
     <a asp-controller="Home" asp-action="Index" class="app-brand-link">
       <div class="d-flex align-items-center" style="padding-right: 15px;">
-        <img src="~/img/discounts/icon3.png" alt="Logo" style="width: 50px; height: 50px; margin-right: 5px; margin-left: -25px;" />
+        <img src="~/img/discounts/icon3.png" alt="Logo" style="width:45 px; height: 50px; margin-right: 5px; margin-left: -25px;" />
         <span class="app-brand-text demo menu-text">
           <span style="font-weight: bold; color: black; font-family: 'Bevan', serif; font-size: 2rem;">Reseller</span>
           <span style="font-weight: bold; color: #ec7905; font-family: 'Bevan', serif; font-size: 2rem;">Panel</span>
@@ -29,82 +29,77 @@
   <ul class="menu-inner py-1">
     <li class='menu-item@(currentPage == "/" ? " active" : "")'>
       <a asp-controller="Home" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-smile"></i>
-        <div data-i18n="Home">Home</div>
+        <img src="~/img/discounts/home.png" alt="Home" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Home" style=" color: black;">Home</div>
       </a>
     </li>
     <li class='menu-item@(currentPage == "/Reseller" ? " active" : "")'>
       <a asp-controller="Reseller" asp-action="Index" class="menu-link">
-        <img src="~/img/discounts/icon3.png" alt="Reseller" class="menu-icon" style="width: 15px; height: 15px; margin-right: 10px;" onerror="this.style.display='none'" />
-        <div data-i18n="Sub-Reseller">Sub-Reseller</div>
+        <img src="~/img/discounts/sub.png" alt="Reseller" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Sub-Reseller" style=" color: black;">Sub-Reseller</div>
       </a>
     </li>
     <li class='menu-item@(currentPage == "/Orders" ? " active" : "")'>
       <a asp-controller="Orders" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-clipboard"></i>
-        <div data-i18n="Orders">Orders</div>
+        <img src="~/img/discounts/orders.png" alt="Orders" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Orders" style=" color: black;">Orders</div>
       </a>
     </li>
     <li class='menu-item@(currentPage.StartsWith("/Files") ? " active" : "")'>
       <a asp-controller="Files" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-file"></i>
-        <div data-i18n="Files">Files</div>
+        <img src="~/img/discounts/files.png" alt="Files" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Files" style=" color: black;">Files</div>
       </a>
     </li>
-  <li class='menu-item@(currentPage.StartsWith("/Discount") ? " active" : "" )'>
-  <a asp-controller="Discount" asp-action="Index" class="menu-link">
-    <img src="~/img/discount.png" alt="Discount" class="menu-icon" style="width: 15px; height: 15px; margin-right: 10px;" onerror="this.style.display='block'" />
-    <i class="menu-icon tf-icons bx bx-percent" style="display: none;"></i>
-    <div data-i18n="Discount">Discount</div>
-  </a>
-</li>
-
-<li class='menu-item@(currentPage == "/Competitors" ? " active" : "" )'>
-  <a asp-controller="Competitors" asp-action="Index" class="menu-link">
-    <img src="~/img/competitors.png" alt="Competitors" class="menu-icon" style="width: 15px; height: 15px; margin-right: 10px;" onerror="this.style.display='none'" />
-    <i class="menu-icon tf-icons bx bx-bar-chart" style="display: none;"></i>
-    <div data-i18n="Competitors">Competitors</div>
-  </a>
-</li>
+    <li class='menu-item@(currentPage.StartsWith("/Discount") ? " active" : "" )'>
+      <a asp-controller="Discount" asp-action="Index" class="menu-link">
+        <img src="~/img/discounts/discount.png" alt="Discount" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Discount" style=" color: black;">Discount</div>
+      </a>
+    </li>
+    <li class='menu-item@(currentPage == "/Competitors" ? " active" : "" )'>
+      <a asp-controller="Competitors" asp-action="Index" class="menu-link">
+        <img src="~/img/discounts/competitors.png" alt="Competitors" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Competitors" style=" color: black;">Competitors</div>
+      </a>
+    </li>
 
     <li class='menu-item@(currentPage == "/Balance" ? " active" : "")'>
       <a asp-controller="Balance" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-coin"></i>
-        <div data-i18n="Balance">Balance</div>
+        <img src="~/img/discounts/balance.png" alt="Balance" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Balance" style=" color: black;">Balance</div>
       </a>
     </li>
     <li class='menu-item@(currentPage == "/Invoice" ? " active" : "")'>
       <a asp-controller="Invoice" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-table"></i>
-        <div data-i18n="Invoice">Invoice</div>
+        <img src="~/img/discounts/invoice.png" alt="Invoice" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Invoice" style=" color: black;">Invoice</div>
       </a>
     </li>
     <li class='menu-item@(currentPage == "/Store" ? " active" : "")'>
       <a asp-controller="Store" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cart"></i>
-        <div data-i18n="Store">Store</div>
+        <img src="~/img/discounts/store.png" alt="Store" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Store" style=" color: black;">Store</div>
       </a>
     </li>
     <li class='menu-item@(currentPage == "/CustomersTickets" ? " active" : "")'>
       <a asp-controller="CustomersTickets" asp-action="Index" class="menu-link">
-        <img src="~/img/customertickets.png" alt="Customers Tickets" class="menu-icon" style="width: 20px; height: 20px; margin-right: 10px;" onerror="this.style.display='none'" />
-        <i class="menu-icon tf-icons bx bx-support" style="display: none;"></i>
-        <div data-i18n="Customers Tickets">Customers Tickets</div>
+        <img src="~/img/customertickets.png" alt="Customers Tickets" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Customers Tickets" style=" color: black;">Customers Tickets</div>
       </a>
     </li>
 
     <li class='menu-item@(currentPage == "/RestoHiveTickets" ? " active" : "")'>
       <a asp-controller="RestoHiveTickets" asp-action="Index" class="menu-link">
-        <img src="~/img/tickets.png" alt="RestoHive Tickets" class="menu-icon" style="width: 20px; height: 20px; margin-right: 10px;" onerror="this.style.display='none'" />
-        <i class="menu-icon tf-icons bx bx-help-circle" style="display: none;"></i>
-        <div data-i18n="RestoHive Tickets">RestoHive Tickets</div>
+        <img src="~/img/discounts/tickets.png" alt="RestoHive Tickets" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="RestoHive Tickets" style=" color: black;">RestoHive Tickets</div>
       </a>
     </li>
 
     <li class='menu-item@(currentPage == "/Settings" ? " active" : "")'>
       <a asp-controller="Settings" asp-action="Index" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cog"></i>
-        <div data-i18n="Settings">Settings</div>
+        <img src="~/img/discounts/settings.png" alt="Settings" class="menu-icon" style="width: 25px; height: 25px; margin-right: 10px; margin-left: 1px;" onerror="this.style.display='none'" />
+        <div data-i18n="Settings" style=" color: black;">Settings</div>
       </a>
     </li>
   </ul>
